@@ -1,0 +1,501 @@
+:root {
+  --box-shadow: 0 5px 13px 0 rgba(10, 15, 71, 0.2);
+  --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Roboto Mono", "Oxygen Mono",
+    "Ubuntu Monospace", "Source Code Pro", "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
+  --mi-white: #ffffff;
+  --mi-mi-white: #f0f2e6;
+  --mi-dark-blue: #465e65;
+  --mi-mi-yellow: #c2c6ae;
+  --mi-orange: #fa0;
+  --mi-green: #0b8;
+  --mi-red: #f16;
+  /**  */
+  --mi-orange-yellow: #c99e8c;
+  /*（橘红）*/
+  --mi-orange-red: #900022;
+  --mi-light-red: #d80010;
+  --mi-dark-ash: #6c8650;
+  --mi-mi-pretty: #b2b6b6;
+  --mi-light-black: #777;
+  --mi-black: #000;
+  --mi-dust: #999;
+}
+
+*,
+a,
+body,
+abbr,
+address,
+area,
+div,
+img,
+input,
+p,
+mark,
+html,
+span {
+  position: relative;
+  left: auto;
+  top: auto;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  vertical-align: baseline;
+  -webkit-user-drag: none;
+  // user-drag: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+body {
+  line-height: 1.4;
+}
+
+a {
+  text-decoration: none;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote::before,
+blockquote::after,
+q::before,
+q::after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+input:focus-visible {
+  outline: none;
+}
+
+input[type="button"],
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/** 输入框 */
+input[type="text"] {
+  width: 200px;
+  border-radius: 10px;
+  background-color: #000;
+  color: #0f9;
+
+  &::placeholder {
+    color: #aff9;
+  }
+
+  &:focus::placeholder {
+    color: transparent;
+  }
+}
+
+input[type="radio"] {
+  width: 0;
+  height: 0;
+  overflow: hidden;
+
+  + label {
+    padding-left: 15px;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      top: 50%;
+      transform: translate(0, -50%);
+      overflow: hidden;
+    }
+
+    &::before {
+      left: 0px;
+      height: 8px;
+      width: 8px;
+
+      box-shadow: 1px 1px 3px #000;
+      z-index: 1;
+    }
+
+    &::after {
+      font-size: 8px;
+      line-height: 8px;
+      z-index: 2;
+      left: 0px;
+      height: 8px;
+      width: 8px;
+      color: #fff;
+      background-color: #000;
+      clip-path: circle(0%);
+      transition: all 0.3s;
+    }
+  }
+
+  &:checked {
+    color: #f00;
+
+    & + label {
+      color: #0a3;
+
+      &::before {
+        box-shadow:
+          1px 1px 3px #0f3,
+          -1px -1px 3px #0f3;
+      }
+
+      &::after {
+        background-color: #0a3;
+        clip-path: circle(100%);
+        transition: all 0.8s;
+      }
+    }
+  }
+}
+
+input[type="image"] {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+img {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/** 文本显示一行，超出点点点 */
+.textInOneLine {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-break: break-all;
+}
+
+.textInOneLineHide {
+  white-space: nowrap;
+  text-overflow: clip;
+  overflow: hidden;
+  word-break: break-all;
+}
+
+/** 文本显示两行，超出点点点 */
+.textInTwoLine {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/*  彩色字 */
+.colorText {
+  color: transparent;
+  background-image: linear-gradient(45deg, #ff0, #0f0, #f00, #0ff, #00f, #f0f, #ff0);
+  background-position: 0% 0%;
+  background-size: 400% 200%;
+  background-clip: text;
+  animation: 6s ease-in 0s infinite colorText alternate;
+}
+
+.redB {
+  background-color: #f12;
+}
+
+.floatLeft {
+  float: left;
+}
+
+.floatRight,
+.float {
+  float: right;
+}
+
+.clear {
+  clear: both;
+}
+.loading {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  background-image: radial-gradient(#f00, #f00 50%, transparent 50%, transparent),
+    radial-gradient(#af1, #af1 50%, transparent 50%, transparent),
+    radial-gradient(#0ff, #0ff 50%, transparent 50%, transparent),
+    radial-gradient(#f0f, #f0f 50%, transparent 50%, transparent);
+  background-repeat: no-repeat;
+  animation: 2.4s ease-in-out 0s infinite loading;
+}
+
+@keyframes loading {
+  //  45 - 25 * Math.sin((Math.PI * 5) / 12)
+  //  位置公式 35 - 25 * Math.cos((Math.PI * 5) / 12)
+
+  100%,
+  0% {
+    background-size:
+      10% 10%,
+      10% 10%,
+      10% 10%,
+      10% 10%;
+    background-position:
+      25% 45%,
+      41.7% 45%,
+      58.3% 45%,
+      75% 45%;
+  }
+
+  20%,
+  80% {
+    background-size: 2.5% 2.5%;
+    background-position: 25% 45%;
+  }
+
+  22% {
+    background-size:
+      3.75% 3.75%,
+      2.5% 2.5%,
+      2.5% 2.5%,
+      2.5% 2.5%;
+    background-position:
+      // 位置 1
+      25.85% 38.53%,
+      25% 45%,
+      25% 45%,
+      25% 45%;
+  }
+
+  24% {
+    background-size:
+      5% 5%,
+      2.5% 2.5%,
+      2.5% 2.5%,
+      2.5% 2.5%;
+    background-position:
+    // 位置 2
+      28.35% 32.5%,
+      25% 45%,
+      25% 45%,
+      25% 45%;
+  }
+
+  26% {
+    background-size:
+      6.25% 6.25%,
+      2.5% 2.5%,
+      2.5% 2.5%,
+      2.5% 2.5%;
+    background-position:
+      // 位置 3
+      32.32% 27.32%,
+      25% 45%,
+      25% 45%,
+      25% 45%;
+  }
+
+  28% {
+    background-size:
+      7.5% 7.5%,
+      3.75% 3.75%,
+      2.5% 2.5%,
+      2.5% 2.5%;
+    background-position:
+      // 位置 4
+      37.5% 23.35%,
+      // 位置 1
+      25.85% 38.53%,
+      25% 45%,
+      25% 45%;
+  }
+
+  30% {
+    background-size:
+      8.75% 8.75%,
+      5% 5%,
+      2.5% 2.5%,
+      2.5% 2.5%;
+    background-position:
+      // 位置 5
+      43.53% 20.85%,
+      // 位置 2
+      28.35% 32.5%,
+      25% 45%,
+      25% 45%;
+  }
+
+  32% {
+    background-size:
+      10% 10%,
+      6.25% 6.25%,
+      3.75% 3.75%,
+      2.5% 2.5%;
+    background-position:
+        // 位置 6
+      50% 20%,
+      // 位置 3
+      32.32% 27.32%,
+      // 位置 1
+      25.85% 38.53%,
+      25% 45%;
+  }
+
+  34% {
+    background-size:
+      10% 10%,
+      7.5% 7.5%,
+      5% 5%,
+      2.5% 2.5%;
+    background-position:
+      // 位置 7
+      56.47% 20.85%,
+      // 位置 4
+      37.32% 23.35%,
+      // 位置 2
+      28.35% 32.5%,
+      // 位置 1
+      25.85% 38.53%;
+  }
+
+  $Pi: 3.1415926;
+
+  @for $i from 18 through 33 {
+    #{calc($i / 50 * 100%)} {
+      background-position:
+        #{(50 - (25 * cos(($Pi * ($i - 10)) / 12))) * 1%} #{(45 - 25 * sin(($Pi * ($i - 10)) / 12)) * 1%},
+        #{(50 - (25 * cos(($Pi * ($i - 13)) / 12))) * 1%} #{(45 - 25 * sin(($Pi * ($i - 13)) / 12)) * 1%},
+        #{(50 - (25 * cos(($Pi * ($i - 15)) / 12))) * 1%} #{(45 - 25 * sin(($Pi * ($i - 15)) / 12)) * 1%},
+        #{(50 - (25 * cos(($Pi * ($i - 17)) / 12))) * 1%} #{(45 - 25 * sin(($Pi * ($i - 17)) / 12)) * 1%};
+    }
+  }
+
+  68% {
+    background-size:
+      10% 10%,
+      7.5% 7.5%,
+      5% 5%,
+      2.5% 2.5%;
+    background-position:
+      // 位置 0
+      25% 45%,
+      // 位置  22
+      28.35% 57.45%,
+      // 位置 20
+      37.45% 66.65%,
+      // 位置 18
+      48% 70%;
+  }
+
+  70% {
+    background-size:
+      8.75% 8.75%,
+      7.5% 7.5%,
+      5% 5%,
+      2.5% 2.5%;
+    background-position:
+      // 位置 0
+      25% 45%,
+      // 位置  23
+      25.85% 51.47%,
+      // 位置 21
+      32.32% 62.68%,
+      // 位置 19
+      43.53% 69.15%;
+  }
+
+  72% {
+    background-size:
+      7.5% 7.5%,
+      7.5% 7.5%,
+      5% 5%,
+      2.5% 2.5%;
+    background-position:
+      // 位置 0
+      25% 45%,
+      // 位置 0
+      25% 45%,
+      // 位置  22
+      28.35% 57.45%,
+      // 位置 20
+      37.45% 66.65%;
+  }
+  74% {
+    background-size:
+      6.25% 6.25%,
+      6.25% 6.25%,
+      5% 5%,
+      2.5% 2.5%;
+    background-position:
+      // 位置 0
+      25% 45%,
+      // 位置 0
+      25% 45%,
+      // 位置  23
+      25.85% 51.47%,
+      // 位置 21
+      32.32% 62.68%;
+  }
+
+  76% {
+    background-size:
+      5% 5%,
+      5% 5%,
+      5% 5%,
+      2.5% 2.5%;
+    background-position:
+      // 位置 0
+      25% 45%,
+      // 位置 0
+      25% 45%,
+      // 位置 0
+      25% 45%,
+      // 位置  22
+      28.35% 57.45%;
+  }
+
+  78% {
+    background-size:
+      3.75% 3.75%,
+      3.75% 3.75%,
+      3.75% 3.75%,
+      2.5% 2.5%;
+    background-position:
+      // 位置 0
+      25% 45%,
+      // 位置 0
+      25% 45%,
+      // 位置 0
+      25% 45%,
+      // 位置  23
+      25.85% 51.47%;
+  }
+}
+
+@keyframes colorText {
+  0% {
+    background-position: 400% 0%;
+  }
+
+  100% {
+    background-position: 0% 0%;
+  }
+}

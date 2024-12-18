@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "page/*": [
+        "src/page/*"
+      ],
+      "css/*": [
+        "src/css/*"
+      ]
+    },
+    "outDir": "dist/",
+    "jsx": "react",
+    "module": "es6",
+    "target": "ES2015",
+    "lib": [
+      "es5",
+      "dom"
+    ],
+    "moduleResolution": "node",
+    "declaration": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": [
+    "env.d.ts",
+    "components/**/*.ts",
+    "components/**/*.tsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "public/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "components/**/*.test.tsx",
+    "components/**/*.test.ts"
+  ]
+}

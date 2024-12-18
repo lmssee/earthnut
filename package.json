@@ -1,0 +1,88 @@
+{
+  "name": "oops-ui",
+  "version": "0.0.0",
+  "type": "module",
+  "main": "dist/index.cms.js",
+  "module": "dist/index.ems.js",
+  "typings": "dist/types/index.d.ts",
+  "scripts": {
+    "build": "npx ixxx rm dist && webpack --env t=ems && webpack --env t=cms  && tsc -p tsconfig.build.json",
+    "build:local": "npx ixxx rm  *.tgz && npm run build && npm pack &&  pwd",
+    "dev": "webpack-dev-server --env dev"
+  },
+  "author": "lmssee <lmssee@outlook.com>  (https://lmssee.com)",
+  "license": "ISC",
+  "description": "oops! a ",
+  "files": [
+    "dist",
+    "LICENSE"
+  ],
+  "keywords": [
+    "lmssee",
+    "is-mi",
+    "ripples",
+    "background-ripples",
+    "a-react-ripples"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/lmssee/npm-oops-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lmssee/npm-oops-ui/issues"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "homepage": "https://lmssee.com/oops-ui",
+  "peerDependencies": {
+    "a-element-inline-style": ">= 0.0.0",
+    "a-js-tools": "^0.0.0",
+    "react": ">= 17",
+    "react-dom": ">= 17"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.26.3",
+    "@babel/preset-typescript": "^7.26.0",
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.6.0",
+    "@eslint/js": "^9.17.0",
+    "@types/node": "^22.10.2",
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.2",
+    "@types/webxr": "^0.5.20",
+    "@typescript-eslint/eslint-plugin": "^8.18.1",
+    "@typescript-eslint/parser": "^8.18.1",
+    "a-element-inline-style": "^0.0.0",
+    "babel-loader": "^9.2.1",
+    "babel-plugin-import": "^1.13.8",
+    "commitizen": "^4.3.1",
+    "copy-webpack-plugin": "^12.0.2",
+    "css-loader": "^6.11.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^9.17.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "html-webpack-plugin": "^5.6.3",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.11",
+    "postcss-loader": "^8.1.1",
+    "prettier": "^3.4.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router": "^7.0.2",
+    "sass": "^1.83.0",
+    "sass-loader": "^16.0.4",
+    "style-loader": "^4.0.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.18.1",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.2.0"
+  }
+}
