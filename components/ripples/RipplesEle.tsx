@@ -25,16 +25,25 @@ export function RipplesEle(props: BackgroundRipplesProps) {
    * canvas 元素
    **************************/
   const canvas = useRef<HTMLCanvasElement>(null);
+  /**************************
+   * 使用 ripples
+   **************************/
+  const ripplesRef = useRipples(canvas, props);
+  /**************************
+   * 使用 配置更新
+   **************************/
+  useOptionUpdate(ripplesRef, props);
 
-  const ripplesRef = useRipples(canvas, props); /// 使用 ripples
-  useOptionUpdate(ripplesRef, props); /// 使用 配置更新
-
-  return (
-    <div style={props.style} className="lmssee-ripples">
-      {props.children}
-      <canvas ref={canvas}></canvas>
-    </div>
-  );
+  if (props.children) {
+    return (
+      <div style={props.style} className="lmssee-ripples">
+        {props.children}
+        <canvas ref={canvas}></canvas>
+      </div>
+    );
+  } else {
+    return <canvas ref={canvas}></canvas>;
+  }
 }
 
 /**************************************
@@ -49,7 +58,7 @@ function useRipples(
   const ripples = useRef<Ripples>(null);
 
   useEffect(() => {
-    ripples.current = new Ripples(canvas.current!, props.option);
+    ripples.current = new Ripples(canvas.current!, props.children === undefined, props.option);
     return () => ripples.current.destroy();
   }, []);
 

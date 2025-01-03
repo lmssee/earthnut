@@ -9,19 +9,18 @@ import { BackgroundRipple } from 'components';
 export function App() {
   return (
     <div className={styles.page}>
+      <div className={styles.tab}>
+        <MainTab />
+      </div>
+      <div className={styles.main}>
+        <Outlet></Outlet>
+      </div>
       <BackgroundRipple
         option={{
           idleFluctuations: true,
           interactive: true,
         }}
-      >
-        <div className={styles.tab}>
-          <MainTab />
-        </div>
-        <div className={styles.main}>
-          <Outlet></Outlet>
-        </div>
-      </BackgroundRipple>
+      ></BackgroundRipple>
     </div>
   );
 }

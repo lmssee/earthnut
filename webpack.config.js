@@ -35,7 +35,7 @@ export default function ({ dev, t }) {
       libraryTarget: 'module',
     }) || {
       path: pathJoin('dist'),
-      library: 'reactRipples',
+      library: 'oops-ui',
       libraryTarget: 'commonjs2',
     };
 

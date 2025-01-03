@@ -1,6 +1,6 @@
 {
   "name": "oops-ui",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "type": "module",
   "main": "dist/index.cms.js",
   "module": "dist/index.ems.js",
@@ -8,11 +8,13 @@
   "scripts": {
     "build": "npx ixxx rm dist && webpack --env t=ems && webpack --env t=cms  && tsc -p tsconfig.build.json",
     "build:local": "npx ixxx rm  *.tgz && npm run build && npm pack &&  pwd",
+    "versionPatch": "npm version patch --force --no-git-tag-version --allow-same-version=true",
+    "pub": "npm publish --timeout 30",
     "dev": "webpack-dev-server --env dev"
   },
   "author": "lmssee <lmssee@outlook.com>  (https://lmssee.com)",
   "license": "ISC",
-  "description": "oops! a ",
+  "description": "oops! Just by looking at the name, I'm not a decent (react) UI library.",
   "files": [
     "dist",
     "LICENSE"
@@ -20,9 +22,8 @@
   "keywords": [
     "lmssee",
     "is-mi",
-    "ripples",
-    "background-ripples",
-    "a-react-ripples"
+    "oops",
+    "oops-ui"
   ],
   "repository": {
     "type": "git",
@@ -33,6 +34,7 @@
   },
   "publishConfig": {
     "access": "public",
+    "tag": "latest",
     "registry": "https://registry.npmjs.org/"
   },
   "homepage": "https://lmssee.com/oops-ui",

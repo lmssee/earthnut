@@ -157,7 +157,7 @@ export class Ripples extends RipplesData {
     touchstart: (e: TouchEvent) => console.log(e),
   };
 
-  constructor(canvas: HTMLCanvasElement, options?: RipplesOptions) {
+  constructor(canvas: HTMLCanvasElement, children: boolean, options?: RipplesOptions) {
     super(canvas);
     Object.defineProperties(this, {
       defaults: {
@@ -502,8 +502,8 @@ export class Ripples extends RipplesData {
     }
 
     // 计算 backgroundX 及 backgroundY 在的值
-    let backgroundX = backgroundPosition[0];
-    let backgroundY = backgroundPosition[1];
+    let backgroundX = (backgroundPosition && backgroundPosition[0]) || '0%';
+    let backgroundY = (backgroundPosition && backgroundPosition[1]) || '0%';
 
     if (isPercentage(backgroundX)) {
       backgroundX = (
