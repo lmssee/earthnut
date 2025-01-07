@@ -62,7 +62,7 @@ export function createProgram(
   fragmentSource: string,
   gl: WebGLRenderingContext,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  _uniformValues?: string
+  _uniformValues?: string,
 ) {
   /**************************
    * 编译一个着色器

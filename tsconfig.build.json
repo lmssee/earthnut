@@ -6,7 +6,12 @@
     "emitDeclarationOnly": true,
   },
   "include": [
+    "index.ts",
+    "customHooks/**/**/*.ts",
+    "customHooks/**/*.ts",
     "components/**/*.ts",
+    "components/**/**/*.ts",
+    "components/**/**/*.tsx",
     "components/**/*.tsx"
   ],
   "exclude": [

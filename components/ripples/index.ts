@@ -1,1 +1,1 @@
-export { RipplesEle } from './RipplesEle';
+export { BackgroundRipple } from './RipplesEle';

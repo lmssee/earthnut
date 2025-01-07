@@ -18,24 +18,31 @@ export default function ({ dev, t }) {
     },
   }) || {
     index: {
-      import: ['./components/index.ts'],
-      filename: `index.${t}.js`,
+      import: ['./index.ts'],
+      filename: `index.${t}`,
     },
+    BackgroundRipple: ['./components/ripples/index.ts'],
+    useTimeId: ['./customHooks/useTimeId.ts'],
+    useAnimationFrame: ['./customHooks/useAnimationFrame.ts'],
+    useRipples: './customHooks/useRipples/index.ts',
   };
 
   /** 出口 */
-  const output = (dev && {
+  const output = (dev /** 测试打包 */ && {
     path: pathJoin('.static'),
     charset: true,
     compareBeforeEmit: true,
     clean: true,
   }) ||
-    (t === 'ems' && {
+    /** esm 打包 */
+    (t === 'mjs' && {
       path: pathJoin('dist'),
+      filename: `[name]/index.${t}`,
       libraryTarget: 'module',
-    }) || {
+    }) /** commonJs 打包 */ || {
       path: pathJoin('dist'),
       library: 'oops-ui',
+      filename: `[name]/index.${t}`,
       libraryTarget: 'commonjs2',
     };
 
@@ -45,6 +52,7 @@ export default function ({ dev, t }) {
     alias: {
       src: pathJoin('src/'), /// src  主要代码
       components: pathJoin('components/'), /// 公共组件
+      customHooks: pathJoin('customHooks/'), // 公共自定义 hooks
       page: pathJoin('src/page/'), /// 页面相关
       css: pathJoin('src/css/'), /// 公共 css 相关
       // 'a-react-ripples': path.join(__dirname, 'node_modules/a-react-ripples/'),
@@ -119,44 +127,15 @@ export default function ({ dev, t }) {
         title: '测试',
       },
     }),
-    // /// 文件复制
-    // new CopyPlugin({
-    //   patterns: [
-    //     {
-    //       from: 'manifest.json',
-    //       to: 'manifest.json',
-    //     }, ///
-    //     { from: 'src/icons', to: 'icons' }, /// 图标
-    //     { from: 'src/_locales', to: '_locales' }, /// 多语言配置文件
-    //   ],
-    // }),
   ];
 
   /** 优化配置 */
   const optimization = {
-    // mangleExports: 'size',
-    // mangleWasmImports: false,
-    // runtimeChunk: 'single',
     splitChunks: {
-      chunks: chunk => {
-        if (chunk.name === 'background') {
-          return false;
-        }
-        return true;
-      }, /// 对所有类型的 chunk 进行拆分（包括同步和异步）
       minSize: 50000, /// 拆分前模块的最小储存占用，大于该值才会拆分
       minChunks: 2, /// 模块被引用的最小次数
       maxAsyncRequests: 4, /// 最多同时发起 4 个异步请求来加载拆分后的 chunk
       cacheGroups: {
-        popup: {
-          test: /[\\/]src[\\/]popup[\\/]/,
-          filename: 'popup/[contenthash].js',
-          // name: 'main-common',
-          chunks: 'all',
-          // minSize: 0,
-          // priority: 10,
-          enforce: true, // 强制应用这个规则
-        },
         /// npm 下所有模块
         defaultVendors: {
           test: /[\\/]node_modules[\\/](?!a-js-tools|pako|a-element-inline-style)/,
@@ -165,28 +144,6 @@ export default function ({ dev, t }) {
           priority: -10,
           // enforce: true,
         },
-        //
-        // background: {
-        //   test: /[\\/]src[\\/]background[\\/]/,
-        //   name: 'background',
-        //   chunks: 'async',
-        //   enforce: true,
-        //   minSize: 0, /// 设置为 0 就不会出现分包 （腾讯元宝说的）
-        //   priority: 1000,
-        // },
-        // aJsTools: {
-        //   test: /[\\/]node_modules[\\/]a-js-tools[\\/]/,
-        //   name: 'a-js-tools',
-        //   chunks: 'async',
-        //   enforce: true, // 不强制应用这个规则，允许其他规则覆盖
-        //   minSize: 0, // 设置 minSize 为 0，以确保 a-js-tools 包不会被拆分
-        //   maxSize: 0, // 设置 maxSize 为 0，以确保 a-js-tools 包不会因为超过最大大小而被拆分
-        // },
-        // default: {
-        //   minChunks: 2,
-        //   priority: -20,
-        //   reuseExistingChunk: true,
-        // },
       },
     },
   };
@@ -224,13 +181,28 @@ export default function ({ dev, t }) {
   //// 生产环境
   if (!dev) {
     delete config.devServer;
-    delete config.optimization;
-    config.plugins.splice(1, 1);
     delete config.devtool;
+    config.optimization = {
+      usedExports: true, // 启用 tree shaking
+      sideEffects: false, /// 告诉 webpack 这个库没有副作用，以便有效的 tree shaking
+    };
+    config.plugins.splice(
+      1,
+      1,
+      // /// 文件复制
+      new CopyPlugin({
+        patterns: [
+          {
+            from: 'src/css/common.scss',
+            to: 'styles/common.scss',
+          },
+        ],
+      }),
+    );
   }
   /**************************
    * 打包为 module 时必须设定下面的值
    **************************/
-  if (t === 'ems') config.experiments = { outputModule: true };
+  if (t === 'mjs') config.experiments = { outputModule: true };
   return config;
 }

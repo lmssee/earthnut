@@ -299,7 +299,9 @@ export class Ripples extends RipplesData {
     this.#events.mousedown = e => dropAtPointer(e, true);
 
     (Object.keys(this.#events) as []).forEach(
-      e => this.#parentElement && this.#parentElement.addEventListener(e, this.#events[e]),
+      e =>
+        this.#parentElement &&
+        this.#parentElement.addEventListener(e, this.#events[e], { passive: true }),
     );
   }
   #loadImage() {

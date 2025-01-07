@@ -4,6 +4,8 @@
     "highp",
     "nosources",
     "perturbance",
+    "touchmove",
+    "touchstart",
     "webxr"
   ]
 }

@@ -7,20 +7,36 @@
  * @Description 涟漪
  ****************************************************************************/
 import { useEffect, useRef } from 'react';
-import { Ripples } from './ripplesClass';
 import React from 'react';
-import { BackgroundRipplesProps, RipplesOptions } from './interface';
+import { BackgroundRipplesProps, RipplesOptions } from 'customHooks/useRipples/interface';
+import { Ripples, useRipples } from 'customHooks/useRipples';
 
 /**************************************
  *
- * ## 一个 ripples 元素组件
+ * ### 一个 ripple 背景组件
  *
  * - children 内嵌的 ReactNode
  * - style    更改显示的样式
  * - option   初始化 ripples 的原始数据
  *
+ *
+ * 使用：
+ *
+ * ```ts
+ *  import { BackgroundRipple } from 'oops-ui/BackgroundRipple';
+ *  // 也可以全量导入
+ *  // import { BackgroundRipple } from 'oops-ui';
+ *  ...
+ *  const animationFrameId = useAnimationFrame();
+ *
+ *  return <BackgroundRipple>
+ *            ...
+ *         </BackgroundRipple>
+ * ```
+ *
  **************************************/
-export function RipplesEle(props: BackgroundRipplesProps) {
+
+export function BackgroundRipple(props: BackgroundRipplesProps) {
   /**************************
    * canvas 元素
    **************************/
@@ -44,25 +60,6 @@ export function RipplesEle(props: BackgroundRipplesProps) {
   } else {
     return <canvas ref={canvas}></canvas>;
   }
-}
-
-/**************************************
- *
- * 使用绘制 ripples
- *
- **************************************/
-function useRipples(
-  canvas: React.RefObject<HTMLCanvasElement>,
-  props: BackgroundRipplesProps,
-): React.RefObject<Ripples> {
-  const ripples = useRef<Ripples>(null);
-
-  useEffect(() => {
-    ripples.current = new Ripples(canvas.current!, props.children === undefined, props.option);
-    return () => ripples.current.destroy();
-  }, []);
-
-  return ripples;
 }
 
 /**************************

@@ -1,13 +1,14 @@
 {
   "name": "oops-ui",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
-  "main": "dist/index.cms.js",
-  "module": "dist/index.ems.js",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
   "typings": "dist/types/index.d.ts",
   "scripts": {
-    "build": "npx ixxx rm dist && webpack --env t=ems && webpack --env t=cms  && tsc -p tsconfig.build.json",
-    "build:local": "npx ixxx rm  *.tgz && npm run build && npm pack &&  pwd",
+    "build": "npx ixxx rm dist && webpack --env t=mjs && webpack --env t=cjs  && tsc -p tsconfig.build.json && npm run styles",
+    "build:local": "npx ixxx rm  *.tgz  dist && npm run build && npm pack &&  pwd",
+    "styles": "sass --no-source-map  src/css/common.scss dist/styles/common.css",
     "versionPatch": "npm version patch --force --no-git-tag-version --allow-same-version=true",
     "pub": "npm publish --timeout 30",
     "dev": "webpack-dev-server --env dev"
@@ -31,6 +32,39 @@
   },
   "bugs": {
     "url": "https://github.com/lmssee/npm-oops-ui/issues"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
+    },
+    "./BackgroundRipple": {
+      "types": "./dist/types/components/ripples/index.d.ts",
+      "require": "./dist/BackgroundRipple/index.cjs",
+      "import": "./dist//BackgroundRipple/index.mjs"
+    },
+    "./useTimeId": {
+      "types": "./dist/types/customHooks/useTimeId.d.ts",
+      "require": "./dist/useTimeId/index.cjs",
+      "import": "./dist/useTimeId/index.mjs"
+    },
+    "./useAnimationFrame": {
+      "types": "./dist/types/customHooks/useAnimationFrame.d.ts",
+      "require": "./dist/useAnimationFrame/index.cjs",
+      "import": "./dist/useAnimationFrame/index.mjs"
+    },
+    "./useRipples": {
+      "types": "./dist/types/customHooks/useRipples/index.d.ts",
+      "require": "./dist/useRipples/index.cjs",
+      "import": "./dist/useRipples/index.mjs"
+    },
+    "./oopsScss": {
+      "style": "./css/common.scss"
+    },
+    "./oopsCss": {
+      "style": "./dist/styles/common.css"
+    }
   },
   "publishConfig": {
     "access": "public",
