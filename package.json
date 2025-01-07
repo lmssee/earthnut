@@ -1,6 +1,6 @@
 {
   "name": "oops-ui",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
@@ -10,6 +10,7 @@
     "build:local": "npx ixxx rm  *.tgz  dist && npm run build && npm pack &&  pwd",
     "styles": "sass --no-source-map  src/css/common.scss dist/styles/common.css",
     "versionPatch": "npm version patch --force --no-git-tag-version --allow-same-version=true",
+    "prepublish": "npm run build",
     "pub": "npm publish --timeout 30",
     "dev": "webpack-dev-server --env dev"
   },
@@ -42,7 +43,7 @@
     "./BackgroundRipple": {
       "types": "./dist/types/components/ripples/index.d.ts",
       "require": "./dist/BackgroundRipple/index.cjs",
-      "import": "./dist//BackgroundRipple/index.mjs"
+      "import": "./dist/BackgroundRipple/index.mjs"
     },
     "./useTimeId": {
       "types": "./dist/types/customHooks/useTimeId.d.ts",
