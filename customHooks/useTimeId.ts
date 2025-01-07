@@ -13,6 +13,10 @@ import { useEffect, useRef } from 'react';
  *
  * 该数值在组件卸载时会自动调用 `clearTimeout` 清理
  *
+ * @version 0.0.3
+ * @see   https://lmssee.com/oops-ui/use-time-id
+ * @example
+ *
  * 使用：
  *
  * ```ts

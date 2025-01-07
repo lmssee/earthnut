@@ -21,10 +21,11 @@ export default function ({ dev, t }) {
       import: ['./index.ts'],
       filename: `index.${t}`,
     },
-    BackgroundRipple: ['./components/ripples/index.ts'],
-    useTimeId: ['./customHooks/useTimeId.ts'],
-    useAnimationFrame: ['./customHooks/useAnimationFrame.ts'],
+    BackgroundRipple: './components/ripples/index.ts',
     useRipples: './customHooks/useRipples/index.ts',
+    useTimeId: './customHooks/useTimeId.ts',
+    useAnimationFrame: './customHooks/useAnimationFrame.ts',
+    useInputIsComposing: './customHooks/useInputIsComposing.ts',
   };
 
   /** 出口 */

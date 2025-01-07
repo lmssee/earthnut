@@ -15,11 +15,17 @@ import { Ripples, useRipples } from 'customHooks/useRipples';
  *
  * ### 一个 ripple 背景组件
  *
+ *
+ * *需要为该组件或父组件设置背景，否则即便的渲染了，效果不明显*
+ *
+ *  参数 props 属性：
  * - children 内嵌的 ReactNode
  * - style    更改显示的样式
  * - option   初始化 ripples 的原始数据
- *
- *
+ * @param props  使用参数
+ * @version 0.0.1
+ * @see https://lmssee.com/oops-ui/background-ripple
+ * @example
  * 使用：
  *
  * ```ts

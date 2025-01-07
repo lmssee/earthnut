@@ -4,10 +4,15 @@ import { Ripples } from './ripplesClass';
 
 /**************************************
  *
- * 使用绘制 ripples
+ * ## 使用绘制 ripples 上一层
  *
- * - canvas  `usrRef` 包裹的 `HTMLCanvasElement`，用于绘制图像
- * - props   初始化的
+ *
+ * @param canvas `usrRef` 包裹的 `HTMLCanvasElement`，用于绘制图像
+ * @param props  初始化的
+ * @version 0.0.3
+ * @see  https://lmssee.com/oops-ui/use-ripples
+ * @see  JQuery https://github.com/sirxemic/jquery.ripples
+ * @example
  *
  * 下面是在 <BackgroundRipple> 中使用
  *

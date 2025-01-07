@@ -59,6 +59,11 @@
       "require": "./dist/useRipples/index.cjs",
       "import": "./dist/useRipples/index.mjs"
     },
+    "./useInputIsComposing": {
+      "types": "./dist/types/customHooks/useInputIsComposing.d.ts",
+      "require": "./dist/useInputIsComposing/index.cjs",
+      "import": "./dist/useInputIsComposing/index.mjs"
+    },
     "./oopsScss": {
       "style": "./css/common.scss"
     },

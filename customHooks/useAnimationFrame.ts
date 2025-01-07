@@ -14,6 +14,10 @@ import { useEffect, useRef } from 'react';
  *
  * 该数值在组件卸载时会自动调用 `window.cancelAnimationFrame` 清理
  *
+ * @returns  <React.RefObject: number>
+ * @version 0.0.3
+ * @see   https://lmssee.com/oops-ui/use-animation-frame
+ * @example
  * 使用：
  *
  * ```ts
@@ -36,7 +40,7 @@ import { useEffect, useRef } from 'react';
  * ```
  *
  **************************************/
-export function useAnimationFrameId() {
+export function useAnimationFrameId(): React.RefObject<number> {
   const animationFrameId = useRef<number>(0);
 
   useEffect(() => {
