@@ -1,4 +1,4 @@
-import { runOtherCode } from 'a-node-tools';
+import { isWindows, pathJoin, runOtherCode } from 'a-node-tools';
 
 try {
   const deleteOldFile = await runOtherCode('npx ixxx rm dist *.tgz && npm run build');
@@ -8,11 +8,10 @@ try {
 }
 
 const pack = await runOtherCode('npm pack');
-const pwd = await runOtherCode({ code: 'pwd', printLog: false });
-
+const pwd = await runOtherCode({ code: isWindows ? 'echo %cd%' : 'pwd', printLog: false });
+const noLineBreak = str => str.replace(/\r?\n/g, '');
 if (pack.success && pwd.success) {
-  const result = pwd.data.concat('/').concat(pack.data).replace(/\n/g, '');
+  const result = pathJoin(noLineBreak(pwd.data), noLineBreak(pack.data));
   console.log('====================================');
   console.log(result);
-  console.log('====================================');
 }
