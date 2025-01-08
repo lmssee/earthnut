@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { BackgroundRipplesProps } from './interface';
+import { BackgroundRipplesProps, RipplesOptions } from './interface';
 import { Ripples } from './ripplesClass';
 
 /**************************************
@@ -58,4 +58,4 @@ export function useRipples(
   return ripples;
 }
 
-export { Ripples };
+export type { Ripples, BackgroundRipplesProps, RipplesOptions };

@@ -7,7 +7,7 @@
  * @Description BackgroundRipples 的类型声明文件
  ****************************************************************************/
 
-import { CSSProperties, ReactElement, ReactNode } from 'react';
+import { CSSProperties, ReactElement } from 'react';
 
 /**************************************
  *

@@ -7,7 +7,7 @@
   "typings": "dist/types/index.d.ts",
   "scripts": {
     "build": "npx ixxx rm dist && webpack --env t=mjs && webpack --env t=cjs  && tsc -p tsconfig.build.json && npm run styles",
-    "build:local": "npx ixxx rm  *.tgz  dist && npm run build && npm pack &&  pwd",
+    "local": "node build",
     "styles": "sass --no-source-map  src/css/common.scss dist/styles/common.css",
     "versionPatch": "npm version patch --force --no-git-tag-version --allow-same-version=true",
     "prepublish": "npm run build",
@@ -125,6 +125,7 @@
     "typescript-eslint": "^8.18.1",
     "webpack": "^5.97.1",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^5.2.0"
+    "webpack-dev-server": "^5.2.0",
+    "a-node-tools": "^0.0.5"
   }
 }
