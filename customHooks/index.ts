@@ -5,3 +5,5 @@ export { useTimeId } from './useTimeId';
 export { useAnimationFrameId } from './useAnimationFrame';
 
 export { useRipples } from './useRipples/index';
+
+export type { Ripples, BackgroundRipplesProps, RipplesOptions } from './useRipples/index';
