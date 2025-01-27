@@ -15,12 +15,6 @@ export function App() {
       <div className={styles.main}>
         <Outlet></Outlet>
       </div>
-      <BackgroundRipple
-        option={{
-          idleFluctuations: true,
-          interactive: true,
-        }}
-      ></BackgroundRipple>
     </div>
   );
 }

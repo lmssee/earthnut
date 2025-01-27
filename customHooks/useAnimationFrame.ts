@@ -12,8 +12,8 @@ import { useEffect, useRef } from 'react';
  *
  * ### 导出一个使用 `useRef` 创建的 `number`
  *
- * 该数值在组件卸载时会自动调用 `window.cancelAnimationFrame` 清理
- *
+ * @description 一个接收 `window.requestAnimationFrame` 的返回值的 `ref`
+ * @important   该数值在组件卸载时会自动调用 `window.cancelAnimationFrame` 清理
  * @returns  <React.RefObject: number>
  * @version 0.0.3
  * @see   https://lmssee.com/oops-ui/use-animation-frame

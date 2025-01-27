@@ -1,9 +1,7 @@
-import { RipplesOptions } from './interface';
-
 /**************************
  * 默认值
  **************************/
-export const defaultData: RipplesOptions = {
+export const defaultData = {
   imageUrl: '',
   resolution: 360,
   dropRadius: 10,

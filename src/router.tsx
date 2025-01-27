@@ -7,12 +7,12 @@
  * @Description 路由导航（需求不多，为了使用路由而使用路由）
  ****************************************************************************/
 
-import { createHashRouter } from 'react-router';
-
 import React from 'react';
 import { ErrorPage } from 'page/error';
 import { App } from 'page/app';
 import RipplesPage from 'page/ripples/page';
+import UseInputIsComposing from 'page/use_input_is_composing/page';
+import { createHashRouter } from 'react-router';
 
 /** 路由 */
 const router = createHashRouter(
@@ -24,7 +24,13 @@ const router = createHashRouter(
       children: [
         {
           errorElement: <ErrorPage></ErrorPage>,
-          children: [{ index: true, element: <RipplesPage /> }],
+          children: [
+            { index: true, element: <RipplesPage /> },
+            {
+              path: '/useInputIsComposing',
+              element: <UseInputIsComposing />,
+            },
+          ],
         },
       ],
     },

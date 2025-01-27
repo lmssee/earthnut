@@ -45,14 +45,14 @@ import { Ripples } from './ripplesClass';
  *
  **************************************/
 export function useRipples(
-  canvas: React.RefObject<HTMLCanvasElement>,
+  canvas: React.RefObject<HTMLCanvasElement | null>,
   props?: BackgroundRipplesProps,
-): React.RefObject<Ripples> {
+): React.RefObject<Ripples | null> {
   const ripples = useRef<Ripples>(null);
 
   useEffect(() => {
-    ripples.current = new Ripples(canvas.current!, props.children === undefined, props.option);
-    return () => ripples.current.destroy();
+    ripples.current = new Ripples(canvas.current!, props && props.option);
+    return () => (ripples.current && ripples.current.destroy()) || undefined;
   }, []);
 
   return ripples;

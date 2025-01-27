@@ -71,16 +71,21 @@ export function BackgroundRipple(props: BackgroundRipplesProps) {
 /**************************
  * 更新参数数据
  **************************/
-function useOptionUpdate(ripplesRef: React.RefObject<Ripples>, props: BackgroundRipplesProps) {
+function useOptionUpdate(
+  ripplesRef: React.RefObject<Ripples | null>,
+  props: BackgroundRipplesProps,
+) {
   /**  监听数据变化并给值  */
   useEffect(() => {
     if (props.option && ripplesRef.current) {
       const options = props.option;
-      Object.keys(ripplesRef.current.defaults).forEach(e => {
-        if (options[e] !== undefined) {
-          ripplesRef.current.set(e as keyof RipplesOptions, options[e]);
-        }
-      });
+      (Object.keys(ripplesRef.current.defaults) as unknown as (keyof RipplesOptions)[]).forEach(
+        e => {
+          if (options[e] !== undefined) {
+            ripplesRef.current && ripplesRef.current.set(e as keyof RipplesOptions, options[e]);
+          }
+        },
+      );
     }
   }, [props.option]);
 }

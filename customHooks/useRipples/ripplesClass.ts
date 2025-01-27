@@ -91,7 +91,7 @@ export class Ripples extends RipplesData {
   /** 节点元素  */
   #parentElement!: HTMLElement;
   /**  纹理增量  */
-  #textureDelta: Float32Array<ArrayBuffer>;
+  #textureDelta!: Float32Array<ArrayBuffer>;
   #textures: WebGLTexture[] = [];
   #framebuffers: WebGLFramebuffer[] = [];
   #bufferWriteIndex: number = 0;
@@ -157,7 +157,7 @@ export class Ripples extends RipplesData {
     touchstart: (e: TouchEvent) => console.log(e),
   };
 
-  constructor(canvas: HTMLCanvasElement, children: boolean, options?: RipplesOptions) {
+  constructor(canvas: HTMLCanvasElement, options?: RipplesOptions) {
     super(canvas);
     Object.defineProperties(this, {
       defaults: {
@@ -710,9 +710,10 @@ export class Ripples extends RipplesData {
      * this.#parentElement.offsetLeft 父元素左上角相对于定位元素的左边界偏移像素值
      * borderLeft 边框的宽度
      **************************/
+    const parentPosition = this.#parentElement.getBoundingClientRect();
     this.drop(
-      pointer.pageX - this.#parentElement.offsetLeft - borderLeft,
-      pointer.pageY - this.#parentElement.offsetTop - borderTop,
+      pointer.pageX - parentPosition.left - borderLeft,
+      pointer.pageY - parentPosition.top - borderTop,
       radius,
       strength,
     );
