@@ -711,12 +711,9 @@ export class Ripples extends RipplesData {
      * borderLeft 边框的宽度
      **************************/
     const parentPosition = this.#parentElement.getBoundingClientRect();
-    this.drop(
-      pointer.pageX - parentPosition.left - borderLeft,
-      pointer.pageY - parentPosition.top - borderTop,
-      radius,
-      strength,
-    );
+    const dropX = pointer.clientX - parentPosition.left - borderLeft;
+    const dropY = pointer.clientY - parentPosition.top - borderTop;
+    this.drop(dropX, dropY, radius, strength);
   }
   /**************************
    * 模拟雨滴下落
