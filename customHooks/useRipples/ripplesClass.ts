@@ -281,7 +281,9 @@ export class Ripples extends RipplesData {
    * 初始化事件
    **************************/
   #setupPointerEvents() {
+    /**  当前是否允许鼠标操作  */
     const pointerEventsEnabled = () => this.#visible && this.#running && this.interactive;
+    /**  触发滴落效果  */
     const dropAtPointer = (pointer: MouseEvent | Touch, big: boolean = false) => {
       if (pointerEventsEnabled()) {
         this.#lastRaindropsFallTime = Date.now(); /// 更新上一次触发时机，延迟主动触发的雨滴
@@ -298,12 +300,18 @@ export class Ripples extends RipplesData {
     };
     this.#events.mousedown = e => dropAtPointer(e, true);
 
+    /**  注册鼠标或触摸事件  */
     (Object.keys(this.#events) as []).forEach(
       e =>
         this.#parentElement &&
         this.#parentElement.addEventListener(e, this.#events[e], { passive: true }),
     );
   }
+  /**************************************
+   *
+   * 加载
+   *
+   **************************************/
   #loadImage() {
     const gl = this.gl;
     const newImageSource: string | null =
@@ -345,11 +353,12 @@ export class Ripples extends RipplesData {
 
   /**************************
    * 开启绘制
+   *
    **************************/
   #step(this: Ripples) {
     if (!this.#visible) return;
     this.#computeTextureBoundaries();
-    if (this.#running) this.#update();
+    this.#update();
     this.#render();
     this.#animationFrameId = requestAnimationFrame(() => this.#step());
   }
@@ -396,7 +405,7 @@ export class Ripples extends RipplesData {
    * 更新数据
    **************************/
   #update() {
-    if (this.idleFluctuations) {
+    if (this.idleFluctuations && this.#running) {
       const now = Date.now();
       /**  模拟雨滴坠落  */
       if (now - this.#lastRaindropsFallTime > this.#raindropsTimeInterval) {
@@ -404,10 +413,16 @@ export class Ripples extends RipplesData {
         this.raindropsFall();
       }
     }
-    const gl = this.gl;
+    const { gl } = this;
+    /** 视口设定。官网指出在 canvas 的尺寸变化时需要告知视口  */
     gl.viewport(0, 0, this.#resolution, this.#resolution);
+    /**  将给定的 WebGLFramebuffer 绑定到目标
+     * - gl.FRAMEBUFFER 收集永远渲染的颜色
+     * - this.#Framebuffers
+     */
     gl.bindFramebuffer(gl.FRAMEBUFFER, this.#framebuffers[this.#bufferWriteIndex]);
     Reflect.apply(bindTexture, this, [this.#textures[this.#bufferReadIndex]]);
+    /**  将定义好的 WebGLProgram 对喜添加到当前的渲染状态中  */
     gl.useProgram(this.#updateProgram.id!);
     this.#drawQuad();
     this.#swapBufferIndices();

@@ -4,7 +4,6 @@ import { NavLink, useNavigation } from 'react-router';
 
 export default function MainTab() {
   const path = useNavigation();
-  console.log(Boolean(path.location));
 
   const urlList: {
     text: string;

@@ -118,7 +118,9 @@ export function createProgram(
  **************************************/
 export function bindTexture(this: Ripples, texture: WebGLTexture, unit: number = 0) {
   const gl = this.gl;
+  /**  激活纹理单元  */
   gl.activeTexture(gl.TEXTURE0 + (unit || 0));
+  /**  将给定的 WebGLTexture 绑定到目标点  */
   gl.bindTexture(gl.TEXTURE_2D, texture);
 }
 

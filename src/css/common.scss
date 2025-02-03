@@ -38,9 +38,7 @@ span {
   left: auto;
   top: auto;
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  border: 0;
+
   font: inherit;
   vertical-align: baseline;
   -webkit-user-drag: none;
@@ -49,8 +47,13 @@ span {
   user-select: none;
 }
 
-body {
-  line-height: 1.4;
+body,
+html {
+  font-size: 14px;
+  line-height: 1.4rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
 
 a {

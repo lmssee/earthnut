@@ -1,19 +1,20 @@
 import { BackgroundRipple } from 'components';
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './index.module.scss';
 
 export default function RipplesPage() {
+  const [playingState, setPlayingState] = useState(true);
+
+  function togglePlayingState(e: React.MouseEvent) {
+    setPlayingState(!playingState);
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
   return (
-    <div className={styles.page}>
-      <div
-        style={{
-          width: '100%',
-          height: '200%',
-        }}
-      >
-        ripples
-        <BackgroundRipple option={{ resolution: 500 }} />
-      </div>
+    <div className={styles.page} onContextMenu={togglePlayingState}>
+      ripples
+      <BackgroundRipple option={{ resolution: 500, playingState }} />
     </div>
   );
 }

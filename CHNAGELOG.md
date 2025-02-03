@@ -1,5 +1,39 @@
 # change log
 
+## version:0.0.11
+
+. _创建时间： 2025-2-1 18:16_
+
+- 更新 `css`、`scss` 文件的导出方式，原来是想根据 `@angular/material` 来做样式导出
+- `useRipples` 在参数 `playingState` 为 `false` 后暂停新的绘制到数据，但由于暂时对 WebGL 一窍不通，没有办法在传入数据为 `false` 时及时清理旧的渲染数据
+
+### 导出 css 的修改
+
+```json
+// 原来参照 `@angular/material`
+{
+  "export": {
+    "./oopsScss": {
+      "style": "./dist/styles/common.scss"
+    },
+    "./oopsCss": {
+      "style": "./dist/styles/common.css"
+    }
+  }
+}
+```
+
+现更改为：
+
+```json
+{
+  "exports": {
+    "scss": "./dist/styles/common.scss",
+    "css": "./dist/styles/common.css"
+  }
+}
+```
+
 ## version:0.0.10
 
 . _创建时间： 2025-2-1 18:16_
