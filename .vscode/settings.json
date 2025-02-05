@@ -3,6 +3,7 @@
     "framebuffers",
     "highp",
     "ixxx",
+    "multiview",
     "nosources",
     "perturbance",
     "touchmove",

@@ -1,74 +1,37 @@
 import webpack from 'webpack';
-import CopyPlugin from 'copy-webpack-plugin';
 import path from 'node:path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 const __dirname = import.meta.dirname;
 
-const pathJoin = str => path.join(__dirname, str);
+export const pathJoin = str => path.join(__dirname, str);
 /**************************************
  *
  * 生产包打包为 cjs 、mjs
  *
  **************************************/
-export default function ({ dev, t }) {
+export default function () {
   /** 入口 */
   /**************************
    * 开发时
    * 不考虑按需导入分包
    **************************/
-  const entry =
-    dev || t === 'js'
-      ? {
-          index: {
-            import: ['./src/root.tsx'],
-            filename: 'index.js',
-          },
-        }
-      : {
-          index: {
-            import: ['./index.ts'],
-            filename: `index.${t}`,
-          },
-          BackgroundRipple: './components/ripples/index.ts',
-          useRipples: './customHooks/useRipples/index.ts',
-          useTimeId: './customHooks/useTimeId.ts',
-          useAnimationFrame: './customHooks/useAnimationFrame.ts',
-          useInputIsComposing: './customHooks/useInputIsComposing.ts',
-        };
-
+  const entry = {
+    index: {
+      import: ['./src/root.tsx'],
+      filename: 'index.js',
+    },
+  };
   /**************************
    * 出口
    **************************/
-  const output = dev /** 测试打包 */
-    ? {
-        path: pathJoin('.static'),
-        charset: true,
-        compareBeforeEmit: true,
-        clean: true,
-        publicPath: '/',
-      }
-    : /** esm 打包 */
-      t === 'mjs'
-      ? {
-          path: pathJoin('dist'),
-          filename: `[name]/index.${t}`,
-          libraryTarget: 'module',
-        } /** commonJs 打包 */
-      : t === 'cjs'
-        ? {
-            path: pathJoin('dist'),
-            library: 'oops-ui',
-            filename: `[name]/index.${t}`,
-            libraryTarget: 'commonjs2',
-          }
-        : {
-            path: pathJoin('dist'),
-            filename: 'index.js',
-            library: 'oops-ui',
-            libraryTarget: 'umd',
-            globalThis: 'this',
-          };
+  const output = {
+    path: pathJoin('.static'),
+    charset: true,
+    compareBeforeEmit: true,
+    clean: true,
+    publicPath: '/',
+  };
 
   /** 模块解析方式 */
   const resolve = {
@@ -83,13 +46,7 @@ export default function ({ dev, t }) {
     },
   };
 
-  const externals = dev
-    ? {}
-    : {
-        react: 'react',
-        'react-dom': 'react-dom',
-        'a-element-inline-style': 'a-element-inline-style',
-      };
+  const externals = {};
 
   /** 模块配置 */
   const module = {
@@ -180,15 +137,7 @@ export default function ({ dev, t }) {
   const devServer = {
     historyApiFallback: {
       enabled: true,
-      // disableDotRule: true,
-      // cleanUrls: false,
-      rewrites: [
-        { from: /.*/, to: 'index.html' },
-        // {
-        //   from: /^\/[^\.]+$/,
-        //   to: './index.html',
-        // },
-      ],
+      rewrites: [{ from: /.*/, to: 'index.html' }],
       trailingSlash: false, // 禁止尾随 /
     },
     static: {
@@ -203,7 +152,7 @@ export default function ({ dev, t }) {
   /**************************
    * 打包模式
    **************************/
-  const mode = dev ? 'development' : 'production';
+  const mode = 'development';
 
   /**************************
    *
@@ -220,31 +169,6 @@ export default function ({ dev, t }) {
     devtool: 'source-map',
     devServer,
   };
-  //// 生产环境
-  if (!dev) {
-    delete config.devServer;
-    delete config.devtool;
-    config.optimization = {
-      usedExports: true, // 启用 tree shaking
-      sideEffects: false, /// 告诉 webpack 这个库没有副作用，以便有效的 tree shaking
-    };
-    config.plugins.splice(
-      1,
-      1,
-      // /// 文件复制
-      new CopyPlugin({
-        patterns: [
-          {
-            from: 'src/css/common.scss',
-            to: 'styles/common.scss',
-          },
-        ],
-      }),
-    );
-  }
-  /**************************
-   * 打包为 module 时必须设定下面的值
-   **************************/
-  if (t === 'mjs') config.experiments = { outputModule: true };
+
   return config;
 }

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { BackgroundRipplesProps, RipplesOptions } from './interface';
+import { BackgroundRipplesProps, RipplesOptions } from './types';
 import { Ripples } from './ripplesClass';
 
 /**************************************
@@ -51,7 +51,9 @@ export function useRipples(
   const ripples = useRef<Ripples>(null);
 
   useEffect(() => {
-    ripples.current = new Ripples(canvas.current!, props && props.option);
+    const canvasElement = canvas.current!;
+    ripples.current = new Ripples(canvasElement, props && props.option);
+
     return () => (ripples.current && ripples.current.destroy()) || undefined;
   }, []);
 

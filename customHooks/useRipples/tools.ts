@@ -9,47 +9,7 @@
 
 import { setStyle } from 'a-element-inline-style';
 import { Ripples } from './ripplesClass';
-import { Program } from './interface';
-
-/**************************************
- *
- * 转换背景的位置为特定的格式
- *
- **************************************/
-export function translateBackgroundPosition(value: string): string[] {
-  if (/\s+/.test(value)) {
-    return value
-      .replace(/center/, '50%')
-      .replace(/top|left/, '0%')
-      .replace(/bottom/, '100%')
-      .replace(/\s+/, ' ')
-      .split(' ');
-  } else if (isPercentage(value)) {
-    return [value, '50%'];
-  } else {
-    return {
-      center: ['50%', '50%'],
-      top: ['50%', '0%'],
-      bottom: ['50%', '100%'],
-      left: ['0%', '50%'],
-      right: ['100%', '50%'],
-    }[value as 'center' | 'top' | 'bottom' | 'left' | 'right'];
-  }
-}
-
-/**************************************
- *
- * 检测数据是否为 url 外联图像地址
- *
- **************************************/
-
-export function extractUrl(value: string) {
-  const urlMatch = /url\(["']?([^"']*)["']?\)/.exec(value);
-  if (urlMatch == null) {
-    return null;
-  }
-  return urlMatch[1];
-}
+import { Program } from './types';
 
 /**************************************
  *
@@ -124,31 +84,13 @@ export function bindTexture(this: Ripples, texture: WebGLTexture, unit: number =
   gl.bindTexture(gl.TEXTURE_2D, texture);
 }
 
-/**************************************
- *
- * 是否是 base64 数据
- *
- **************************************/
-export function isDataUri(url: string) {
-  return url.match(/^data:/);
-}
-
-/**************************************
- *
- * 给定的字符串是否为百分数
- *
- **************************************/
-export function isPercentage(value: string) {
-  return value.endsWith('%');
-}
-
 /**************************
  * 给 canvas 设置样式
  **************************/
 export function setCanvasStyle(canvas: HTMLCanvasElement) {
-  const parent = canvas.parentElement!;
-  canvas.width = parent.clientWidth;
-  canvas.height = parent.clientHeight;
+  const parentElement = canvas.parentElement!;
+  canvas.width = parentElement.clientWidth;
+  canvas.height = parentElement.clientHeight;
   // 给 canvas 元素赋值行内样式
   setStyle(canvas, {
     position: 'absolute',
@@ -156,6 +98,7 @@ export function setCanvasStyle(canvas: HTMLCanvasElement) {
     top: 0,
     right: 0,
     bottom: 0,
+    zIndex: -1,
     pointerEvents: 'none',
   });
 }

@@ -13,8 +13,16 @@ export default function RipplesPage() {
 
   return (
     <div className={styles.page} onContextMenu={togglePlayingState}>
-      ripples
-      <BackgroundRipple option={{ resolution: 500, playingState }} />
+      <div>12454</div>
+      <BackgroundRipple
+        option={{
+          dropRadius: 10,
+          resolution: 366,
+          perturbance: 0.02,
+          playingState,
+          raindropsTimeInterval: 4800,
+        }}
+      ></BackgroundRipple>
     </div>
   );
 }

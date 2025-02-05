@@ -2,13 +2,13 @@
 
 
 # 定义一个数组，传入的参数必须是其中之一
-array=("cjs" "mjs")
+array=("cjs" "mjs" "umd")
 # 判断是否为其中的值
 found=0
 
 # 执行打包
 build() {
-  npx webpack --env t="$1"  
+  npx webpack --config webpack.config.$1.js  
 }
 
 test_param() {
@@ -43,7 +43,10 @@ npx ixxx rm dist
 # done
 
 for element in "${array[@]}"; do 
+  echo "------ ${element} start -----"
   build "$element"
+  echo "------ ${element}  over-----"
+  sleep 1
 done
 
  

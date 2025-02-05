@@ -8,7 +8,7 @@
  ****************************************************************************/
 import { useEffect, useRef } from 'react';
 import React from 'react';
-import { BackgroundRipplesProps, RipplesOptions } from 'customHooks/useRipples/interface';
+import { BackgroundRipplesProps, RipplesOptions } from 'customHooks/useRipples/types';
 import { Ripples, useRipples } from 'customHooks/useRipples';
 
 /**************************************
@@ -56,16 +56,7 @@ export function BackgroundRipple(props: BackgroundRipplesProps) {
    **************************/
   useOptionUpdate(ripplesRef, props);
 
-  if (props.children) {
-    return (
-      <div style={props.style} className="lmssee-ripples">
-        {props.children}
-        <canvas ref={canvas}></canvas>
-      </div>
-    );
-  } else {
-    return <canvas ref={canvas}></canvas>;
-  }
+  return <canvas ref={canvas}></canvas>;
 }
 
 /**************************

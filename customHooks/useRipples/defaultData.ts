@@ -1,18 +1,20 @@
+import { RipplesDefaultData } from './types';
+
 /**************************
  * 默认值
  **************************/
-export const defaultData = {
+export const defaultData: RipplesDefaultData = {
   imageUrl: '',
-  resolution: 360,
+  resolution: 256,
   dropRadius: 10,
   perturbance: 0.03,
   interactive: true,
   crossOrigin: '',
   playingState: true,
-  accelerating: 3,
-  raindropsTimeInterval: 660,
+  accelerating: 1,
+  raindropsTimeInterval: 3600,
   idleFluctuations: true,
-};
+} as const;
 
 /**  冷冻执行  */
 Object.freeze(defaultData);
