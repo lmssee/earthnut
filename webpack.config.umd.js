@@ -4,8 +4,9 @@ import defaultModule, { pathJoin } from './webpack.config.js';
  * 打包为 mjs 模式
  **************************/
 export default function () {
+  const defaultConfig = defaultModule();
   const config = {
-    ...defaultModule(),
+    ...defaultConfig,
     entry: /** umd 格式 */ {
       index: {
         import: ['./index.umd.ts'],

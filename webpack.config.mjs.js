@@ -3,8 +3,10 @@ import defaultModule, { pathJoin } from './webpack.config.cjs.js';
  * 打包为 mjs 模式
  **************************/
 export default function () {
+  const defaultConfig = defaultModule();
+
   const config = {
-    ...defaultModule(),
+    ...defaultConfig,
 
     output: {
       path: pathJoin('dist'),
@@ -12,7 +14,7 @@ export default function () {
       libraryTarget: 'module',
     },
     entry: {
-      ...defaultModule.entry,
+      ...defaultConfig.entry,
       index: {
         import: ['./index.ts'],
         filename: `index.mjs`,
