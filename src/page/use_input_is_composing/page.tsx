@@ -7,19 +7,24 @@ export default function UseInputIsComposing() {
 
   function change(e: React.KeyboardEvent<HTMLInputElement>) {
     console.log(e);
-    console.log(isOver);
   }
 
   useEffect(() => {
-    console.log(isOver);
-
     return () => {};
   }, [isOver]);
 
   return (
     <div>
       <div>
-        <input type="text" ref={inputRef} onKeyDown={change} />
+        <form>
+          <div className="text-3xl text-teal-300 w-full bg-slate-500 rounded-xl shadow-sm shadow-teal-900  md:w-32 lg:w-48 p-4">
+            <input type="text" ref={inputRef} className="p-4" onKeyDown={change} />
+          </div>
+          <div className="p-4">
+            <input type="text" required className="p-2" />
+          </div>
+          <button></button>
+        </form>
       </div>
     </div>
   );

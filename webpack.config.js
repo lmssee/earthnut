@@ -35,7 +35,7 @@ export default function () {
 
   /** 模块解析方式 */
   const resolve = {
-    extensions: ['.tsx', '.ts', '.js', '.jsx', '.json'],
+    extensions: ['.tsx', '.ts', '.js', '.jsx', '.json', '.scss'],
     alias: {
       src: pathJoin('src/'), /// src  主要代码
       components: pathJoin('components/'), /// 公共组件

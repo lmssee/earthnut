@@ -32,6 +32,7 @@
     div.main {
       grid-area: main;
       position: relative;
+      z-index: 1;
       /* width: calc(100% - 100px);
       height: calc(100% - 100px); */
       color: #0f0;
@@ -48,9 +49,15 @@
   <div class="tab">123</div>
   <div class="main">
     hello
+    <form onsubmit="(e)=> e.stopPropagation()">
+      <input type="text" required minlength="5">
+
+
+      <button type="submit">提交</button>
+    </form>
   </div>
   <script>
-    oopsUi.useRipples(document.querySelector('div.main'), {
+    oops.useRipples(document.querySelector('div.main'), {
       perturbance: 0.03,
       dropRadius: 20,
       resolution: 150,
