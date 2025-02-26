@@ -1,0 +1,304 @@
+// 块布局容器
+.oops-layout {
+  width: var(--layout-width);
+  height: var(--layout-height);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+// 头部区域设置
+.oops-layout-header {
+  grid-area: header;
+  position: sticky;
+  top: 0px;
+  left: 0px;
+  z-index: 10;
+  height: var(--layout-header-height);
+  box-shadow: 1px 1px 15px 0 rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+
+// 侧边栏区域设置
+.oops-layout-side {
+  position: sticky;
+  left: 0;
+  z-index: 8;
+  grid-area: side;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+// 内容区
+.oops-layout-main {
+  grid-area: content;
+}
+
+// 底部区域设置
+.oops-layout-footer {
+  grid-area: footer;
+  height: var(--layout-footer-height);
+  overflow: hidden;
+}
+
+// 头部不粘连样式
+.oops-layout-header-no-sticky {
+  // 头部不粘连样式，头部区域设置
+  & > .oops-layout-header {
+    position: relative;
+    z-index: 2;
+  }
+
+  // 标准模式（全）与侧边栏右置（全）共用样式
+  &.oops-layout-simple-all,
+  &.oops-layout-side-right-all {
+    // 头部不粘连样式，内容区设置
+    & > .oops-layout-content > .oops-layout-side {
+      top: 0;
+      min-height: calc(var(--layout-height) - var(--layout-footer-height) - var(--layout-header-height));
+      max-height: var(--layout-height);
+    }
+  }
+
+  // 标准模式（无底部）与侧边栏右置（无底部）共用样式
+  &.oops-layout-simple-no-footer,
+  &.oops-layout-side-right-no-footer {
+    // 头部不粘连样式，内容区设置
+    & > .oops-layout-side {
+      top: 0;
+      min-height: calc(var(--layout-height) - var(--layout-footer-height));
+      max-height: var(--layout-height);
+    }
+  }
+}
+// 侧边栏全屏样式
+.oops-layout-side-full > .oops-layout-side {
+  top: 0;
+  height: var(--layout-height);
+}
+
+// ------------------------------
+// --- 标准模式（全）与侧边栏右置（全）共用样式 ---
+// 标准模式（全）与侧边栏右置（全）
+.oops-layout-simple-all,
+.oops-layout-side-right-all {
+  // 子元素
+  & > .oops-layout-content {
+    display: grid;
+    grid-template-rows: calc(var(--layout-height) - var(--layout-header-height) - var(--layout-footer-height)) auto;
+    min-height: calc(100% - var(--layout-header-height) - var(--layout-footer-height));
+
+    // side bar 块保持粘连，且在 content height 不足时支撑页面
+    & > .oops-layout-side {
+      top: var(--layout-header-height);
+      min-height: calc(var(--layout-height) - var(--layout-header-height) - var(--layout-footer-height));
+      max-height: calc(var(--layout-height) - var(--layout-header-height));
+    }
+  }
+}
+
+// 标准模式（全） 侧边栏与内容区设置
+.oops-layout-simple-all,
+// 标准模式（无 Header） 
+.oops-layout-simple-no-header {
+  & > .oops-layout-content {
+    grid-template-columns: var(--layout-side-bar-width) auto;
+    grid-template-areas:
+      "side content"
+      ". content";
+  }
+}
+// 侧边栏（全） 侧边栏与内容区设置
+.oops-layout-side-right-all,
+// 侧边栏（无 Header）
+.oops-layout-side-right-no-header {
+  & > .oops-layout-content {
+    grid-template-columns: auto var(--layout-side-bar-width);
+    grid-template-areas:
+      "content side"
+      "content .";
+  }
+}
+
+// 侧边栏 (全) 左侧全屏
+// side bar 居左全尺寸
+// side bar 值由 oops-layout-side-full 控制
+.oops-layout-side-full-all,
+.oops-layout-side-right-full-all {
+  display: grid;
+  grid-template-rows: var(--layout-header-height) auto var(--layout-footer-height);
+  gap: 0px;
+}
+
+// 标准的 side bar 居左全尺寸
+.oops-layout-side-full-all {
+  grid-template-columns: var(--layout-side-bar-width) auto;
+  grid-template-areas:
+    "side header"
+    "side content"
+    "side footer";
+}
+
+// side bar 居右全尺寸
+.oops-layout-side-right-full-all {
+  grid-template-columns: auto var(--layout-side-bar-width);
+  grid-template-areas:
+    "header side"
+    "content side"
+    "footer side";
+}
+
+// ------------------------------
+// --- 标准模式（无 header）与侧边栏在右侧的无头模式共用样式 ---
+// 标准的无头模式样式、侧边栏在右侧的无头模式样式
+.oops-layout-simple-no-header,
+.oops-layout-side-right-no-header {
+  & > .oops-layout-content {
+    display: grid;
+    grid-template-rows: auto;
+    // side bar 块的样式
+    & > .oops-layout-side {
+      top: 0;
+      min-height: calc(var(--layout-height) - var(--layout-footer-height));
+      max-height: var(--layout-height);
+    }
+  }
+}
+
+// 侧边栏（无 header ）全屏
+// side bar 居左全尺寸
+// side bar 值由 oops-layout-side-full 控制
+.oops-layout-side-full-no-header,
+.oops-layout-side-right-full-no-header {
+  display: grid;
+  grid-template-rows: auto var(--layout-footer-height);
+  gap: 0px;
+}
+
+// 标准的 side bar 居左全尺寸
+.oops-layout-side-full-no-header {
+  grid-template-columns: var(--layout-side-bar-width) auto;
+  grid-template-areas:
+    "side content"
+    "side footer";
+}
+
+// side bar 居右全尺寸
+.oops-layout-side-right-full-no-header {
+  grid-template-columns: auto var(--layout-side-bar-width);
+  grid-template-areas:
+    "content side"
+    "footer side";
+}
+
+// ------------------------------
+// 标准模式（无 footer）与侧边栏右置（无 footer）共用样式
+// 没有 footer
+.oops-layout-simple-no-footer,
+.oops-layout-side-right-no-footer {
+  display: grid;
+  grid-template-rows: var(--layout-header-height) auto;
+  min-height: calc(100% - var(--layout-header-height));
+  gap: 0px;
+  // side bar 块保持粘连，且在 content height 不足时支撑页面
+  & > .oops-layout-side {
+    top: var(--layout-header-height);
+    height: calc(var(--layout-height) - var(--layout-header-height));
+  }
+}
+
+// 标准模式（无 footer） 侧边栏与内容区设置
+.oops-layout-simple-no-footer {
+  grid-template-columns: var(--layout-side-bar-width) auto;
+  grid-template-areas:
+    "header header"
+    "side content"
+    ". content";
+}
+
+// 侧边栏在右侧的无 footer 模式样式
+.oops-layout-side-right-no-footer {
+  grid-template-columns: auto var(--layout-side-bar-width);
+  grid-template-areas:
+    "header header"
+    "content side"
+    "content .";
+}
+
+// 侧边栏 (全) 左侧全屏
+// side bar 居左全尺寸
+// side bar 值由 oops-layout-side-full 控制
+.oops-layout-side-full-no-footer,
+.oops-layout-side-right-full-no-footer {
+  display: grid;
+  grid-template-rows: var(--layout-header-height) auto;
+  gap: 0px;
+
+  // content 块
+  & > .oops-layout-main {
+    min-height: calc(var(--layout-height) - var(--layout-header-height));
+  }
+}
+
+// 标准的 side bar 居左全尺寸
+.oops-layout-side-full-no-footer {
+  grid-template-columns: var(--layout-side-bar-width) auto;
+  grid-template-areas:
+    "side header"
+    "side content";
+}
+
+// side bar 居右全尺寸
+.oops-layout-side-right-full-no-footer {
+  grid-template-columns: auto var(--layout-side-bar-width);
+  grid-template-areas:
+    "header side"
+    "content side";
+}
+
+// ------------------------------
+// --- 分割线  ---
+// 下面是仅头部、底部和侧边栏布局
+// 仅底部布局
+.oops-layout-only-footer {
+  display: grid;
+  grid-template-rows: auto var(--layout-footer-height);
+  grid-template-columns: 1fr;
+  gap: 0px;
+  grid-template-areas: "content" "footer";
+}
+
+// 仅头部布局
+.oops-layout-only-header {
+  display: grid;
+  grid-template-rows: var(--layout-header-height) auto;
+  grid-template-columns: 1fr;
+  gap: 0px;
+  grid-template-areas: "header" "content";
+}
+
+// 仅侧边布局
+// 标准的无头模式样式、侧边栏在右侧的无头模式样式
+// side bar 值由 oops-layout-side-full 控制
+.oops-layout-simple-only-side,
+.oops-layout-side-right-only-side,
+.oops-layout-side-full-only-side,
+.oops-layout-side-right-full-only-side {
+  display: grid;
+  // 纵向空间占比设置
+  grid-template-rows: 100%;
+  // 横向空间占比设置
+  grid-template-columns: var(--layout-side-bar-width) auto;
+  gap: 0px;
+  grid-template-areas:
+    "side content"
+    ". content";
+}
+
+// 右侧侧边布局
+.oops-layout-side-right-full-only-side,
+.oops-layout-side-right-only-side {
+  grid-template-areas:
+    "content side"
+    "content .";
+  grid-template-columns: auto var(--layout-side-bar-width);
+}

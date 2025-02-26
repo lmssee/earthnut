@@ -77,7 +77,8 @@
     "a-element-inline-style": ">= 0.0.0",
     "a-js-tools": "^0.0.0",
     "react": ">= 17",
-    "react-dom": ">= 17"
+    "react-dom": ">= 17",
+    "mix-cn": "^0.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
@@ -137,5 +138,6 @@
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.2.0",
     "zod": "^3.24.1"
-  }
+  },
+  "dependencies": {}
 }
