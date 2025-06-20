@@ -1,6 +1,7 @@
+import { dog } from './../../dog';
 /****************************************************************************
- * @Author lmssee
- * @Email lmssee@outlook.com
+ * @Author earthnut
+ * @Email earthnut.dev@outlook.com
  * @ProjectName website
  * @FileName ripples/index.ts
  * @CreateDate  周六  12/07/2024
@@ -18,22 +19,23 @@ import { loadImage } from './init/loadImage';
 import { hideCssBackground, restoreCssBackground } from './init/hideCssBackground';
 import { RipplesRenderData, ripplesRenderDataWarehouse } from './rippersData/renderData';
 import { initGL } from './init/initGL';
+import { isBoolean, isFalse, isNull } from 'a-type-of-js';
 
-/**************************************
+/**
  *
  * ## 水波动涟漪的效果
  *
  *
- * 魔改自大佬的[代码](https://github.com/sirxemic/jquery.ripples)
- **************************************/
+ * 魔改自大佬的[jQuey 代码](https://github.com/sirxemic/jquery.ripples)
+ */
 export class Ripples extends RipplesData {
-  /**************************
+  /**
    * 唯一标识
    *
    * 用于处理 Ripples 在实例化后数据交叉污染问题
-   **************************/
+   */
   sole: symbol = Symbol('ripple');
-  /**************************
+  /**
    *
    *  默认值
    *
@@ -47,15 +49,15 @@ export class Ripples extends RipplesData {
    * - accelerating  加速光标移动触发，缺省为 `1`
    * - raindropsTimeInterval 雨滴滴落的间隔，缺省为 `3600`，可设置区间为 `10 ~ 12000`
    * - idleFluctuations  闲置波动，在光标交互不触发时，将触发模拟雨滴，缺省为 `true`
-   **************************/
+   */
 
   defaults = defaultData;
   /**  是否与鼠标互动  */
   interactive: boolean = this.defaults.interactive;
 
-  /**************************
+  /**
    * 倍级触发光标事件
-   **************************/
+   */
   set accelerating(value: number) {
     if (value > 100 || value < 2) return;
 
@@ -86,7 +88,7 @@ export class Ripples extends RipplesData {
   idleFluctuations: boolean = true;
   /**  当前播放的状态  */
   set playingState(value: boolean) {
-    ripplesRenderDataWarehouse[this.sole].running = value !== false;
+    ripplesRenderDataWarehouse[this.sole].running = !isFalse(value);
   }
 
   /**    */
@@ -108,9 +110,10 @@ export class Ripples extends RipplesData {
 
   constructor(canvas: HTMLCanvasElement, options?: RipplesOptions) {
     super(canvas);
-    console.log('初始化参数', options);
 
-    /**  数据初始化  */
+    dog('初始化参数', options);
+
+    // 数据初始化
     ripplesRenderDataWarehouse[this.sole] = new RipplesRenderData(defaultData);
 
     Object.defineProperties(this, {
@@ -121,7 +124,7 @@ export class Ripples extends RipplesData {
         configurable: false,
       },
     });
-    if (options) typeof options.interactive !== 'boolean' && delete options.interactive;
+    if (options) !isBoolean(options.interactive) && delete options.interactive;
 
     /**  数据  */
     const data = {
@@ -129,7 +132,7 @@ export class Ripples extends RipplesData {
       ...options,
     };
 
-    /**************************************
+    /**
      *
      * 涟漪设定参数
      *
@@ -143,7 +146,7 @@ export class Ripples extends RipplesData {
      * - playingState 当前的播放状态，缺省为 `true` ，设定为 `false` 时并不关闭，而是暂停
      * - raindropsTimeInterval 雨滴滴落的间隔，缺省为 `3600`，可设置区间为 `10 ~ 12000`
      * - idleFluctuations  闲置波动，在光标交互不触发时，将触发模拟雨滴，缺省为 `true`
-     **************************************/
+     */
     this.accelerating = data.accelerating; // 倍级触发
     this.dropRadius = data.dropRadius; // 扩散半径
     this.resolution = data.resolution; // 分辨率
@@ -156,10 +159,10 @@ export class Ripples extends RipplesData {
     this.raindropsTimeInterval = data.raindropsTimeInterval; ///
 
     if (
-      this.initState === false ||
-      canvas.parentElement === null ||
-      this.config === null ||
-      this.gl === null
+      isFalse(this.initState) ||
+      isNull(canvas.parentElement) ||
+      isNull(this.config) ||
+      isNull(this.gl)
     ) {
       this.initState = false;
       return;
@@ -169,9 +172,9 @@ export class Ripples extends RipplesData {
     Reflect.apply(initGL, this, []);
   }
 
-  /**************************
+  /**
    * 模拟雨滴下落
-   **************************/
+   */
   raindropsFall() {
     const parent = ripplesRenderDataWarehouse[this.sole].parentElement;
     const style = window.getComputedStyle(parent);
@@ -181,9 +184,9 @@ export class Ripples extends RipplesData {
     this.drop(getValue(left), getValue(top), this.dropRadius, 0.03);
   }
 
-  /**************************
+  /**
    * 公共方法，触发
-   **************************/
+   */
   drop(x: number, y: number, radius: number, strength: number) {
     const gl = this.gl;
     const {
@@ -217,9 +220,9 @@ export class Ripples extends RipplesData {
     Reflect.apply(drawQuad, this, []);
     Reflect.apply(swapBufferIndices, this, []);
   }
-  /**************************
+  /**
    * 元素的尺寸发生变化
-   **************************/
+   */
   updateSize() {
     const { parentElement } = ripplesRenderDataWarehouse[this.sole];
     const newWidth = parentElement.offsetWidth,
@@ -230,9 +233,9 @@ export class Ripples extends RipplesData {
     }
   }
 
-  /**************************
+  /**
    * 销毁
-   **************************/
+   */
   destroy() {
     if (ripplesRenderDataWarehouse[this.sole].animationFrameId)
       window.cancelAnimationFrame(ripplesRenderDataWarehouse[this.sole].animationFrameId);
@@ -256,53 +259,53 @@ export class Ripples extends RipplesData {
     // this.canvas.remove(); /// react 会自己管理移除元素
   }
 
-  /**************************
+  /**
    * 展示元素
    *
    * - 设置状态
    * - 设置 canvas 元素展示
    * - 隐藏父级节点背景
-   **************************/
+   */
   show() {
     ripplesRenderDataWarehouse[this.sole].visible = true;
     this.canvas.style.visibility = 'visible';
     Reflect.apply(hideCssBackground, this, []);
   }
 
-  /**************************
+  /**
    * 隐藏元素
    *
    * - 设置状态
    * - 设置 canvas 元素隐藏
    * - 恢复父级节点背景
-   **************************/
+   */
   hide() {
     ripplesRenderDataWarehouse[this.sole].visible = false;
     this.canvas.style.visibility = 'hidden';
     Reflect.apply(restoreCssBackground, this, []); /// 恢复父级节点的背景样式
   }
 
-  /**************************
+  /**
    * 暂停动画涟漪状态
-   **************************/
+   */
   pause() {
     this.playingState = false;
   }
-  /**************************
+  /**
    * 播放动画涟漪状态
-   **************************/
+   */
   play() {
     this.playingState = true;
   }
-  /**************************
+  /**
    * 切换当前状态
-   **************************/
+   */
   changePlayingState() {
     this.playingState = !ripplesRenderDataWarehouse[this.sole].running;
   }
-  /**************************
+  /**
    *  给初始化变量赋值
-   **************************/
+   */
   set(property: keyof RipplesOptions, value: unknown) {
     if (property === 'imageUrl') {
       this.imageUrl = value as string;

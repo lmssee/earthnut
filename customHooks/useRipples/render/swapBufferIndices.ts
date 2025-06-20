@@ -1,6 +1,6 @@
-/**************************
+/**
  * swap 缓冲区索引
- **************************/
+ */
 import { ripplesRenderDataWarehouse } from '../rippersData/renderData';
 import { Ripples } from '../ripplesClass';
 

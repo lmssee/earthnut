@@ -1,17 +1,19 @@
 /****************************************************************************
- * @Author lmssee
- * @Email lmssee@outlook.com
+ * @Author earthnut
+ * @Email earthnut.dev@outlook.com
  * @ProjectName website
  * @FileName index.tsx
  * @CreateDate  周四  12/12/2024
  * @Description 涟漪
  ****************************************************************************/
-import { useEffect, useRef } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import React from 'react';
 import { BackgroundRipplesProps, RipplesOptions } from 'customHooks/useRipples/types';
 import { Ripples, useRipples } from 'customHooks/useRipples';
+import { useOptionUpdate } from './useOptionUpdate';
+import { isNull } from 'a-type-of-js';
 
-/**************************************
+/**
  *
  * ### 一个 ripple 背景组件
  *
@@ -24,14 +26,14 @@ import { Ripples, useRipples } from 'customHooks/useRipples';
  * - option   初始化 ripples 的原始数据
  * @param props  使用参数
  * @version 0.0.1
- * @see https://lmssee.com/oops-ui/background-ripple
+ * @see https://earthnut.dev/earthnut/background-ripple
  * @example
  * 使用：
  *
  * ```ts
- *  import { BackgroundRipple } from 'oops-ui/BackgroundRipple';
+ *  import { BackgroundRipple } from 'earthnut/BackgroundRipple';
  *  // 也可以全量导入
- *  // import { BackgroundRipple } from 'oops-ui';
+ *  // import { BackgroundRipple } from 'earthnut';
  *  ...
  *  const animationFrameId = useAnimationFrame();
  *
@@ -40,43 +42,57 @@ import { Ripples, useRipples } from 'customHooks/useRipples';
  *         </BackgroundRipple>
  * ```
  *
- **************************************/
+ */
 
-export function BackgroundRipple(props: BackgroundRipplesProps) {
-  /**************************
-   * canvas 元素
-   **************************/
+export const BackgroundRipple = forwardRef<
+  HTMLCanvasElement,
+  React.HTMLAttributes<HTMLCanvasElement> & BackgroundRipplesProps
+>((props: BackgroundRipplesProps, ref) => {
+  /**  盒子  */
+  const containerRef = useRef<HTMLDivElement>(null);
+  /**  canvas 元素  */
   const canvas = useRef<HTMLCanvasElement>(null);
-  /**************************
-   * 使用 ripples
-   **************************/
+  /**  使用 ripples  */
   const ripplesRef = useRipples(canvas, props);
-  /**************************
-   * 使用 配置更新
-   **************************/
+  // /// 背景图
+  // const [parentBackgroundColor, setParentBackgroundColor] = useState('');
+  // /// 背景图
+  // const [parentBackgroundImage, setParentBackgroundImage] = useState('');
+
+  ///  使用 配置更新
   useOptionUpdate(ripplesRef, props);
 
-  return <canvas ref={canvas}></canvas>;
-}
+  // 抛出事件
+  // useImperativeHandle(ref, () => ({
+  //   triggerRipple: (x: number, y: number) => {
+  //     triggerRippleEffect(x, y);
+  //   },
+  // }));
 
-/**************************
- * 更新参数数据
- **************************/
-function useOptionUpdate(
-  ripplesRef: React.RefObject<Ripples | null>,
-  props: BackgroundRipplesProps,
-) {
-  /**  监听数据变化并给值  */
-  useEffect(() => {
-    if (props.option && ripplesRef.current) {
-      const options = props.option;
-      (Object.keys(ripplesRef.current.defaults) as unknown as (keyof RipplesOptions)[]).forEach(
-        e => {
-          if (options[e] !== undefined) {
-            ripplesRef.current && ripplesRef.current.set(e as keyof RipplesOptions, options[e]);
-          }
-        },
-      );
-    }
-  }, [props.option]);
-}
+  // useEffect(() => {
+  //   const updateParentStyles = () => {
+  //     if (isNull(containerRef.current) || isNull(containerRef.current.parentElement)) {
+  //       return;
+  //     }
+  //     /**  计算样式  */
+  //     const computedStyle = window.getComputedStyle(containerRef.current.parentElement);
+  //     setParentBackgroundColor(computedStyle.backgroundColor);
+  //     setParentBackgroundImage(computedStyle.backgroundImage);
+  //   };
+  // });
+
+  return (
+    <div
+      ref={containerRef}
+      style={{
+        position: 'relative',
+        width: '100%',
+        height: '100%',
+        overflow: 'hidden',
+      }}
+    >
+      <canvas ref={canvas} />
+      {props.children}
+    </div>
+  );
+});

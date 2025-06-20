@@ -1,6 +1,6 @@
 /****************************************************************************
- * @Author lmssee
- * @Email lmssee@outlook.com
+ * @Author earthnut
+ * @Email earthnut.dev@outlook.com
  * @ProjectName reset-new-tab
  * @FileName index.ts
  * @CreateDate  周二  09/03/2024

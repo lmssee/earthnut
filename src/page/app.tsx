@@ -2,6 +2,7 @@ import React from 'react';
 import { Outlet } from 'react-router';
 import MainTab from 'page/tab';
 import 'css/common.scss';
+import 'css/product.scss';
 import styles from 'page/index.module.scss';
 import { BackgroundRipple } from 'components';
 import {
@@ -10,27 +11,25 @@ import {
   LayoutFooter,
   LayoutHeader,
   LayoutSideBar,
-} from 'components/layout';
-import { mcn } from 'mix-cn';
+} from 'components/layout/layout';
+import { xcn } from 'xcn';
 
 export function App() {
   return (
-    <Layout>
-      <LayoutHeader className={mcn('dark')}>
-        头部
+    <Layout classes={xcn(styles.page)}>
+      <LayoutHeader className={xcn('dark')}>
+        头部区域
         <BackgroundRipple />
       </LayoutHeader>
-      <LayoutSideBar>侧边栏</LayoutSideBar>
-      <LayoutContent>内容区</LayoutContent>
-      <LayoutFooter>页脚</LayoutFooter>
-      <div className={styles.page}>
-        <div className={styles.tab}>
-          <MainTab />
-        </div>
-        <div className={styles.main}>
-          <Outlet></Outlet>
-        </div>
-      </div>
+      <LayoutSideBar className={xcn(styles.tab)}>
+        <MainTab />
+      </LayoutSideBar>
+      <LayoutContent className={xcn(styles.main)}>
+        <Outlet></Outlet>
+      </LayoutContent>
+      <LayoutFooter>
+        <div className={xcn('en-text-center')}>我是页脚，有点啥才好</div>
+      </LayoutFooter>
     </Layout>
   );
 }

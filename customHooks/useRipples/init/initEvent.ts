@@ -2,9 +2,9 @@ import { dropAtPointer } from '../render/dropAtPointer';
 import { ripplesRenderDataWarehouse } from '../rippersData/renderData';
 import { Ripples } from '../ripplesClass';
 
-/**************************
+/**
  * 初始化事件
- **************************/
+ */
 export function setupPointerEvents(this: Ripples) {
   const renderData = ripplesRenderDataWarehouse[this.sole];
   const { visible, running, accelerating, parentElement, events } = renderData;

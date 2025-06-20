@@ -1,11 +1,11 @@
 import { ripplesRenderDataWarehouse } from '../rippersData/renderData';
 import { Ripples } from '../ripplesClass';
 
-/**************************************
+/**
  *
  * 绘制 GL 数据流
  *
- **************************************/
+ */
 export function drawQuad(this: Ripples) {
   const gl = this.gl;
   const renderData = ripplesRenderDataWarehouse[this.sole];

@@ -1,14 +1,15 @@
 /****************************************************************************
- * @Author lmssee
- * @Email lmssee@outlook.com
- * @ProjectName oops-ui
+ * @Author earthnut
+ * @Email earthnut.dev@outlook.com
+ * @ProjectName earthnut
+ * @FilePath /src/customHooks/useAnimationFrame.ts
  * @FileName useInputIsComposing.ts
  * @CreateDate  周二  01/07/2025
  * @Description 使用输入框是否完成输入状态
  ****************************************************************************/
 
 import { useEffect, useRef } from 'react';
-/**************************************
+/**
  *
  * ### 导出一个使用 `useRef` 创建的 `boolean`
  *
@@ -17,15 +18,15 @@ import { useEffect, useRef } from 'react';
  * @param inputRef [React.RefObject<HTMLInputElement | HTMLTextAreaElement>] 输入框的 ref
  * @returns  React.RefObject<boolean>
  * @version 0.0.4
- * @see   https://lmssee.com/oops-ui/use-input-is-composing
+ * @see   https://earthnut.dev/use-input-is-composing
  * @example
  *
  * 使用：
  *
  * ```ts
- *  import { useInputIsComposing } from 'oops-ui/useInputIsComposing';
+ *  import { useInputIsComposing } from 'earthnut/useInputIsComposing';
  *  // 也可以全量导入
- *  // import { useInputIsComposing } from 'oops-ui';
+ *  // import { useInputIsComposing } from 'earthnut';
  *  ...
  *  const inputRef = useRef<HTMLInputElement>(null);
  *
@@ -43,7 +44,7 @@ import { useEffect, useRef } from 'react';
  *  <input type="text" onKeyDown={enterDown} />
  *  ...
  * ```
- **************************************/
+ */
 
 export function useInputIsComposing(
   inputRef: React.RefObject<HTMLInputElement | HTMLTextAreaElement | null>,

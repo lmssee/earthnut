@@ -1,8 +1,8 @@
 import defaultModule, { pathJoin } from './webpack.config.js';
 
-/**************************
- * 打包为 mjs 模式
- **************************/
+/**
+ * 打包为 js 模式
+ */
 export default function () {
   const defaultConfig = defaultModule();
   const config = {
@@ -16,7 +16,7 @@ export default function () {
     output: /** umd 格式 打包 */ {
       filename: 'index.js',
       path: pathJoin('dist'),
-      library: 'oops',
+      library: 'earthnut',
       libraryTarget: 'umd',
       globalObject: 'this',
     },

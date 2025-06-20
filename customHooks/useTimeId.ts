@@ -1,28 +1,30 @@
 /****************************************************************************
- * @Author lmssee
- * @Email lmssee@outlook.com
- * @ProjectName oops-ui
+ * @Author earthnut
+ * @Email earthnut.dev@outlook.com
+ * @ProjectName earthnut
+ * @FilePath /src/customHooks/useAnimationFrame.ts
  * @FileName useTimeId.ts
  * @CreateDate  周二  01/07/2025
  * @Description 使用定时器返回的时间戳
  ****************************************************************************/
+
 import { useEffect, useRef } from 'react';
-/**************************************
+/**
  *
  * ### 导出一个使用 `useRef` 创建的 `NodeJS.Timeout`
  *
  * 该数值在组件卸载时会自动调用 `clearTimeout` 清理
  *
  * @version 0.0.3
- * @see   https://lmssee.com/oops-ui/use-time-id
+ * @see   https://earthnut.dev/use-time-id
  * @example
  *
  * 使用：
  *
  * ```ts
- *  import { useTimeId } from 'oops-ui/useTimeId';
+ *  import { useTimeId } from 'earthnut/useTimeId';
  *  // 也可以全量导入
- *  // import { useTimeId } from 'oops-ui';
+ *  // import { useTimeId } from 'earthnut';
  *  ...
  *  const timeoutId = useTimeId();
  *
@@ -51,7 +53,7 @@ import { useEffect, useRef } from 'react';
  *
  * 根本就不用引入这个自定义 `hook` , 哈哈哈哈哈
  *
- **************************************/
+ */
 export function useTimeId() {
   const timeId = useRef<NodeJS.Timeout>(undefined);
 

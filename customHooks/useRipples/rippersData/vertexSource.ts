@@ -1,6 +1,6 @@
-/**************************
+/**
  *
- **************************/
+ */
 export const vertexShader = `
       attribute vec2 vertex;
       varying vec2 coord;
@@ -9,11 +9,11 @@ export const vertexShader = `
         gl_Position = vec4(vertex, 0.0, 1.0);
       }`;
 
-/**************************************
+/**
  *
  *
  *
- **************************************/
+ */
 export const updateProgramFragmentSource = `
       precision highp float;
 
@@ -43,11 +43,11 @@ export const updateProgramFragmentSource = `
       }
       `;
 
-/**************************************
+/**
  *
  *
  *
- **************************************/
+ */
 export const renderVertexSource = `
         precision highp float;
 
@@ -64,11 +64,11 @@ export const renderVertexSource = `
           gl_Position = vec4(vertex.x, -vertex.y, 0.0, 1.0);
         }
       `;
-/**************************************
+/**
  *
  *
  *
- **************************************/
+ */
 
 export const renderProgramFragmentSource = `
         precision highp float;
@@ -91,11 +91,11 @@ export const renderProgramFragmentSource = `
           float specular = pow(max(0.0, dot(offset, normalize(vec2(-0.6, 1.0)))), 4.0);
           gl_FragColor = texture2D(samplerBackground, backgroundCoord + offset * perturbance) + specular;
         }`;
-/**************************************
+/**
  *
  * fragmentSource
  *
- **************************************/
+ */
 export const dropProgramFragmentSource = `precision highp float;
 
       const float PI = 3.141592653589793;

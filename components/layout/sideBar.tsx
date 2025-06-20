@@ -1,14 +1,13 @@
 import React from 'react';
 import { LayoutSideBarProps } from './types';
-import { mcn } from 'mix-cn';
-import './layout.oops.scss';
+import { xcn } from 'xcn';
+import styles from './style/index.module.scss';
 
-/**************************************
+/**
  *
  * children side bar
  *
  * 侧边栏
- *
  *
  *
  * @param children 子元素
@@ -23,7 +22,7 @@ import './layout.oops.scss';
  *  缺省值为 `false`
  * @returns `React.ReactElement`;
  *
- **************************************/
+ */
 const InternalValueS = React.forwardRef<
   HTMLDivElement,
   LayoutSideBarProps
@@ -31,10 +30,10 @@ const InternalValueS = React.forwardRef<
 >(({ className, width = 150, right = false, full = false, ...props }, ref) => {
   return (
     <div
-      className={mcn('oops-layout-side', className)}
+      className={xcn(styles['en-layout-side'], className)}
       ref={ref}
       {...props}
-      data-oops-ui="layout-side-bar"
+      data-earthnut-ui="layout-side-bar"
     />
   );
 });

@@ -1,9 +1,9 @@
 import { Program, RipplesDefaultData, Textures } from '../types';
-/**************************************
+/**
  *
  * 原始数据类
  *
- **************************************/
+ */
 export class RipplesRenderData {
   /**  canvas 的显隐  */
   visible: boolean = false;
@@ -22,13 +22,13 @@ export class RipplesRenderData {
    * 该值在 init 中进行初始化
    */
   quad: WebGLBuffer = null as never;
-  /**************************
+  /**
    * 上一次雨滴滴落的时间
    *
    * 该时间更新触发时机：
    * - 2.2s 内没有事件触发
    * - 鼠标交互更新
-   **************************/
+   */
   lastRaindropsFallTime: number = 0; // 该值不为 0 将会导致
   /**  canvas 父级元素  */
   parentElement: HTMLElement = null as never;
@@ -40,14 +40,14 @@ export class RipplesRenderData {
     width: 0,
     height: 0,
   };
-  /**************************
+  /**
    *
    * 该值于初始化着色器时初始化
-   **************************/
+   */
   dropProgram: Program = null as never;
-  /**************************
+  /**
    *
-   **************************/
+   */
   updateProgram: Program = null as never;
 
   /**  纹理  */
@@ -66,9 +66,9 @@ export class RipplesRenderData {
   originalInlineCss: string = '';
   /**  原始 background-image 数据    */
   originalCssBackgroundImage: string = '';
-  /**************************
+  /**
    * 事件
-   **************************/
+   */
   events: {
     mousemove: (e: MouseEvent) => void;
     mousedown: (e: MouseEvent) => void;
@@ -85,9 +85,9 @@ export class RipplesRenderData {
   }
 }
 
-/**************************************
+/**
  *
  * 渲染数仓
  *
- **************************************/
+ */
 export const ripplesRenderDataWarehouse: { [x: symbol]: RipplesRenderData } = {};

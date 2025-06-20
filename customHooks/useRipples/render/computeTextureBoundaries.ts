@@ -1,10 +1,10 @@
 import { ripplesRenderDataWarehouse } from '../rippersData/renderData';
 import { Ripples } from '../ripplesClass';
-/**************************************
+/**
  *
  * 计算纹理边界
  *
- **************************************/
+ */
 
 export function computeTextureBoundaries(this: Ripples) {
   const renderData = ripplesRenderDataWarehouse[this.sole];
@@ -20,7 +20,7 @@ export function computeTextureBoundaries(this: Ripples) {
 
   // 这里的 'container' 是背景适应的元素（Chrome 窗口或某些元素，具体取决于附件）
   const container = { left: 0, top: 0, width: 0, height: 0 };
-  if (backgroundAttachment == 'fixed') {
+  if (backgroundAttachment === 'fixed') {
     container.height = window.innerHeight;
     container.left = window.screenX;
     container.top = window.screenY;
@@ -39,11 +39,11 @@ export function computeTextureBoundaries(this: Ripples) {
 
   const { width, height } = renderData.backgroundInfo || { width: 100, height: 100 };
 
-  if (backgroundSize == 'cover') {
+  if (backgroundSize === 'cover') {
     const scale = Math.max(container.width / width, container.height / height);
     backgroundWidth = width * scale;
     backgroundHeight = height * scale;
-  } else if (backgroundSize == 'contain') {
+  } else if (backgroundSize === 'contain') {
     const scale = Math.min(container.width / width, container.height / height);
     backgroundWidth = width * scale;
     backgroundHeight = height * scale;
@@ -64,15 +64,15 @@ export function computeTextureBoundaries(this: Ripples) {
       backgroundHeight = parseFloat(backgroundHeight);
     }
 
-    if (backgroundWidth == 'auto' && backgroundHeight == 'auto') {
+    if (backgroundWidth === 'auto' && backgroundHeight === 'auto') {
       backgroundWidth = width;
       backgroundHeight = height;
     } else {
-      if (backgroundWidth == 'auto') {
+      if (backgroundWidth === 'auto') {
         backgroundWidth = width * (Number(backgroundHeight) / height);
       }
 
-      if (backgroundHeight == 'auto') {
+      if (backgroundHeight === 'auto') {
         backgroundHeight = height * (Number(backgroundWidth) / width);
       }
     }
@@ -119,11 +119,11 @@ export function computeTextureBoundaries(this: Ripples) {
     this.canvas.height / maxSide,
   ]);
 }
-/**************************************
+/**
  *
  * 转换背景的位置为特定的格式
  *
- **************************************/
+ */
 function translateBackgroundPosition(value: string): string[] {
   if (/\s+/.test(value)) {
     return value
@@ -144,11 +144,11 @@ function translateBackgroundPosition(value: string): string[] {
     }[value as 'center' | 'top' | 'bottom' | 'left' | 'right'];
   }
 }
-/**************************************
+/**
  *
  * 给定的字符串是否为百分数
  *
- **************************************/
+ */
 function isPercentage(value: string) {
   return value.endsWith('%');
 }

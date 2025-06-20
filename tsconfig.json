@@ -2,21 +2,14 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "page/*": [
-        "src/page/*"
-      ],
-      "css/*": [
-        "src/css/*"
-      ]
+      "page/*": ["src/page/*"],
+      "css/*": ["src/css/*"]
     },
     "outDir": "dist/",
     "jsx": "react",
     "module": "ESNext",
     "target": "ES2015",
-    "lib": [
-      "es5",
-      "dom"
-    ],
+    "lib": ["es5", "dom"],
     "skipLibCheck": true,
     "moduleResolution": "node",
     "declaration": false,
@@ -33,14 +26,11 @@
     "env.d.ts",
     "components/**/*.ts",
     "components/**/*.tsx",
+    "components/**/*.d.ts",
     "customHooks/**/*.ts",
     "src/**/*.ts",
     "src/**/*.tsx",
     "public/**/*.ts"
   ],
-  "exclude": [
-    "node_modules",
-    "components/**/*.test.tsx",
-    "components/**/*.test.ts"
-  ]
+  "exclude": ["node_modules", "components/**/*.test.tsx", "components/**/*.test.ts"]
 }

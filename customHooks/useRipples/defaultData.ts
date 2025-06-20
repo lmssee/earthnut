@@ -1,8 +1,8 @@
 import { RipplesDefaultData } from './types';
 
-/**************************
+/**
  * 默认值
- **************************/
+ */
 export const defaultData: RipplesDefaultData = {
   imageUrl: '',
   resolution: 256,

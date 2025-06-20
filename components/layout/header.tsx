@@ -1,9 +1,9 @@
 import React from 'react';
 import { LayoutHeaderProps } from './types';
-import { mcn } from 'mix-cn';
-import './layout.oops.scss';
+import { xcn } from 'xcn';
+import styles from './style/index.module.scss';
 
-/**************************************
+/**
  *
  * layout header
  *
@@ -16,7 +16,7 @@ import './layout.oops.scss';
  *    缺省值为 false
  * @param props 其他属性
  * @returns React.ReactElement
- **************************************/
+ */
 
 const InternalValueH = React.forwardRef<
   HTMLDivElement,
@@ -26,9 +26,9 @@ const InternalValueH = React.forwardRef<
   return (
     <div
       ref={ref}
-      className={mcn('oops-layout-header', className)}
+      className={xcn(styles['en-layout-header'], className)}
       {...props}
-      data-oops-ui="layout-header"
+      data-earthnut-ui="layout-header"
     >
       {children}
     </div>

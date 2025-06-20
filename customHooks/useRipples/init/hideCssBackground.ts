@@ -1,9 +1,9 @@
 import { ripplesRenderDataWarehouse } from '../rippersData/renderData';
 import { Ripples } from '../ripplesClass';
 
-/**************************
+/**
  * 隐藏背景
- **************************/
+ */
 export function hideCssBackground(this: Ripples) {
   const { parentElement } = ripplesRenderDataWarehouse[this.sole] || {};
   if (!parentElement) return;
@@ -16,9 +16,9 @@ export function hideCssBackground(this: Ripples) {
   parentElement.style.backgroundImage = 'none';
 }
 
-/**************************
+/**
  * 恢复背景样式
- **************************/
+ */
 export function restoreCssBackground(this: Ripples) {
   const { parentElement, originalInlineCss } = ripplesRenderDataWarehouse[this.sole];
   parentElement.style.backgroundImage = originalInlineCss || '';

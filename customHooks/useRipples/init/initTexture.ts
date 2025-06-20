@@ -1,11 +1,11 @@
 import { ripplesRenderDataWarehouse } from '../rippersData/renderData';
 import { Ripples } from '../ripplesClass';
 
-/**************************************
+/**
  *
  * 初始化纹理
  *
- **************************************/
+ */
 export function initTexture(this: Ripples) {
   const gl = this.gl;
   const renderData = ripplesRenderDataWarehouse[this.sole];

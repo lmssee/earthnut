@@ -23,7 +23,7 @@ export default function UseInputIsComposing() {
           <div className="p-4">
             <input type="text" required className="p-2" />
           </div>
-          <button></button>
+          <button>1246</button>
         </form>
       </div>
     </div>

@@ -4,10 +4,10 @@ import { computeTextureBoundaries } from './computeTextureBoundaries';
 import { render } from './render';
 import { update } from './update';
 
-/**************************
+/**
  * 开启绘制
  *
- **************************/
+ */
 export function step(this: Ripples) {
   const renderData = ripplesRenderDataWarehouse[this.sole];
   const { visible, raindropsTimeInterval, running, lastRaindropsFallTime } = renderData;
@@ -27,6 +27,7 @@ export function step(this: Ripples) {
   Reflect.apply(update, this, []);
   /**  渲染  */
   Reflect.apply(render, this, []);
+  // 渲染
   renderData.animationFrameId = requestAnimationFrame(() => {
     return Reflect.apply(step, this, []);
   });

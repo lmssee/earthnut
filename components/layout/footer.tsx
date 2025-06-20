@@ -1,9 +1,9 @@
 import React from 'react';
 import { LayoutFooterProps } from './types';
-import { mcn } from 'mix-cn';
-import './layout.oops.scss';
+import { xcn } from 'xcn';
+import styles from './style/index.module.scss';
 
-/**************************************
+/**
  *
  * layout footer
  *
@@ -14,7 +14,7 @@ import './layout.oops.scss';
  * @param props 其他属性
  * @returns React.ReactElement
  *
- **************************************/
+ */
 const InternalValueF = React.forwardRef<
   HTMLDivElement,
   LayoutFooterProps
@@ -24,8 +24,8 @@ const InternalValueF = React.forwardRef<
     <div
       ref={ref}
       {...props}
-      className={mcn('oops-layout-footer', className)}
-      data-oops-ui="layout-footer"
+      className={xcn(styles['en-layout-footer'], className)}
+      data-earthnut-ui="layout-footer"
     />
   );
 });

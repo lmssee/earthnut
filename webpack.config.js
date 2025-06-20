@@ -3,28 +3,28 @@ import path from 'node:path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 const __dirname = import.meta.dirname;
-
 export const pathJoin = str => path.join(__dirname, str);
-/**************************************
+
+/**
  *
  * 生产包打包为 cjs 、mjs
  *
- **************************************/
+ */
 export default function () {
   /** 入口 */
-  /**************************
+  /**
    * 开发时
    * 不考虑按需导入分包
-   **************************/
+   */
   const entry = {
     index: {
       import: ['./src/root.tsx'],
       filename: 'index.js',
     },
   };
-  /**************************
+  /**
    * 出口
-   **************************/
+   */
   const output = {
     path: pathJoin('.static'),
     charset: true,
@@ -121,7 +121,7 @@ export default function () {
       cacheGroups: {
         /// npm 下所有模块
         defaultVendors: {
-          test: /[\\/]node_modules[\\/](?!a-js-tools|pako|a-element-inline-style)/,
+          test: /[\\/]node_modules[\\/](?!a-js-tools|pako|a-element-inline-style|a-type-of-js)/,
           name: 'commons',
           chunks: 'initial',
           priority: -10,
@@ -131,9 +131,9 @@ export default function () {
     },
   };
 
-  /**************************
+  /**
    * 开发服务
-   **************************/
+   */
   const devServer = {
     historyApiFallback: {
       enabled: true,
@@ -141,7 +141,7 @@ export default function () {
       trailingSlash: false, // 禁止尾随 /
     },
     static: {
-      directory: pathJoin(__dirname, 'dist'),
+      directory: pathJoin('public'),
     },
     compress: true, // gzip 压缩
     hot: true,
@@ -149,14 +149,14 @@ export default function () {
     port: 6674,
     open: true,
   };
-  /**************************
+  /**
    * 打包模式
-   **************************/
+   */
   const mode = 'development';
 
-  /**************************
+  /**
    *
-   **************************/
+   */
   const config = {
     entry,
     output,

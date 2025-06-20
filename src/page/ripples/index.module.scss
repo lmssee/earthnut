@@ -1,8 +1,15 @@
 .page {
-  color: #0fa;
+  color: #efe;
   width: 100%;
   height: 100%;
   overflow: auto;
   background-image: url("../../../public/image/defaultBackground.webp");
   background-size: 100% 100%;
+}
+
+.p {
+  text-shadow: -1px 1px 0.01px #fff;
+  margin: 10px 2px;
+  letter-spacing: 5px;
+  font-size: 1.2rem;
 }

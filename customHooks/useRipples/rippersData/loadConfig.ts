@@ -1,6 +1,6 @@
 /****************************************************************************
- * @Author lmssee
- * @Email lmssee@outlook.com
+ * @Author earthnut
+ * @Email earthnut.dev@outlook.com
  * @ProjectName website
  * @FileName loadConfig.ts
  * @CreateDate  周五  12/13/2024
@@ -17,9 +17,9 @@ export function loadConfig(this: RipplesData) {
 
   const { gl } = this;
 
-  /**************************
+  /**
    * webGL 扩展
-   **************************/
+   */
   const extensions: { [x: string]: OCULUS_multiview | null } = Object.fromEntries(
     [
       'OES_texture_float',
@@ -38,9 +38,9 @@ export function loadConfig(this: RipplesData) {
 
   /**  配置  */
   const configs = [];
-  /**************************
+  /**
    * 创建配置数据
-   **************************/
+   */
   function createConfig(type: string, glType: number, arrayType: Float32ArrayConstructor | null) {
     /**   webGL 扩展名  */
     const name = 'OES_texture_' + type;
@@ -60,11 +60,11 @@ export function loadConfig(this: RipplesData) {
   configs.push(createConfig('float', gl.FLOAT, Float32Array));
 
   if (extensions.OES_texture_half_float) {
-    /**************************
+    /**
      * 数组类型应该是 Uint16Array，但至少在 iOS 上会中断。在这种情况下，我们
      * 只需使用 data=null 而不是 data=new Uint16Array（...） 初始化纹理即可。
      * 这使得初始化速度稍慢，但仍然可以忽略不计。
-     **************************/
+     */
     configs.push(
       /**  @ts-ignore:   */
       createConfig('half_float', extensions.OES_texture_half_float.HALF_FLOAT_OES, null),

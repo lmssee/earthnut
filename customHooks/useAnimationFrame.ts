@@ -1,14 +1,15 @@
 /****************************************************************************
- * @Author lmssee
- * @Email lmssee@outlook.com
- * @ProjectName oops-ui
+ * @Author earthnut
+ * @Email earthnut.dev@outlook.com
+ * @ProjectName earthnut
+ * @FilePath /src/customHooks/useAnimationFrame.ts
  * @FileName useAnimationFrame.ts
  * @CreateDate  周二  01/07/2025
  * @Description 使用 animationFrame
  ****************************************************************************/
 
 import { useEffect, useRef } from 'react';
-/**************************************
+/**
  *
  * ### 导出一个使用 `useRef` 创建的 `number`
  *
@@ -16,14 +17,14 @@ import { useEffect, useRef } from 'react';
  * @important   该数值在组件卸载时会自动调用 `window.cancelAnimationFrame` 清理
  * @returns  <React.RefObject: number>
  * @version 0.0.3
- * @see   https://lmssee.com/oops-ui/use-animation-frame
+ * @see   https://earthnut.dev/use-animation-frame
  * @example
  * 使用：
  *
  * ```ts
- *  import { useAnimationFrame } from 'oops-ui/useAnimationFrame';
+ *  import { useAnimationFrame } from 'earthnut/useAnimationFrame';
  *  // 也可以全量导入
- *  // import { useAnimationFrame } from 'oops-ui';
+ *  // import { useAnimationFrame } from 'earthnut';
  *  ...
  *  const animationFrameId = useAnimationFrame();
  *
@@ -39,7 +40,7 @@ import { useEffect, useRef } from 'react';
  *
  * ```
  *
- **************************************/
+ */
 export function useAnimationFrameId(): React.RefObject<number> {
   const animationFrameId = useRef<number>(0);
 

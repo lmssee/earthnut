@@ -2,22 +2,21 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "declaration": true,
-    "declarationDir": "dist/types/",
+    "declarationDir": "dist/",
     "emitDeclarationOnly": true,
+    "sourceMap": true
   },
   "include": [
+    "env.d.ts",
     "index.ts",
     "customHooks/**/**/*.ts",
     "customHooks/**/*.ts",
-    "components/**/*.ts",
+    "components/**/**/*.d.ts",
     "components/**/**/*.ts",
     "components/**/**/*.tsx",
+    "components/**/*.d.ts",
+    "components/**/*.ts",
     "components/**/*.tsx"
   ],
-  "exclude": [
-    "node_modules/",
-    "src/",
-    "env.d.ts",
-    "public/"
-  ]
+  "exclude": ["node_modules/", "src/", "public/"]
 }

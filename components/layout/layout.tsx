@@ -3,17 +3,13 @@ import { InternalValueH as LayoutHeader } from './header';
 import { InternalValueS as LayoutSideBar } from './sideBar';
 import { InternalValueC as LayoutContent } from './content';
 import { InternalValueF as LayoutFooter } from './footer';
-import './layout.oops.scss';
+import styles from './style/index.module.scss';
 
-import {
-  LayoutFooterProps,
-  LayoutHeaderProps,
-  LayoutProps,
-  LayoutSideBarProps,
-} from './types';
-import { mcn } from 'mix-cn';
+import { LayoutFooterProps, LayoutHeaderProps, LayoutProps, LayoutSideBarProps } from './types';
+import { xcn } from 'xcn';
+import { isNumber, isTrue } from 'a-type-of-js';
 
-/**************************************
+/**
  *
  * ## layout
  *
@@ -54,23 +50,18 @@ import { mcn } from 'mix-cn';
  * ```
  *
  *
- **************************************/
+ */
 const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
-  (
-    { className, children, style, width = '100vw', height = '100vh', ...props },
-    ref,
-  ) => {
+  ({ className, children, style, width = '100vw', height = '100vh', ...props }, ref) => {
     /**  子组件的个数  */
     // const childCount = React.Children.count(children);
     /**  头部 header 是否粘连影响下的样式  */
-    const headerNoSticky: { 'oops-layout-header-no-sticky'?: boolean } = {
-      'oops-layout-header-no-sticky': false,
-    };
     // console.log('子元素个数', childCount);
     /**  头部 header 组件  */
     let Header,
       /** 当前的样式   */
       layout: string = 'simple',
+      headerNoSticky: string = '',
       /**  是否拥有头部（header）  */
       hasHeader: boolean = false,
       /**  侧边栏组件  */
@@ -100,7 +91,7 @@ const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
         /** 头部组件的参数们   */
         const headerProps = child.props as LayoutHeaderProps;
         headerHeight = headerProps.height || headerHeight;
-        headerNoSticky['oops-layout-header-no-sticky'] = headerProps.noSticky;
+        headerNoSticky = headerProps.noSticky ? styles['en-layout-header-no-sticky'] : '';
         Header = child;
         hasHeader = true;
       } else if (!hasSideBar && child.type === LayoutSideBar) {
@@ -114,7 +105,7 @@ const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
               : sideBarProps.full
                 ? 'side-full'
                 : 'simple';
-        sideFull = sideBarProps.full === true;
+        sideFull = isTrue(sideBarProps.full);
         SideBar = child;
         hasSideBar = true;
       } else if (!hasContent && child.type === LayoutContent) {
@@ -122,53 +113,34 @@ const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
         hasContent = true;
       } else if (!hasContent && child.type === Layout) {
         Content = (
-          <main
-            data-oops-ui="layout-content"
-            className={mcn('oops-layout-main')}
-          >
+          <main data-earthnut-ui="layout-content" className={xcn(styles['en-layout-main'])}>
             {child}
           </main>
         );
         hasContent = true;
       } else if (!hasFooter && child.type === LayoutFooter) {
-        footerHeight =
-          (child.props as LayoutFooterProps).height || footerHeight;
+        footerHeight = (child.props as LayoutFooterProps).height || footerHeight;
         Footer = child;
         hasFooter = true;
       }
     });
     /**  组件在子组件不同下的样式值  */
     const layoutClassName: string =
-      (hasHeader &&
-        hasSideBar &&
-        hasContent &&
-        hasFooter &&
-        `oops-layout-${layout}-all`) ||
+      (hasHeader && hasSideBar && hasContent && hasFooter && styles[`en-layout-${layout}-all`]) ||
       // (hasContent && hasHeader && hasFooter && styles['no-side-bar']) ||
-      (hasHeader &&
-        hasContent &&
-        hasSideBar &&
-        `oops-layout-${layout}-no-footer`) ||
-      (hasSideBar &&
-        hasContent &&
-        hasFooter &&
-        `oops-layout-${layout}-no-header`) ||
-      (hasContent && hasFooter && 'oops-layout-only-footer') ||
-      (hasContent && hasHeader && 'oops-layout-only-header') ||
-      (hasContent &&
-        hasSideBar &&
-        (sideFull = true) &&
-        `oops-layout-${layout}-only-side`) ||
+      (hasHeader && hasContent && hasSideBar && styles[`en-layout-${layout}-no-footer`]) ||
+      (hasSideBar && hasContent && hasFooter && styles[`en-layout-${layout}-no-header`]) ||
+      (hasContent && hasFooter && styles['en-layout-only-footer']) ||
+      (hasContent && hasHeader && styles['en-layout-only-header']) ||
+      (hasContent && hasSideBar && (sideFull = true) && styles[`en-layout-${layout}-only-side`]) ||
       '';
 
     return (
       <div
         ref={ref}
-        className={mcn(
-          'oops-layout',
-          {
-            'oops-layout-side-full': sideFull,
-          },
+        className={xcn(
+          styles['en-layout'],
+          sideFull && styles['en-layout-side-full'],
           layoutClassName,
           headerNoSticky,
           className,
@@ -183,13 +155,13 @@ const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
           ...style,
         }}
         {...props}
-        data-oops-ui="layout"
+        data-earthnut-ui="layout"
       >
         {!/side.*full/.test(layout) ? (
           <>
             {Header}
             {hasFooter ? (
-              <div className={mcn('oops-layout-content')}>
+              <div className={xcn(styles['en-layout-content'])}>
                 {SideBar}
                 {Content}
               </div>
@@ -216,8 +188,7 @@ const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
 Layout.displayName = 'Layout';
 
 function getValue(value: number | string) {
-  if (typeof value == 'number' || parseInt(value) === Number(value))
-    return value + 'px';
+  if (isNumber(value) || parseInt(value) === Number(value)) return value + 'px';
   return value || 0;
 }
 

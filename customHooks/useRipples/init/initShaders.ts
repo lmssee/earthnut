@@ -8,11 +8,11 @@ import {
 } from '../rippersData/vertexSource';
 import { Ripples } from '../ripplesClass';
 import { createProgram } from '../tools';
-/**************************************
+/**
  *
  * 初始化着色器
  *
- **************************************/
+ */
 
 export function initShaders(this: Ripples) {
   const gl = this.gl;

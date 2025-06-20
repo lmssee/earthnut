@@ -1,4 +1,8 @@
-# change log
+# 版本日志
+
+## version:0.0.0
+
+购买了新的域名，又要折腾了
 
 ## version:0.0.13
 
@@ -19,10 +23,10 @@
 // 原来参照 `@angular/material`
 {
   "export": {
-    "./oopsScss": {
+    "./scss": {
       "style": "./dist/styles/common.scss"
     },
-    "./oopsCss": {
+    "./css": {
       "style": "./dist/styles/common.css"
     }
   }
@@ -88,4 +92,4 @@
 
 - `ripple` 中 `touchmove`、`touchstart` 事件监听添加 `{ passive: true}`
 - 添加 `useTimeId`、`useAnimationFrameId`、`useRipples` 自定义 hooks
-- 添加 `oops-ui/oopsCss`、`oops-ui/oopsScss` 样式表
+- 添加 `earthnut/css`、`earthnut/scss` 样式表

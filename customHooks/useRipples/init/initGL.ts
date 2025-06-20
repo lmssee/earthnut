@@ -6,9 +6,9 @@ import { initShaders } from './initShaders';
 import { initTexture } from './initTexture';
 import { loadImage, setTransparentTexture } from './loadImage';
 
-/**************************
+/**
  * 初始化 webGL
- **************************/
+ */
 export function initGL(this: Ripples) {
   if (!this.config) return;
   const renderData = ripplesRenderDataWarehouse[this.sole];
@@ -47,11 +47,11 @@ export function initGL(this: Ripples) {
     );
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-    /**************************************
+    /**
      *
      * (指定二维纹理图像)[https://developer.mozilla.org/zh-CN/docs/Web/API/WebGLRenderingContext/texImage2D]
      *
-     **************************************/
+     */
     gl.texImage2D(
       gl.TEXTURE_2D,
       0,

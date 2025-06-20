@@ -3,11 +3,11 @@ import { bindTexture } from '../tools';
 import { drawQuad } from './drawQuad';
 import { ripplesRenderDataWarehouse } from '../rippersData/renderData';
 
-/**************************************
+/**
  *
  * 绘制
  *
- **************************************/
+ */
 export function render(this: Ripples) {
   const gl = this.gl;
   /**  渲染数据  */

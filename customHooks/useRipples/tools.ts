@@ -1,6 +1,6 @@
 /****************************************************************************
- * @Author lmssee
- * @Email lmssee@outlook.com
+ * @Author earthnut
+ * @Email earthnut.dev@outlook.com
  * @ProjectName website
  * @FileName tools.ts
  * @CreateDate  周六  12/07/2024
@@ -10,13 +10,14 @@
 import { setStyle } from 'a-element-inline-style';
 import { Ripples } from './ripplesClass';
 import { Program } from './types';
+import { isNull } from 'a-type-of-js';
 
-/**************************************
+/**
  *
  *  增加 WebGLProgram
  *
  *
- **************************************/
+ */
 export function createProgram(
   vertexSource: string,
   fragmentSource: string,
@@ -24,9 +25,9 @@ export function createProgram(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _uniformValues?: string,
 ) {
-  /**************************
+  /**
    * 编译一个着色器
-   **************************/
+   */
   function compileSource(type: GLenum, source: string) {
     const shader = gl.createShader(type)!;
     gl.shaderSource(shader, source); /// 设置 WebGLShader 着色器
@@ -55,7 +56,7 @@ export function createProgram(
   const shaderCode = vertexSource + fragmentSource;
   /**  待搜索的正则表达式  */
   const regex = /uniform (\w+) (\w+)/g;
-  /**************************
+  /**
    * 多次匹配
    *
    * 并在找不到时返回 null
@@ -63,19 +64,19 @@ export function createProgram(
    * 每一次匹配都会更新 lastIndex 的数值
    *
    * 该方法是正则表达式的原始方法，强大而有效，但通常不能表达清楚调用的目的
-   **************************/
-  while ((match = regex.exec(shaderCode)) !== null) {
+   */
+  while (!isNull((match = regex.exec(shaderCode)))) {
     const name = match[2];
     program.locations[name] = gl.getUniformLocation(program.id, name)!;
   }
   return program;
 }
 
-/**************************************
+/**
  *
  * 绑定纹理
  *
- **************************************/
+ */
 export function bindTexture(this: Ripples, texture: WebGLTexture, unit: number = 0) {
   const gl = this.gl;
   /**  激活纹理单元  */
@@ -84,9 +85,9 @@ export function bindTexture(this: Ripples, texture: WebGLTexture, unit: number =
   gl.bindTexture(gl.TEXTURE_2D, texture);
 }
 
-/**************************
+/**
  * 给 canvas 设置样式
- **************************/
+ */
 export function setCanvasStyle(canvas: HTMLCanvasElement) {
   const parentElement = canvas.parentElement!;
   canvas.width = parentElement.clientWidth;
