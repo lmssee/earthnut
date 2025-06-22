@@ -1,25 +1,32 @@
 import { BackgroundRipple } from 'components';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styles from './index.module.scss';
 import { xcn } from 'xcn';
+import { RippleEle } from 'components/ripples/types';
 
 export default function RipplesPage() {
-  const [playingState, setPlayingState] = useState(true);
+  const rippleRef = useRef<RippleEle>(null);
 
   function togglePlayingState(e: React.MouseEvent) {
-    setPlayingState(!playingState);
+    rippleRef.current?.toggleState();
     e.preventDefault();
     e.stopPropagation();
   }
 
   return (
-    <div className={styles.page} onContextMenu={togglePlayingState}>
+    <div
+      className={styles.page}
+      id="ripple"
+      onContextMenu={togglePlayingState}
+      data-alias="ripple 外壳"
+    >
       <BackgroundRipple
+        ref={rippleRef}
         option={{
+          accelerating: 1,
           dropRadius: 10,
-          resolution: 366,
-          perturbance: 0.02,
-          playingState,
+          // resolution: 366,
+          perturbance: 0.01,
           raindropsTimeInterval: 4800,
         }}
       >

@@ -1,4 +1,4 @@
-import { ripplesRenderDataWarehouse } from '../rippersData/renderData';
+import { isNull, isNumber } from 'a-type-of-js';
 import { Ripples } from '../ripplesClass';
 import { bindTexture } from '../tools';
 import { drawQuad } from './drawQuad';
@@ -6,7 +6,12 @@ import { swapBufferIndices } from './swapBufferIndices';
 
 export function update(this: Ripples) {
   const { gl } = this;
-  const renderData = ripplesRenderDataWarehouse[this.sole];
+  const { renderData } = this;
+
+  if (isNull(renderData)) {
+    return;
+  }
+
   const { resolution, updateProgram, textures, framebuffers, bufferWriteIndex, bufferReadIndex } =
     renderData;
   /** 视口设定。官网指出在 canvas 的尺寸变化时需要告知视口  */

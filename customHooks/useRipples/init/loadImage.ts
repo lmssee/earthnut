@@ -1,5 +1,4 @@
 import { isNull, isZero } from 'a-type-of-js';
-import { ripplesRenderDataWarehouse } from '../rippersData/renderData';
 import { Ripples } from '../ripplesClass';
 import { hideCssBackground } from './hideCssBackground';
 
@@ -10,17 +9,19 @@ import { hideCssBackground } from './hideCssBackground';
  */
 export function loadImage(this: Ripples) {
   const gl = this.gl;
-  const renderData = ripplesRenderDataWarehouse[this.sole];
+  const { renderData } = this;
+  if (isNull(renderData)) return;
+
   const { parentElement, backgroundTexture, originalCssBackgroundImage } = renderData;
   const newImageSource: string | null =
-    this.imageUrl ||
+    renderData.imageUrl ||
     extractUrl(originalCssBackgroundImage) ||
     extractUrl(window.getComputedStyle(parentElement).backgroundImage);
   // 倘若图片资源未更改，则无需从新下载
-  if (newImageSource === this.imageSource) return;
-  this.imageSource = newImageSource!;
+  if (newImageSource === renderData.imageSource) return;
+  renderData.imageSource = newImageSource!;
   // 虚假来源意味着没有背景。
-  if (!this.imageSource) {
+  if (!renderData.imageSource) {
     Reflect.apply(setTransparentTexture, this, []);
     return;
   }
@@ -48,8 +49,8 @@ export function loadImage(this: Ripples) {
   image.onerror = () => Reflect.apply(setTransparentTexture, this, []);
 
   // 当图像源是数据 URI 时禁用 CORS。
-  image.crossOrigin = isDataUri(this.imageSource) ? null : this.crossOrigin;
-  image.src = this.imageSource;
+  image.crossOrigin = isDataUri(renderData.imageSource) ? null : renderData.crossOrigin;
+  image.src = renderData.imageSource;
 }
 
 /**
@@ -60,7 +61,10 @@ export function loadImage(this: Ripples) {
 
 export function setTransparentTexture(this: Ripples) {
   const gl = this.gl;
-  const { backgroundTexture } = ripplesRenderDataWarehouse[this.sole];
+  const { renderData } = this;
+  if (isNull(renderData)) return;
+
+  const { backgroundTexture } = renderData;
   gl.bindTexture(gl.TEXTURE_2D, backgroundTexture);
   gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, this.transparentPixels);
 }

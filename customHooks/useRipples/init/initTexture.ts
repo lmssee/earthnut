@@ -1,4 +1,4 @@
-import { ripplesRenderDataWarehouse } from '../rippersData/renderData';
+import { isNull } from 'a-type-of-js';
 import { Ripples } from '../ripplesClass';
 
 /**
@@ -8,7 +8,9 @@ import { Ripples } from '../ripplesClass';
  */
 export function initTexture(this: Ripples) {
   const gl = this.gl;
-  const renderData = ripplesRenderDataWarehouse[this.sole];
+  const { renderData } = this;
+  if (isNull(renderData)) return;
+
   const _backgroundTexture = (renderData.backgroundTexture = gl.createTexture());
   gl.bindTexture(gl.TEXTURE_2D, _backgroundTexture);
   gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1);

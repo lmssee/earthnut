@@ -1,3 +1,5 @@
+import { RippleEle } from './types';
+
 export { BackgroundRipple } from './RipplesEle';
 
 export type {
@@ -5,3 +7,5 @@ export type {
   BackgroundRipplesProps,
   RipplesOptions,
 } from '../../customHooks/useRipples/index';
+
+export type { RippleEle };

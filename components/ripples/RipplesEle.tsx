@@ -6,12 +6,13 @@
  * @CreateDate  周四  12/12/2024
  * @Description 涟漪
  ****************************************************************************/
-import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import { forwardRef, useImperativeHandle, useRef } from 'react';
 import React from 'react';
 import { BackgroundRipplesProps, RipplesOptions } from 'customHooks/useRipples/types';
-import { Ripples, useRipples } from 'customHooks/useRipples';
+import { useRipples } from 'customHooks/useRipples';
 import { useOptionUpdate } from './useOptionUpdate';
-import { isNull } from 'a-type-of-js';
+import { RippleEle } from './types';
+import { isUndefined } from 'a-type-of-js';
 
 /**
  *
@@ -44,55 +45,42 @@ import { isNull } from 'a-type-of-js';
  *
  */
 
-export const BackgroundRipple = forwardRef<
-  HTMLCanvasElement,
-  React.HTMLAttributes<HTMLCanvasElement> & BackgroundRipplesProps
->((props: BackgroundRipplesProps, ref) => {
-  /**  盒子  */
-  const containerRef = useRef<HTMLDivElement>(null);
-  /**  canvas 元素  */
-  const canvas = useRef<HTMLCanvasElement>(null);
-  /**  使用 ripples  */
-  const ripplesRef = useRipples(canvas, props);
-  // /// 背景图
-  // const [parentBackgroundColor, setParentBackgroundColor] = useState('');
-  // /// 背景图
-  // const [parentBackgroundImage, setParentBackgroundImage] = useState('');
+export const BackgroundRipple = forwardRef<RippleEle, BackgroundRipplesProps>(
+  ({ children, ...props }, ref) => {
+    /**  canvas 元素  */
+    const canvas = useRef<HTMLCanvasElement>(null);
+    /**  使用 ripples  */
+    const ripplesRef = useRipples(canvas, props);
 
-  ///  使用 配置更新
-  useOptionUpdate(ripplesRef, props);
+    ///  使用 配置更新
+    useOptionUpdate(ripplesRef, props);
 
-  // 抛出事件
-  // useImperativeHandle(ref, () => ({
-  //   triggerRipple: (x: number, y: number) => {
-  //     triggerRippleEffect(x, y);
-  //   },
-  // }));
+    // 抛出事件
+    useImperativeHandle(ref, () => ({
+      toggleState: () => {
+        ripplesRef.current?.changePlayingState();
+      },
+      get state() {
+        return ripplesRef.current?.renderData?.running ?? false;
+      },
+      pause() {
+        ripplesRef.current?.pause();
+      },
+      set(options?: RipplesOptions): void {
+        if (isUndefined(options)) return;
+        const keys = Object.keys(options) as (keyof RipplesOptions)[];
+        for (let i = 0, j = keys.length; i < j; i++) {
+          const key = keys[i];
+          ripplesRef.current?.set(key, options[key] as unknown);
+        }
+      },
+    }));
 
-  // useEffect(() => {
-  //   const updateParentStyles = () => {
-  //     if (isNull(containerRef.current) || isNull(containerRef.current.parentElement)) {
-  //       return;
-  //     }
-  //     /**  计算样式  */
-  //     const computedStyle = window.getComputedStyle(containerRef.current.parentElement);
-  //     setParentBackgroundColor(computedStyle.backgroundColor);
-  //     setParentBackgroundImage(computedStyle.backgroundImage);
-  //   };
-  // });
-
-  return (
-    <div
-      ref={containerRef}
-      style={{
-        position: 'relative',
-        width: '100%',
-        height: '100%',
-        overflow: 'hidden',
-      }}
-    >
-      <canvas ref={canvas} />
-      {props.children}
-    </div>
-  );
-});
+    return (
+      <>
+        <canvas ref={canvas} data-earthnut-ui="canvas" />
+        {children}
+      </>
+    );
+  },
+);

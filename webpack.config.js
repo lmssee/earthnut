@@ -1,9 +1,14 @@
 import webpack from 'webpack';
 import path from 'node:path';
+import { readFileToJsonSync } from 'a-node-tools';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 const __dirname = import.meta.dirname;
+
 export const pathJoin = str => path.join(__dirname, str);
+
+/**  读取本地的数据配置  */
+const mode = readFileToJsonSync('./.env.config')?.env ?? 'production';
 
 /**
  *
@@ -40,6 +45,7 @@ export default function () {
       src: pathJoin('src/'), /// src  主要代码
       components: pathJoin('components/'), /// 公共组件
       customHooks: pathJoin('customHooks/'), // 公共自定义 hooks
+      dog: pathJoin('dog.ts'),
       page: pathJoin('src/page/'), /// 页面相关
       css: pathJoin('src/css/'), /// 公共 css 相关
       // 'a-react-ripples': path.join(__dirname, 'node_modules/a-react-ripples/'),
@@ -149,10 +155,6 @@ export default function () {
     port: 6674,
     open: true,
   };
-  /**
-   * 打包模式
-   */
-  const mode = 'development';
 
   /**
    *

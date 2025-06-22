@@ -35,7 +35,7 @@ export interface BackgroundRipplesProps {
   style?: CSSProperties;
 
   /**  子元素  */
-  children?: ReactDOM;
+  children?: ReactElement;
   /**
    * ## 可设定涟漪的参数
    *
@@ -65,6 +65,85 @@ export interface Program {
     [x: string]: WebGLUniformLocation;
   };
 }
+
+export type RipplesUseOptions = {
+  /**
+   * 分辨率
+   *
+   * 纹理的尺寸，该项目中该值为纹理的宽和高
+   *
+   * 缺省为 `256`
+   */
+  resolution: number;
+  /**
+   * 扩散半径
+   *
+   * 缺省为 `20`
+   */
+  dropRadius: number;
+  /**
+   * 扰动系数
+   *
+   * 缺省 `0.03`
+   *
+   * 取之范围 `0.01 - 1`
+   */
+  perturbance: number;
+  /**
+   * 是否开启光标滑动轨迹
+   *
+   * 缺省为  `true`
+   */
+  interactive: boolean;
+  /**
+   * 加速光标移动触发，缺省为 `3`
+   *
+   *
+   * 由于大佬原方法在光标触发 mousemove 时不怎么明显
+   *
+   * 所以以倍级触发会让波动更加明显
+   *
+   * 可设置区间为 `2 - 100`
+   */
+  accelerating: number;
+  /**
+   *  原设定的背景图片
+   *
+   * 缺省为 `''`
+   */
+  crossOrigin: string;
+  /**
+   * 设定的元素背景的 url 地址
+   *
+   * 缺省为 `''`
+   */
+  imageUrl: string;
+  /**
+   * 当前涟漪的状态
+   *
+   * 缺省为 `true` ， 即涟漪触发正在执行
+   */
+  playingState: boolean;
+  /**
+   * 雨滴滴落的时间间隔
+   *
+   * 单位为 ms
+   *
+   * 缺省值为 `3600`
+   *
+   * 可设置区间为 `10 ~ 12000`
+   */
+  raindropsTimeInterval: number;
+  /**
+   * 闲置波动
+   *
+   * 在光标交互不触发时，将触发模拟雨滴
+   *
+   * 缺省为 `true`
+   */
+  idleFluctuations: boolean;
+};
+
 /**
  *
  * 涟漪设定参数
@@ -80,89 +159,17 @@ export interface Program {
  * - raindropsTimeInterval 雨滴滴落的间隔，缺省为 `3600`，可设置区间为 `10 ~ 12000`
  * - idleFluctuations  闲置波动，在光标交互不触发时，将触发模拟雨滴，缺省为 `true`
  */
-export interface RipplesOptions {
-  /**
-   * 分辨率
-   *
-   * 纹理的尺寸，该项目中该值为纹理的宽和高
-   *
-   * 缺省为 `256`
-   */
-  resolution?: number;
-  /**
-   * 扩散半径
-   *
-   * 缺省为 `20`
-   */
-  dropRadius?: number;
-  /**
-   * 扰动系数
-   *
-   * 缺省 `0.03`
-   *
-   * 取之范围 `0.01 - 1`
-   */
-  perturbance?: number;
-  /**
-   * 是否开启光标滑动轨迹
-   *
-   * 缺省为  `true`
-   */
-  interactive?: boolean;
-  /**
-   * 加速光标移动触发，缺省为 `3`
-   *
-   *
-   * 由于大佬原方法在光标触发 mousemove 时不怎么明显
-   *
-   * 所以以倍级触发会让波动更加明显
-   *
-   * 可设置区间为 `2 - 100`
-   */
-  accelerating?: number;
-  /**
-   *  原设定的背景图片
-   *
-   * 缺省为 `''`
-   */
-  crossOrigin?: string;
-  /**
-   * 设定的元素背景的 url 地址
-   *
-   * 缺省为 `''`
-   */
-  imageUrl?: string;
-  /**
-   * 当前涟漪的状态
-   *
-   * 缺省为 `true` ， 即涟漪触发正在执行
-   */
-  playingState?: boolean;
-  /**
-   * 雨滴滴落的时间间隔
-   *
-   * 单位为 ms
-   *
-   * 缺省值为 `3600`
-   *
-   * 可设置区间为 `10 ~ 12000`
-   */
-  raindropsTimeInterval?: number;
-  /**
-   *  闲置波动
-   *
-   * 在光标交互不触发时，将触发模拟雨滴
-   *
-   * 缺省为 `true`
-   */
-  idleFluctuations?: boolean;
-}
+export type RipplesOptions = {
+  [x in keyof RipplesUseOptions]?: RipplesUseOptions[x];
+};
 
 /**
  * 初始默认值
  */
 export interface RipplesDefaultData {
+  /**  默认的图像地址  */
   imageUrl: '';
+  /**    */
   resolution: 256;
   dropRadius: 10;
   perturbance: 0.03;

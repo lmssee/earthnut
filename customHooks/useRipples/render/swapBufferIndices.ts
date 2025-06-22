@@ -1,11 +1,13 @@
 /**
  * swap 缓冲区索引
  */
-import { ripplesRenderDataWarehouse } from '../rippersData/renderData';
+import { isNull } from 'a-type-of-js';
 import { Ripples } from '../ripplesClass';
 
 export function swapBufferIndices(this: Ripples) {
-  const renderData = ripplesRenderDataWarehouse[this.sole];
+  const { renderData } = this;
+
+  if (isNull(renderData)) return;
 
   const { bufferWriteIndex, bufferReadIndex } = renderData;
   renderData.bufferWriteIndex = 1 - bufferWriteIndex;

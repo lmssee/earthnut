@@ -1,3 +1,11 @@
+/****************************************************************************
+ *  @Author earthnut
+ *  @Email earthnut.dev@outlook.com
+ *  @ProjectName earthnut
+ *  @FileName index.ts
+ *  @CreateDate  周五  06/20/2025
+ *  @Description 使用 ripple 的主要核心逻辑
+ ****************************************************************************/
 import { useEffect, useRef } from 'react';
 import { BackgroundRipplesProps, RipplesOptions } from './types';
 import { Ripples } from './ripplesClass';
@@ -30,16 +38,10 @@ import { isNull } from 'a-type-of-js';
  *  // 使用 ripples
  *  const ripplesRef = useRipples(canvas, props);
  *
- *  if (props.children) {
- *    return (
- *          <div style={props.style} className="earthnut-ripples">
- *          {props.children}
- *          <canvas ref={canvas}></canvas>
- *        </div>
- *      );
- *    } else {
- *      return <canvas ref={canvas}></canvas>;
- *    }
+ *  return (<>
+ *     <canvas ref={canvas}></canvas>
+ *     {props.children}
+ *  </>);
  *  }
  *
  * ```
@@ -54,12 +56,11 @@ export function useRipples(
 
   // 初始化数据
   useEffect(() => {
-    /**  非空检验  */
+    /**  非空检验（这里一般都是有值的，除非故障）  */
     if (isNull(canvas.current)) return;
 
     ripples.current = new Ripples(canvas.current, props && props.option);
-
-    return () => (ripples.current && ripples.current.destroy()) ?? undefined;
+    return () => ripples.current?.destroy() ?? undefined;
   }, []);
 
   return ripples;

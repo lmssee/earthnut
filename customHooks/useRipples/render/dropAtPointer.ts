@@ -1,4 +1,4 @@
-import { ripplesRenderDataWarehouse } from '../rippersData/renderData';
+import { isNull } from 'a-type-of-js';
 import { Ripples } from '../ripplesClass';
 
 /**
@@ -12,7 +12,10 @@ export function dropAtPointer(
   radius: number,
   strength: number,
 ) {
-  const { parentElement } = ripplesRenderDataWarehouse[this.sole];
+  const { renderData } = this;
+  if (isNull(renderData)) return;
+
+  const { parentElement } = renderData;
   const style = window.getComputedStyle(parentElement);
   const borderLeft = parseInt(style.borderLeftWidth) || 0,
     borderTop = parseInt(style.borderTopWidth) || 0;

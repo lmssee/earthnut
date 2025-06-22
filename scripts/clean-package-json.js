@@ -33,37 +33,37 @@ packageJson = {
   ],
   exports: {
     '.': {
-      types: './types/index.d.ts',
+      types: './index.d.ts',
       require: './index.cjs',
       import: './index.mjs',
     },
     './BackgroundRipple': {
-      types: './types/components/ripples/index.d.ts',
+      types: './components/ripples/index.d.ts',
       require: './BackgroundRipple/index.cjs',
       import: './BackgroundRipple/index.mjs',
     },
     './useTimeId': {
-      types: './types/customHooks/useTimeId.d.ts',
+      types: './customHooks/useTimeId.d.ts',
       require: './useTimeId/index.cjs',
       import: './useTimeId/index.mjs',
     },
     './useAnimationFrame': {
-      types: './types/customHooks/useAnimationFrame.d.ts',
+      types: './customHooks/useAnimationFrame.d.ts',
       require: './useAnimationFrame/index.cjs',
       import: './useAnimationFrame/index.mjs',
     },
     './useRipples': {
-      types: './types/customHooks/useRipples/index.d.ts',
+      types: './customHooks/useRipples/index.d.ts',
       require: './useRipples/index.cjs',
       import: './useRipples/index.mjs',
     },
     './useInputIsComposing': {
-      types: './types/customHooks/useInputIsComposing.d.ts',
+      types: './customHooks/useInputIsComposing.d.ts',
       require: './useInputIsComposing/index.cjs',
       import: './useInputIsComposing/index.mjs',
     },
     './layout': {
-      types: './types/components/layout/index.d.ts',
+      types: './components/layout/index.d.ts',
       require: './Layout/index.cjs',
       import: './Layout/index.mjs',
     },

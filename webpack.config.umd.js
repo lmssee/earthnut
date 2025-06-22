@@ -25,7 +25,7 @@ export default function () {
     optimization: {
       minimize: true, // 生产模式默认为 true
       usedExports: true, // 启用 tree shaking
-      sideEffects: false, /// 告诉 webpack 这个库没有副作用，以便有效的 tree shaking
+      sideEffects: true, /// 告诉 webpack 这个库没有副作用，以便有效的 tree shaking
     },
   };
 

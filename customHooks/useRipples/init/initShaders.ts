@@ -1,4 +1,4 @@
-import { ripplesRenderDataWarehouse } from '../rippersData/renderData';
+import { isNull } from 'a-type-of-js';
 import {
   dropProgramFragmentSource,
   renderProgramFragmentSource,
@@ -13,10 +13,11 @@ import { createProgram } from '../tools';
  * 初始化着色器
  *
  */
-
 export function initShaders(this: Ripples) {
   const gl = this.gl;
-  const renderData = ripplesRenderDataWarehouse[this.sole];
+  const { renderData } = this;
+  if (isNull(renderData)) return;
+
   const { textureDelta } = renderData;
   renderData.dropProgram = createProgram(vertexShader, dropProgramFragmentSource, gl);
   const updateProgram = (renderData.updateProgram = createProgram(
@@ -25,6 +26,6 @@ export function initShaders(this: Ripples) {
     this.gl!,
   ));
   gl.uniform2fv(updateProgram.locations!.delta, textureDelta);
-  this.renderProgram = createProgram(renderVertexSource, renderProgramFragmentSource, gl);
-  gl.uniform2fv(this.renderProgram.locations.delta, textureDelta);
+  renderData.renderProgram = createProgram(renderVertexSource, renderProgramFragmentSource, gl);
+  gl.uniform2fv(renderData.renderProgram.locations.delta, textureDelta);
 }

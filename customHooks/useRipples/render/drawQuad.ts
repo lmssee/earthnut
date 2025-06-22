@@ -1,4 +1,4 @@
-import { ripplesRenderDataWarehouse } from '../rippersData/renderData';
+import { isNull } from 'a-type-of-js';
 import { Ripples } from '../ripplesClass';
 
 /**
@@ -8,7 +8,9 @@ import { Ripples } from '../ripplesClass';
  */
 export function drawQuad(this: Ripples) {
   const gl = this.gl;
-  const renderData = ripplesRenderDataWarehouse[this.sole];
+  const { renderData } = this;
+  if (isNull(renderData)) return;
+
   gl.bindBuffer(gl.ARRAY_BUFFER, renderData.quad);
   gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
   gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);

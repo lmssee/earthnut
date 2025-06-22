@@ -161,7 +161,10 @@ const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
           <>
             {Header}
             {hasFooter ? (
-              <div className={xcn(styles['en-layout-content'])}>
+              <div
+                className={xcn(styles['en-layout-content'])}
+                data-earthnut-ui="layout-with-foot-content"
+              >
                 {SideBar}
                 {Content}
               </div>
@@ -185,6 +188,7 @@ const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
     );
   },
 );
+/**    */
 Layout.displayName = 'Layout';
 
 function getValue(value: number | string) {

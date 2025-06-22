@@ -1,4 +1,4 @@
-import { ripplesRenderDataWarehouse } from '../rippersData/renderData';
+import { isNull } from 'a-type-of-js';
 import { Ripples } from '../ripplesClass';
 /**
  *
@@ -7,7 +7,9 @@ import { Ripples } from '../ripplesClass';
  */
 
 export function computeTextureBoundaries(this: Ripples) {
-  const renderData = ripplesRenderDataWarehouse[this.sole];
+  const { renderData } = this;
+  if (isNull(renderData)) return;
+
   const { parentElement } = renderData;
   /** 父元素样式 background-size 的值 */
   const backgroundSize = window.getComputedStyle(parentElement).backgroundSize;
@@ -101,20 +103,20 @@ export function computeTextureBoundaries(this: Ripples) {
   }
 
   /**    */
-  this.renderProgram.uniforms.topLeft = new Float32Array([
+  renderData.renderProgram.uniforms.topLeft = new Float32Array([
     (parentElement.offsetLeft - Number(backgroundX)) / backgroundWidth,
     (parentElement.offsetTop - Number(backgroundY)) / backgroundHeight,
   ]);
   /**    */
-  this.renderProgram.uniforms.bottomRight = new Float32Array([
-    this.renderProgram.uniforms.topLeft[0] + parentElement.clientWidth / backgroundWidth,
-    this.renderProgram.uniforms.topLeft[1] + parentElement.clientHeight / backgroundHeight,
+  renderData.renderProgram.uniforms.bottomRight = new Float32Array([
+    renderData.renderProgram.uniforms.topLeft[0] + parentElement.clientWidth / backgroundWidth,
+    renderData.renderProgram.uniforms.topLeft[1] + parentElement.clientHeight / backgroundHeight,
   ]);
 
   /**  canvas 中较大的边  */
   const maxSide: number = Math.max(this.canvas.width, this.canvas.height);
 
-  this.renderProgram.uniforms.containerRatio = new Float32Array([
+  renderData.renderProgram.uniforms.containerRatio = new Float32Array([
     this.canvas.width / maxSide,
     this.canvas.height / maxSide,
   ]);

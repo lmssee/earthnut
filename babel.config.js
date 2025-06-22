@@ -12,6 +12,7 @@ export default function (api) {
     plugins: [
       '@babel/plugin-proposal-class-properties',
       isProduction && '@qqi/babel-plugin-remove-dog-calls',
+      isProduction && ['transform-remove-console', { exclude: ['error', 'warn'] }],
     ].filter(Boolean),
   };
 }

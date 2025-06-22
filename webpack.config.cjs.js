@@ -39,12 +39,14 @@ export default function () {
     // 打包模式
     mode: 'production',
     // 配置 source-map 可用
-    devtool: 'source-map',
+    devtool: false,
     // 打包配置
     optimization: {
-      minimize: false, // 生产模式默认为 true
-      usedExports: false, // 启用 tree shaking
-      sideEffects: false, /// 告诉 webpack 这个库没有副作用，以便有效的 tree shaking
+      // 代码压缩
+      // 生产模式默认为 true
+      minimize: true,
+      usedExports: true, // 启用 tree shaking
+      sideEffects: true, /// 告诉 webpack 这个库没有副作用，以便有效的 tree shaking
     },
   };
 
@@ -66,12 +68,10 @@ export default function () {
         },
         {
           from: 'LICENSE',
-          to: 'LICENSE',
+          to: '',
         },
       ],
     }),
-    // 正式环境移除 console
-    ['transform-remove-console', { exclude: ['error', 'warn'] }],
   );
 
   /**  在正式环境添加自定义的 dog 进行不执行打印  */

@@ -11,3 +11,5 @@ node_modules
 **.tgz
 
 **/.DS_Store
+
+.env.config

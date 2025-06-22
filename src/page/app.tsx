@@ -4,7 +4,6 @@ import MainTab from 'page/tab';
 import 'css/common.scss';
 import 'css/product.scss';
 import styles from 'page/index.module.scss';
-import { BackgroundRipple } from 'components';
 import {
   Layout,
   LayoutContent,
@@ -17,11 +16,8 @@ import { xcn } from 'xcn';
 export function App() {
   return (
     <Layout classes={xcn(styles.page)}>
-      <LayoutHeader className={xcn('dark')}>
-        头部区域
-        <BackgroundRipple />
-      </LayoutHeader>
-      <LayoutSideBar className={xcn(styles.tab)}>
+      <LayoutHeader className={xcn('dark')}>头部区域</LayoutHeader>
+      <LayoutSideBar className={xcn(styles.tab)} width={'150px'}>
         <MainTab />
       </LayoutSideBar>
       <LayoutContent className={xcn(styles.main)}>

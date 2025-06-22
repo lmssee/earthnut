@@ -69,9 +69,9 @@ export default function () {
     // 打包配自
     optimization: {
       ...defaultConfig.optimization,
-      minimize: false, // 生产模式默认为 true
-      usedExports: false, // 启用 tree shaking
-      sideEffects: false, /// 告诉 webpack 这个库没有副作用，以便有效的 tree shaking
+      minimize: true, // 生产模式默认为 true
+      usedExports: true, // 启用 tree shaking
+      sideEffects: true, /// 告诉 webpack 这个库没有副作用，以便有效的 tree shaking
     },
     //
     // externalsType: 'module',

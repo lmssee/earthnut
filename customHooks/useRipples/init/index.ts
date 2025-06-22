@@ -1,5 +1,5 @@
-import { step } from '../render/step';
-import { ripplesRenderDataWarehouse } from '../rippersData/renderData';
+import { isNull } from 'a-type-of-js';
+import { render } from '../render';
 import { Ripples } from '../ripplesClass';
 import { setupPointerEvents } from './initEvent';
 import { initShaders } from './initShaders';
@@ -10,15 +10,17 @@ import { loadImage, setTransparentTexture } from './loadImage';
  * 初始化 webGL
  */
 export function initGL(this: Ripples) {
-  if (!this.config) return;
-  const renderData = ripplesRenderDataWarehouse[this.sole];
+  const { renderData } = this;
+
+  if (isNull(renderData) || !this.config) return;
+
   const { resolution, textures, framebuffers } = renderData;
   const gl = this.gl;
   const _resolution = 1 / resolution;
   renderData.textureDelta = new Float32Array([_resolution, _resolution]); // 纹理增量
   /// 加载扩展
   this.config.extensions.forEach(currentName => gl.getExtension(currentName));
-  this.updateSize = this.updateSize.bind(this); /// 大哥说这样可以让他变成新的
+  this.updateSize = this.updateSize.bind(this); /// 大哥说这样可以让绘制框变成新的
   window.addEventListener('resize', this.updateSize);
 
   const arrayType = this.config.arrayType;
@@ -93,5 +95,5 @@ export function initGL(this: Ripples) {
 
   // this.#initialized = true;
   Reflect.apply(setupPointerEvents, this, []); /// 初始化监听事件
-  renderData.animationFrameId = requestAnimationFrame(() => Reflect.apply(step, this, []));
+  renderData.animationFrameId = requestAnimationFrame(() => Reflect.apply(render, this, []));
 }

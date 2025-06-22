@@ -1,9 +1,9 @@
-import { RipplesDefaultData } from './types';
+import { RipplesUseOptions } from './types';
 
 /**
  * 默认值
  */
-export const defaultData: RipplesDefaultData = {
+export const defaultData: RipplesUseOptions = {
   imageUrl: '',
   resolution: 256,
   dropRadius: 10,
