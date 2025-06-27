@@ -1,5 +1,5 @@
 import { BackgroundRipple } from 'components';
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import styles from './index.module.scss';
 import { xcn } from 'xcn';
 import { RippleEle } from 'components/ripples/types';
@@ -22,13 +22,19 @@ export default function RipplesPage() {
     >
       <BackgroundRipple
         ref={rippleRef}
-        option={{
-          accelerating: 1,
-          dropRadius: 10,
-          // resolution: 366,
-          perturbance: 0.01,
-          raindropsTimeInterval: 4800,
+        style={{
+          position: 'static',
         }}
+        option={
+          {
+            // imageUrl: '/image/defaultBackground.png',
+            // accelerating: 1,
+            // dropRadius: 10,
+            // // resolution: 366,
+            // perturbance: 0.01,
+            // raindropsTimeInterval: 4800,
+          }
+        }
       >
         <div className={xcn('en-center')}>
           <h1>侠客行</h1>
@@ -47,7 +53,7 @@ export default function RipplesPage() {
             '纵死侠骨香，不惭世上英。',
             '谁能书阁下，白首太玄经。',
           ].map(e => (
-            <div key={e} className={xcn(styles.p, 'en-color-text')}>
+            <div key={e} className={xcn(styles.p)}>
               {e}
             </div>
           ))}

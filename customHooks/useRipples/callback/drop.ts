@@ -6,18 +6,14 @@ import { swapBufferIndices } from '../render/swapBufferIndices';
 
 /**  触发滴落效果  */
 export function drop(this: Ripples, x: number, y: number, radius: number, strength: number) {
+  const { renderData, options } = this;
   const gl = this.gl;
-  if (isNull(this.renderData)) return;
 
-  const {
-    resolution,
-    parentElement,
-    dropProgram,
-    textures,
-    framebuffers,
-    bufferWriteIndex,
-    bufferReadIndex,
-  } = this.renderData;
+  if (isNull(renderData)) return;
+
+  const { parentElement, dropProgram, textures, framebuffers, bufferWriteIndex, bufferReadIndex } =
+    renderData;
+  const { resolution } = options;
   /**  元素的宽  */
   const parentWidth = parentElement.offsetWidth;
   /**  元素的高  */

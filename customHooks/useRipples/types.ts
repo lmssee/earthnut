@@ -39,15 +39,15 @@ export interface BackgroundRipplesProps {
   /**
    * ## 可设定涟漪的参数
    *
-   * - resolution 分辨率,纹理的尺寸，该项目中该值为纹理的宽和高，缺省为 `256`
-   * - dropRadius 扩撒半径，缺省值为 `20`
-   * - perturbance 扰动系数，缺省为   `0.03`
+   * - resolution  波速，值越小，波动越快。缺省为 `360`
+   * - dropRadius  波动强度，值越小，波动效果越大，缺省值为 `12`
+   * - perturbance 扰动系数，值越大，对原背景造成干涉越强，缺省为   `0.01`
    * - interactive 光标交互，缺省为 `true` ，关闭须显示传入 `false` 值
-   * - accelerating  加速光标移动触发，缺省为 `1`
+   * - accelerating  加速光标移动触发，类似于扰动系数，及作用与鼠标或手指触发，缺省为 `1`
    * - crossOrigin 原始样式
    * - imageUrl    原始背景图片地址
    * - playingState 当前的播放状态，缺省为 `true` ，设定为 `false` 时并不关闭，而是暂停
-   * - raindropsTimeInterval 雨滴滴落的间隔，缺省为 `3600`，可设置区间为 `10 ~ 12000`
+   * - raindropsTimeInterval 雨滴滴落的间隔，缺省为 `3650`，可设置区间为 `10 ~ 12000`，值越小，雨越大
    * - idleFluctuations  闲置波动，在光标交互不触发时，将触发模拟雨滴，缺省为 `true`
    */
   option?: RipplesOptions;
@@ -68,25 +68,29 @@ export interface Program {
 
 export type RipplesUseOptions = {
   /**
-   * 分辨率
+   * 波速
    *
-   * 纹理的尺寸，该项目中该值为纹理的宽和高
+   * 作用为波传播的速度，值越大，波传播的越慢
    *
-   * 缺省为 `256`
+   * 缺省为 `360`
    */
   resolution: number;
   /**
-   * 扩散半径
+   * 波动强度
    *
-   * 缺省为 `20`
+   * 值越小，波动越明显
+   *
+   * 缺省为 `12`
    */
   dropRadius: number;
   /**
    * 扰动系数
    *
-   * 缺省 `0.03`
+   * 缺省 `0.01`
    *
    * 取之范围 `0.01 - 1`
+   *
+   * 值越大，扰动效果越明显
    */
   perturbance: number;
   /**
@@ -96,7 +100,7 @@ export type RipplesUseOptions = {
    */
   interactive: boolean;
   /**
-   * 加速光标移动触发，缺省为 `3`
+   * 加速光标移动触发，缺省为 `1`
    *
    *
    * 由于大佬原方法在光标触发 mousemove 时不怎么明显
@@ -148,15 +152,15 @@ export type RipplesUseOptions = {
  *
  * 涟漪设定参数
  *
- * - accelerating  加速光标移动触发，缺省为 `1`
- * - resolution 分辨率,纹理的尺寸，该项目中该值为纹理的宽和高，缺省为 `256`
- * - dropRadius 扩撒半径，缺省值为 `20`
- * - perturbance 扰动系数，缺省为   `0.03`
+ * - resolution 分波速，值越小，波动越快。缺省为 `360`
+ * - dropRadius 波动强度，值越小，波动效果越大，缺省值为 `12`
+ * - perturbance 扰动系数，值越大，对原背景造成干涉越强，缺省为   `0.01`
  * - interactive 光标交互，缺省为 `true` ，关闭须显示传入 `false` 值
+ * - accelerating  加速光标移动触发，类似于扰动系数，及作用与鼠标或手指触发，缺省为 `1`
  * - crossOrigin 原始样式
  * - imageUrl    原始背景图片地址
  * - playingState 当前的播放状态，缺省为 `true` ，设定为 `false` 时并不关闭，而是暂停
- * - raindropsTimeInterval 雨滴滴落的间隔，缺省为 `3600`，可设置区间为 `10 ~ 12000`
+ * - raindropsTimeInterval 雨滴滴落的间隔，缺省为 `3650`，可设置区间为 `10 ~ 12000`，值越小，雨越大
  * - idleFluctuations  闲置波动，在光标交互不触发时，将触发模拟雨滴，缺省为 `true`
  */
 export type RipplesOptions = {

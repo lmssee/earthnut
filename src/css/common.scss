@@ -156,7 +156,8 @@
   width: 100%;
   height: 100%;
   background-color: transparent;
-  background-image: radial-gradient(#f00, #f00 50%, transparent 50%, transparent),
+  background-image:
+    radial-gradient(#f00, #f00 50%, transparent 50%, transparent),
     radial-gradient(#af1, #af1 50%, transparent 50%, transparent),
     radial-gradient(#0ff, #0ff 50%, transparent 50%, transparent),
     radial-gradient(#f0f, #f0f 50%, transparent 50%, transparent);
@@ -311,10 +312,22 @@
   @for $i from 18 through 33 {
     #{calc($i / 50 * 100%)} {
       background-position:
-        #{(50 - (25 * cos(($Pi * ($i - 10)) / 12))) * 1%} #{(45 - 25 * sin(($Pi * ($i - 10)) / 12)) * 1%},
-        #{(50 - (25 * cos(($Pi * ($i - 13)) / 12))) * 1%} #{(45 - 25 * sin(($Pi * ($i - 13)) / 12)) * 1%},
-        #{(50 - (25 * cos(($Pi * ($i - 15)) / 12))) * 1%} #{(45 - 25 * sin(($Pi * ($i - 15)) / 12)) * 1%},
-        #{(50 - (25 * cos(($Pi * ($i - 17)) / 12))) * 1%} #{(45 - 25 * sin(($Pi * ($i - 17)) / 12)) * 1%};
+        #{(50 - (25 * cos(($Pi * ($i - 10)) / 12))) *
+          1%}
+          #{(45 - 25 * sin(($Pi * ($i - 10)) / 12)) *
+          1%},
+        #{(50 - (25 * cos(($Pi * ($i - 13)) / 12))) *
+          1%}
+          #{(45 - 25 * sin(($Pi * ($i - 13)) / 12)) *
+          1%},
+        #{(50 - (25 * cos(($Pi * ($i - 15)) / 12))) *
+          1%}
+          #{(45 - 25 * sin(($Pi * ($i - 15)) / 12)) *
+          1%},
+        #{(50 - (25 * cos(($Pi * ($i - 17)) / 12))) *
+          1%}
+          #{(45 - 25 * sin(($Pi * ($i - 17)) / 12)) *
+          1%};
     }
   }
 

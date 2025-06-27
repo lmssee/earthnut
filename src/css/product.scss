@@ -46,7 +46,7 @@ blockquote::before,
 blockquote::after,
 q::before,
 q::after {
-  content: "";
+  content: '';
   content: none;
 }
 
@@ -59,13 +59,13 @@ input:focus-visible {
   outline: none;
 }
 
-input[type="button"],
+input[type='button'],
 .cursor-pointer {
   cursor: pointer;
 }
 
 /** 输入框 */
-input[type="text"] {
+input[type='text'] {
   width: 200px;
   border-radius: 10px;
   background-color: #000;
@@ -80,7 +80,7 @@ input[type="text"] {
   }
 }
 
-input[type="radio"] {
+input[type='radio'] {
   width: 0;
   height: 0;
   overflow: hidden;
@@ -90,7 +90,7 @@ input[type="radio"] {
 
     &::before,
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       border-radius: 50%;
       top: 50%;
@@ -142,7 +142,7 @@ input[type="radio"] {
   }
 }
 
-input[type="image"] {
+input[type='image'] {
   -webkit-user-select: none;
   user-select: none;
 }

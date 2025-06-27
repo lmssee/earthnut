@@ -1,13 +1,13 @@
-import { RipplesUseOptions } from './types';
+import { RipplesUseOptions } from '../types';
 
 /**
  * 默认值
  */
 export const defaultData: RipplesUseOptions = {
   imageUrl: '',
-  resolution: 256,
-  dropRadius: 10,
-  perturbance: 0.03,
+  resolution: 360,
+  dropRadius: 12,
+  perturbance: 0.01,
   interactive: true,
   crossOrigin: '',
   playingState: true,

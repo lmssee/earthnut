@@ -8,16 +8,11 @@
  ****************************************************************************/
 
 import { isNull } from 'a-type-of-js';
-import { createImageData } from './createImageData';
 import { loadConfig } from './loadConfig';
 
-const id = 'earthnut_ripper_element_style';
+// const id = 'earthnut_ripper_element_style';
 
 export class RipplesData {
-  /**
-   * style 元素的 id
-   */
-  styleElement = document.createElement('style');
   /**
    * canvas 元素
    */
@@ -37,11 +32,6 @@ export class RipplesData {
   } | null;
 
   /**
-   * 像素
-   */
-  transparentPixels = createImageData(32, 32);
-
-  /**
    * 初始化情况
    */
   initState = true;
@@ -56,24 +46,25 @@ export class RipplesData {
       return;
     }
     this.gl = gl;
-    if (isNull(document.querySelector(`style#${id}`))) {
-      const style = this.styleElement;
-      style.id = id;
-      style.innerHTML = `
-      .earthnut-ripples { 
-        position: relative; 
-        z-index: 0; 
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        transform: translate(0,0);
-      }
-      `;
-      const head = document.head;
-      if (head.prepend) head.prepend(style);
-      else head.insertBefore(style, head.firstChild);
-    }
     this.config = Reflect.apply(loadConfig, this, []);
   }
 }
+
+// if (isNull(document.querySelector(`style#${id}`))) {
+//   const style = this.styleElement;
+//   style.id = id;
+//   style.innerHTML = `
+//   .earthnut-ripples {
+//     position: relative;
+//     z-index: 0;
+//     top: 0;
+//     left: 0;
+//     width: 100%;
+//     height: 100%;
+//     transform: translate(0,0);
+//   }
+//   `;
+//   const head = document.head;
+//   if (head.prepend) head.prepend(style);
+//   else head.insertBefore(style, head.firstChild);
+// }

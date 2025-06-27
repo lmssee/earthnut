@@ -1,6 +1,5 @@
 import { isNull } from 'a-type-of-js';
 import { Ripples } from '../ripplesClass';
-import { dog } from 'dog';
 import { restoreCssBackground } from './restoreCssBackground';
 
 /**  注销  */
@@ -10,19 +9,29 @@ export function destroy(this: Ripples) {
   if (isNull(renderData)) return;
 
   /// 如果 animationFrameId 存在则清理该渲染
-  if (renderData?.animationFrameId) window.cancelAnimationFrame(renderData.animationFrameId);
+  if (renderData.animationFrameId) window.cancelAnimationFrame(renderData.animationFrameId);
+  if (renderData.transparentId) clearTimeout(renderData.transparentId);
   if (renderData?.parentElement && renderData?.events) {
     const { parentElement, events } = renderData;
-    dog('parentElement', parentElement);
     /// 移除监听的事件
     (Object.keys(events) as []).forEach(
       e => parentElement.removeEventListener && parentElement.removeEventListener(e, events[e]),
     );
     /// 移除属性
     if (parentElement.removeAttribute) parentElement.removeAttribute('data-ripples');
+    {
+      // 移除父级元素的监听，防止内存泄露
+      renderData.mutationObserver?.takeRecords();
+      renderData.mutationObserver?.disconnect();
+      renderData.mutationObserver = null;
+      // renderData.resizeObserver?.unobserve(renderData.parentElement);
+      renderData.resizeObserver?.disconnect();
+      renderData.resizeObserver = null;
+    }
   }
+  /// 该 style 元素已移除
   /// 移除 style 元素
-  if (this.styleElement) this.styleElement.remove();
+  // if (this.styleElement) this.styleElement.remove();
   /// 销毁当前对  WebGLRenderingContext 的引用
   this.gl = null as never;
   /// 恢复父级节点的背景样式

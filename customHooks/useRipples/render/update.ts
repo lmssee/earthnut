@@ -1,4 +1,4 @@
-import { isNull, isNumber } from 'a-type-of-js';
+import { isNull } from 'a-type-of-js';
 import { Ripples } from '../ripplesClass';
 import { bindTexture } from '../tools';
 import { drawQuad } from './drawQuad';
@@ -6,14 +6,14 @@ import { swapBufferIndices } from './swapBufferIndices';
 
 export function update(this: Ripples) {
   const { gl } = this;
-  const { renderData } = this;
+  const { renderData, options } = this;
 
   if (isNull(renderData)) {
     return;
   }
 
-  const { resolution, updateProgram, textures, framebuffers, bufferWriteIndex, bufferReadIndex } =
-    renderData;
+  const { updateProgram, textures, framebuffers, bufferWriteIndex, bufferReadIndex } = renderData;
+  const { resolution } = options;
   /** 视口设定。官网指出在 canvas 的尺寸变化时需要告知视口  */
   gl.viewport(0, 0, resolution, resolution);
   /**  将给定的 WebGLFramebuffer 绑定到目标

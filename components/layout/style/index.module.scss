@@ -55,7 +55,9 @@
     // 头部不粘连样式，内容区设置
     & > .en-layout-content > .en-layout-side {
       top: 0;
-      min-height: calc(var(--layout-height) - var(--layout-footer-height) - var(--layout-header-height));
+      min-height: calc(
+        var(--layout-height) - var(--layout-footer-height) - var(--layout-header-height)
+      );
       max-height: var(--layout-height);
     }
   }
@@ -85,13 +87,17 @@
   // 子元素
   & > .en-layout-content {
     display: grid;
-    grid-template-rows: calc(var(--layout-height) - var(--layout-header-height) - var(--layout-footer-height)) auto;
+    grid-template-rows: calc(
+        var(--layout-height) - var(--layout-header-height) - var(--layout-footer-height)
+      ) auto;
     min-height: calc(100% - var(--layout-header-height) - var(--layout-footer-height));
 
     // side bar 块保持粘连，且在 content height 不足时支撑页面
     & > .en-layout-side {
       top: var(--layout-header-height);
-      min-height: calc(var(--layout-height) - var(--layout-header-height) - var(--layout-footer-height));
+      min-height: calc(
+        var(--layout-height) - var(--layout-header-height) - var(--layout-footer-height)
+      );
       max-height: calc(var(--layout-height) - var(--layout-header-height));
     }
   }
@@ -104,8 +110,8 @@
   & > .en-layout-content {
     grid-template-columns: var(--layout-side-bar-width) auto;
     grid-template-areas:
-      "side content"
-      ". content";
+      'side content'
+      '. content';
   }
 }
 // 侧边栏（全） 侧边栏与内容区设置
@@ -115,8 +121,8 @@
   & > .en-layout-content {
     grid-template-columns: auto var(--layout-side-bar-width);
     grid-template-areas:
-      "content side"
-      "content .";
+      'content side'
+      'content .';
   }
 }
 
@@ -134,18 +140,18 @@
 .en-layout-side-full-all {
   grid-template-columns: var(--layout-side-bar-width) auto;
   grid-template-areas:
-    "side header"
-    "side content"
-    "side footer";
+    'side header'
+    'side content'
+    'side footer';
 }
 
 // side bar 居右全尺寸
 .en-layout-side-right-full-all {
   grid-template-columns: auto var(--layout-side-bar-width);
   grid-template-areas:
-    "header side"
-    "content side"
-    "footer side";
+    'header side'
+    'content side'
+    'footer side';
 }
 
 // ------------------------------
@@ -179,16 +185,16 @@
 .en-layout-side-full-no-header {
   grid-template-columns: var(--layout-side-bar-width) auto;
   grid-template-areas:
-    "side content"
-    "side footer";
+    'side content'
+    'side footer';
 }
 
 // side bar 居右全尺寸
 .en-layout-side-right-full-no-header {
   grid-template-columns: auto var(--layout-side-bar-width);
   grid-template-areas:
-    "content side"
-    "footer side";
+    'content side'
+    'footer side';
 }
 
 // ------------------------------
@@ -211,18 +217,18 @@
 .en-layout-simple-no-footer {
   grid-template-columns: var(--layout-side-bar-width) auto;
   grid-template-areas:
-    "header header"
-    "side content"
-    ". content";
+    'header header'
+    'side content'
+    '. content';
 }
 
 // 侧边栏在右侧的无 footer 模式样式
 .en-layout-side-right-no-footer {
   grid-template-columns: auto var(--layout-side-bar-width);
   grid-template-areas:
-    "header header"
-    "content side"
-    "content .";
+    'header header'
+    'content side'
+    'content .';
 }
 
 // 侧边栏 (全) 左侧全屏
@@ -244,16 +250,16 @@
 .en-layout-side-full-no-footer {
   grid-template-columns: var(--layout-side-bar-width) auto;
   grid-template-areas:
-    "side header"
-    "side content";
+    'side header'
+    'side content';
 }
 
 // side bar 居右全尺寸
 .en-layout-side-right-full-no-footer {
   grid-template-columns: auto var(--layout-side-bar-width);
   grid-template-areas:
-    "header side"
-    "content side";
+    'header side'
+    'content side';
 }
 
 // ------------------------------
@@ -265,7 +271,7 @@
   grid-template-rows: auto var(--layout-footer-height);
   grid-template-columns: 1fr;
   gap: 0px;
-  grid-template-areas: "content" "footer";
+  grid-template-areas: 'content' 'footer';
 }
 
 // 仅头部布局
@@ -274,7 +280,7 @@
   grid-template-rows: var(--layout-header-height) auto;
   grid-template-columns: 1fr;
   gap: 0px;
-  grid-template-areas: "header" "content";
+  grid-template-areas: 'header' 'content';
 }
 
 // 仅侧边布局
@@ -291,15 +297,15 @@
   grid-template-columns: var(--layout-side-bar-width) auto;
   gap: 0px;
   grid-template-areas:
-    "side content"
-    ". content";
+    'side content'
+    '. content';
 }
 
 // 右侧侧边布局
 .en-layout-side-right-full-only-side,
 .en-layout-side-right-only-side {
   grid-template-areas:
-    "content side"
-    "content .";
+    'content side'
+    'content .';
   grid-template-columns: auto var(--layout-side-bar-width);
 }

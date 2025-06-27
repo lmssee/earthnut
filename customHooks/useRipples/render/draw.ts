@@ -11,11 +11,12 @@ import { drawQuad } from './drawQuad';
 export function draw(this: Ripples) {
   const gl = this.gl;
   /**  渲染数据  */
-  const { renderData } = this;
+  const { renderData, options } = this;
   if (isNull(renderData)) return;
 
   /** 扰动系数 */
-  const { perturbance, textures, backgroundTexture } = renderData;
+  const { textures, backgroundTexture } = renderData;
+  const { perturbance } = options;
   gl.bindFramebuffer(gl.FRAMEBUFFER, null);
   gl.viewport(0, 0, this.canvas.width, this.canvas.height);
   gl.enable(gl.BLEND);

@@ -9,8 +9,8 @@
 import { setCanvasStyle } from './tools';
 import { RipplesData } from './rippersData';
 import { RipplesOptions } from './types';
-import { getRandomInt } from 'a-js-tools';
-import { defaultData } from './defaultData';
+import { debounce, getRandomInt } from 'a-js-tools';
+import { defaultData } from './rippersData/defaultData';
 import { loadImage } from './init/loadImage';
 import { hideCssBackground } from './init/hideCssBackground';
 import { RipplesRenderData } from './rippersData/renderData';
@@ -21,6 +21,8 @@ import { updateSize } from './callback/update-size';
 import { destroy } from './callback/destroy';
 import { restoreCssBackground } from './callback/restoreCssBackground';
 import { drop } from './callback/drop';
+import { UseOptions } from './rippersData/useOptions';
+import { fade } from './callback/fade';
 
 /**
  *
@@ -31,9 +33,9 @@ import { drop } from './callback/drop';
 export class Ripples extends RipplesData {
   /**  渲染数据  */
   renderData: RipplesRenderData | null = null;
-
+  /**  使用参数  */
+  options: UseOptions;
   defaults = defaultData;
-
   /**  初始化状态  */
   initialized: boolean = false;
 
@@ -53,11 +55,12 @@ export class Ripples extends RipplesData {
       },
     });
 
-    // 数据初始化
-    this.renderData = new RipplesRenderData({
+    this.options = new UseOptions({
       ...this.defaults,
       ...options,
     });
+    // 数据初始化
+    this.renderData = new RipplesRenderData(canvas, this.updateSize, this);
 
     if (
       isFalse(this.initState) ||
@@ -67,7 +70,6 @@ export class Ripples extends RipplesData {
     )
       this.initState = false;
     else {
-      this.renderData.parentElement = canvas.parentElement;
       setCanvasStyle(canvas); /// 设置 canvas 的样式
       /// 初始化 gl 及渲染粒子（动画）
       Reflect.apply(initGL, this, []);
@@ -76,24 +78,32 @@ export class Ripples extends RipplesData {
 
   /** 模拟雨滴下落  */
   raindropsFall() {
-    const { renderData } = this;
+    const { renderData, options } = this;
     if (isNull(renderData)) return;
-    const parent = renderData.parentElement;
-    const style = window.getComputedStyle(parent);
-    const getValue = (str: string) => getRandomInt(parseInt(str));
-    const left = style.width,
-      top = style.height;
-    this.drop(getValue(left), getValue(top), renderData.dropRadius, 0.03);
+    const { lastRaindropsFallTime, backgroundInfo } = renderData;
+    const { raindropsTimeInterval, dropRadius } = options;
+    const now = Date.now();
+    /**  模拟雨滴坠落  */
+    if (now - lastRaindropsFallTime < raindropsTimeInterval) return;
+    renderData.lastRaindropsFallTime = now; // 设置新的时间
+
+    const getValue = (str: number) => getRandomInt(str);
+    const { width, height } = backgroundInfo;
+    this.drop(getValue(width), getValue(height), dropRadius, 0.03);
   }
 
   /** 公共方法，触发 */
   drop(x: number, y: number, radius: number, strength: number) {
     Reflect.apply(drop, this, [x, y, radius, strength]);
   }
+  fade() {
+    Reflect.apply(fade, this, []);
+  }
+  #updateSize = debounce(updateSize, { this: this });
 
   /** 元素的尺寸发生变化  */
   updateSize() {
-    Reflect.apply(updateSize, this, []);
+    this.#updateSize();
   }
 
   /**  销毁  */
@@ -103,47 +113,39 @@ export class Ripples extends RipplesData {
 
   /**  展示元素 */
   show() {
-    if (isNull(this.renderData)) return;
-    this.renderData.visible = true;
+    this.options.visible = true;
     this.canvas.style.visibility = 'visible';
     Reflect.apply(hideCssBackground, this, []);
   }
 
   /** 隐藏元素 */
   hide() {
-    if (isNull(this.renderData)) return;
-    this.renderData.visible = false;
+    this.options.visible = false;
     this.canvas.style.visibility = 'hidden';
     Reflect.apply(restoreCssBackground, this, []); /// 恢复父级节点的背景样式
   }
 
   /** 暂停动画涟漪状态   */
   pause() {
-    if (isNull(this.renderData)) return;
-    this.renderData.running = false;
+    this.options.running = false;
   }
 
   /**  播放动画涟漪状态  */
   play() {
-    if (isNull(this.renderData)) return;
-    this.renderData.running = true;
+    this.options.running = true;
   }
   /** 切换当前状态   */
   changePlayingState() {
-    const { renderData } = this;
-    if (isNull(renderData)) return;
+    const { options } = this;
     dog('当前执行切换状态');
-    renderData.running = !renderData.running;
-    dog('更新后的状态', renderData.running);
+    options.running = !options.running;
+    dog('更新后的状态', options.running);
   }
   /**  给初始化变量赋值  */
   set(property: keyof RipplesOptions, value: unknown) {
-    if (isNull(this.renderData)) return;
     if (property === 'imageUrl') {
-      this.renderData.imageUrl = value as string;
+      this.options.imageUrl = value as string;
       Reflect.apply(loadImage, this, []);
-    } else
-      /**  @ts-ignore: 忽略这个错误  */
-      this.renderData[property] = value;
+    } else this.options[property] = value as never;
   }
 }

@@ -13,6 +13,8 @@ import { useRipples } from 'customHooks/useRipples';
 import { useOptionUpdate } from './useOptionUpdate';
 import { RippleEle } from './types';
 import { isUndefined } from 'a-type-of-js';
+import { xcn } from 'xcn';
+import './style/index.scss';
 
 /**
  *
@@ -45,8 +47,8 @@ import { isUndefined } from 'a-type-of-js';
  *
  */
 
-export const BackgroundRipple = forwardRef<RippleEle, BackgroundRipplesProps>(
-  ({ children, ...props }, ref) => {
+const BackgroundRipple = forwardRef<RippleEle, BackgroundRipplesProps>(
+  ({ children, style, ...props }, ref) => {
     /**  canvas 元素  */
     const canvas = useRef<HTMLCanvasElement>(null);
     /**  使用 ripples  */
@@ -61,7 +63,7 @@ export const BackgroundRipple = forwardRef<RippleEle, BackgroundRipplesProps>(
         ripplesRef.current?.changePlayingState();
       },
       get state() {
-        return ripplesRef.current?.renderData?.running ?? false;
+        return ripplesRef.current?.options.playingState ?? false;
       },
       pause() {
         ripplesRef.current?.pause();
@@ -77,10 +79,14 @@ export const BackgroundRipple = forwardRef<RippleEle, BackgroundRipplesProps>(
     }));
 
     return (
-      <>
+      <div className={xcn('en-ripple-container')} style={style}>
         <canvas ref={canvas} data-earthnut-ui="canvas" />
         {children}
-      </>
+      </div>
     );
   },
 );
+
+BackgroundRipple.displayName = 'en-background-ripple';
+
+export { BackgroundRipple };

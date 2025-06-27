@@ -1,9 +1,9 @@
-/**
- * swap 缓冲区索引
- */
 import { isNull } from 'a-type-of-js';
 import { Ripples } from '../ripplesClass';
 
+/**
+ * swap 缓冲区索引
+ */
 export function swapBufferIndices(this: Ripples) {
   const { renderData } = this;
 

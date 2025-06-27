@@ -9,39 +9,41 @@ import { update } from './update';
  *
  */
 export function render(this: Ripples) {
-  const { renderData } = this;
-
+  const { renderData, options } = this;
   if (isNull(renderData)) return;
-  const { raindropsTimeInterval, running, lastRaindropsFallTime } = renderData;
-  // if (!visible)
-  //   return (renderData.animationFrameId = requestAnimationFrame(() =>
-  //     Reflect.apply(render, this, []),
-  //   ));
-  // dog('当前的执行状态', running);
-  /**  计算  */
+  const { isTransitioning, parentElement } = renderData;
+  const { running, idleFluctuations, lastRunningState } = options;
+  {
+    // 获取边界尺寸
+    const styles = getComputedStyle(parentElement);
+    renderData.backgroundInfo = {
+      width: parseInt(styles.width),
+      height: parseInt(styles.height),
+    };
+  }
+  ///  计算当前的纹理边界及背景图
   Reflect.apply(computeTextureBoundaries, this, []);
+  // 当前状态为执行
   if (running) {
-    if (!renderData.lastRunningState) {
-      renderData.lastRunningState = true;
-      this.show();
+    // 上一次状态为不执行
+    if (!lastRunningState) {
+      options.lastRunningState = true; // 设置下次执行状态
+      this.show(); // 展示背景
     }
-    if (renderData.idleFluctuations) {
-      const now = Date.now();
-      /**  模拟雨滴坠落  */
-      if (now - lastRaindropsFallTime > raindropsTimeInterval) {
-        renderData.lastRaindropsFallTime = now;
-        this.raindropsFall();
-      }
-    }
+    // 是否设置了闲时动画
+    if (idleFluctuations) this.raindropsFall();
+    // 当前绘制图像间转换
+    if (isTransitioning) this.fade();
     /**  数据更新  */
     Reflect.apply(update, this, []);
     /**  渲染  */
     Reflect.apply(draw, this, []);
-  } else if (renderData.lastRunningState) {
-    renderData.lastRunningState = false;
+  }
+  // 当前状态为未执行但是上一次是在执行（清理状态）
+  else if (lastRunningState) {
+    options.lastRunningState = false;
     this.hide();
   }
-
   // 渲染
   renderData.animationFrameId = requestAnimationFrame(() => Reflect.apply(render, this, []));
 }

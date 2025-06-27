@@ -1,36 +1,35 @@
 import { isNull } from 'a-type-of-js';
 import { Ripples } from '../ripplesClass';
-/**
- *
- * 计算纹理边界
- *
- */
 
+/**  计算纹理边界及背景图  */
 export function computeTextureBoundaries(this: Ripples) {
   const { renderData } = this;
   if (isNull(renderData)) return;
 
   const { parentElement } = renderData;
+  /**  获取的父级元素的样式  */
+  const style = window.getComputedStyle(parentElement);
   /** 父元素样式 background-size 的值 */
-  const backgroundSize = window.getComputedStyle(parentElement).backgroundSize;
-  /** 父元素样式 background-attachment 的值  */
-  const backgroundAttachment = window.getComputedStyle(parentElement).backgroundAttachment;
+  const {
+    backgroundSize,
+    backgroundAttachment,
+    backgroundPosition: parentBackgroundPosition,
+  } = style;
   /** 父元素样式 background-position 的值  */
-  const backgroundPosition = translateBackgroundPosition(
-    window.getComputedStyle(parentElement).backgroundPosition,
-  );
+  const backgroundPosition = translateBackgroundPosition(parentBackgroundPosition);
 
   // 这里的 'container' 是背景适应的元素（Chrome 窗口或某些元素，具体取决于附件）
   const container = { left: 0, top: 0, width: 0, height: 0 };
+
   if (backgroundAttachment === 'fixed') {
     container.height = window.innerHeight;
     container.left = window.screenX;
     container.top = window.screenY;
     container.width = window.innerWidth;
   } else {
-    const parentRect = parentElement.getBoundingClientRect();
-    container.left = parentRect.left;
-    container.top = parentRect.top;
+    // const parentRect = parentElement.getBoundingClientRect();
+    container.left = 0;
+    container.top = 0;
     container.width = parentElement.scrollWidth;
     container.height = parentElement.scrollHeight;
   }

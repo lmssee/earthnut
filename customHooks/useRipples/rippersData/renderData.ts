@@ -1,6 +1,10 @@
-import { isBoolean } from 'a-type-of-js';
-import { defaultData } from '../defaultData';
-import { Program, RipplesUseOptions, Textures } from '../types';
+import { OriginStyle } from '../buildBackground/type';
+import { Ripples } from '../ripplesClass';
+import { Program, Textures } from '../types';
+import { dog } from 'dog';
+import { getBackgroundStyles } from '../buildBackground/getBackgroundStyle';
+import { enArr } from 'a-js-tools';
+import { isEmptyArray } from 'a-type-of-js';
 /**
  *
  * 原始数据类
@@ -9,15 +13,6 @@ import { Program, RipplesUseOptions, Textures } from '../types';
  *
  */
 export class RipplesRenderData {
-  /**  canvas 的显隐  */
-  visible: boolean = false;
-  /**  当前执行的状态  */
-  running: boolean = false;
-  /**  上一次执行渲染状态  */
-  lastRunningState: boolean = false;
-
-  /**  渲染 id  */
-  animationFrameId: number = 0;
   /**  渲染数据流
    *
    * 该值在 init 中进行初始化
@@ -31,8 +26,12 @@ export class RipplesRenderData {
    * - 鼠标交互更新
    */
   lastRaindropsFallTime: number = 0; // 该值不为 0 将会导致
-  /**  canvas 父级元素  */
-  parentElement: HTMLElement = null as never;
+  /**  canvas 父级元素 该值在主 class 中初始化 */
+  parentElement: HTMLElement;
+  /**  父级元素的属性变化监听者  */
+  mutationObserver: null | MutationObserver;
+  /**  父级尺寸变化监听者  */
+  resizeObserver: null | ResizeObserver;
   /**  背景页面的数据  */
   backgroundInfo: {
     width: number;
@@ -41,100 +40,6 @@ export class RipplesRenderData {
     width: 0,
     height: 0,
   };
-
-  /**  倍级触发光标事件（值）  */
-  #accelerating: number = defaultData.accelerating;
-  /**  倍级触发光标事件  */
-  set accelerating(value: number) {
-    if (value > 100 || value < 2) return;
-    this.#accelerating = value;
-  }
-  get accelerating(): number {
-    return this.#accelerating;
-  }
-
-  /**  是否与鼠标互动（值）  */
-  #interactive: boolean = defaultData.interactive;
-  /**  是否与鼠标互动  */
-  set interactive(value: boolean) {
-    if (!isBoolean(value)) return;
-    this.#interactive = value;
-  }
-  get interactive(): boolean {
-    return this.#interactive;
-  }
-  /**  分辨率（值）  */
-  #resolution: number = defaultData.resolution;
-  /**  分辨率
-   *
-   * 纹理的尺寸，该项目中该值为纹理的宽和高
-   *
-   */
-  set resolution(value: number) {
-    if (value < 100 || value > 550) return;
-    this.#resolution = value;
-  }
-  get resolution(): number {
-    return this.#resolution;
-  }
-
-  /**   扰动系数 （值） */
-  #perturbance: number = defaultData.perturbance;
-  /**
-   * 扰动系数
-   *
-   * 缺省 `0.03`
-   *
-   * 取之范围 `0.01 - 1`
-   */
-  set perturbance(value: number) {
-    if (value < 0.0001 || value > 1) return;
-    this.#perturbance = value;
-  }
-  get perturbance(): number {
-    return this.#perturbance;
-  }
-
-  /**  扩散半径（值）  */
-  #dropRadius: number = defaultData.dropRadius;
-
-  /**
-   * 扩散半径
-   *
-   * 缺省为 `20`
-   */
-  set dropRadius(value: number) {
-    if (!isFinite(value) || value < 10) return;
-    this.#dropRadius = value;
-  }
-  get dropRadius(): number {
-    return this.#dropRadius;
-  }
-
-  /**  传入的背景图片  */
-  imageUrl: string | null = defaultData.imageUrl;
-
-  /**  闲置波动 （值） */
-  #idleFluctuations: boolean = defaultData.idleFluctuations;
-  /**  闲置波动  */
-  set idleFluctuations(value: boolean) {
-    if (!isBoolean(value)) return;
-    this.#idleFluctuations = value;
-  }
-  get idleFluctuations(): boolean {
-    return this.#idleFluctuations;
-  }
-  /**  雨滴落下的时间间隔（值）  */
-  #raindropsTimeInterval: number = defaultData.raindropsTimeInterval;
-
-  /**  雨滴落下的时间间隔  */
-  set raindropsTimeInterval(value: number) {
-    if (value < 10 || value > 12000) return;
-    this.#raindropsTimeInterval = value;
-  }
-  get raindropsTimeInterval(): number {
-    return this.#raindropsTimeInterval;
-  }
 
   /**  渲染程序  */
   renderProgram!: Program;
@@ -164,8 +69,11 @@ export class RipplesRenderData {
   originalInlineCss: string = '';
   /**  原始 background-image 数据    */
   originalCssBackgroundImage: string = '';
-  /**  原始 css  */
-  crossOrigin: string = '';
+  /**  最原始的样式  */
+  originStyle: OriginStyle;
+  /**  上一次使用的样式  */
+  lastUseStyle: OriginStyle;
+
   /** 事件  */
   events: {
     mousemove: (e: MouseEvent) => void;
@@ -174,16 +82,62 @@ export class RipplesRenderData {
     touchstart: (e: TouchEvent) => void;
   } = {} as never;
 
-  constructor(options: RipplesUseOptions) {
-    /**  @ts-ignore: 删除  */
-    if (options) !isBoolean(options?.interactive) && delete options?.interactive;
-    this.perturbance = options.perturbance;
-    this.resolution = options.resolution;
-    this.raindropsTimeInterval = options.raindropsTimeInterval;
-    this.accelerating = options.accelerating;
-    this.interactive = options.interactive;
-    this.dropRadius = options.dropRadius;
-    this.imageUrl = options.imageUrl;
-    this.idleFluctuations = options.idleFluctuations;
+  /**  渲染 id  */
+  animationFrameId: number = 0;
+  /**  缺省背景图时的 id  */
+  transparentId: NodeJS.Timeout = setTimeout(Boolean);
+  /**  上一个绘制的图像  */
+  lastDrawImage: HTMLCanvasElement | null = null;
+  /**  当前绘制的图像  */
+  currentDrawImage: HTMLCanvasElement | null = null;
+  /**  绘制进度  */
+  drawProgress: number = 0;
+  /**  是否处于绘制过渡状态  */
+  isTransitioning: boolean = false;
+
+  constructor(canvas: HTMLCanvasElement, callback: () => void, callbackThis: Ripples) {
+    this.parentElement = canvas.parentElement ?? document.body;
+    {
+      // 获取边界尺寸
+      const styles = getComputedStyle(this.parentElement);
+      this.backgroundInfo = {
+        width: parseInt(styles.width),
+        height: parseInt(styles.height),
+      };
+    }
+    this.originStyle = this.lastUseStyle = getBackgroundStyles(this.parentElement);
+    // 注册监听属性变化
+    this.mutationObserver = new MutationObserver(mutations => {
+      /**  变化值  */
+      mutations.forEach(mutation => {
+        if (mutation.target !== this.parentElement) return;
+        if (mutation.type === 'attributes') {
+          dog('父级元素的属性变更');
+          /**  上一次使用的值  */
+          const lastStyleValues = Object.values(this.lastUseStyle);
+          /**  现在的样式  */
+          const currentStye = getBackgroundStyles(this.parentElement);
+          /** 本次的样式值  */
+          const currentStyleValues = Object.values(currentStye);
+          if (!isEmptyArray(enArr.difference(lastStyleValues, currentStyleValues))) {
+            dog('由于样式不同触发了真实的事件回调');
+            this.lastUseStyle = currentStye; // 赋新值
+            Reflect.apply(callback, callbackThis, []); // 触发事件
+          }
+        }
+      });
+    });
+    // 开始监听属性变化
+    this.mutationObserver.observe(this.parentElement, {
+      subtree: true, // 不监听子元素的变化
+      attributes: true, // 监听属性的变化
+      attributeFilter: ['class', 'style'], // 监听的属性
+    });
+    // 监听尺寸变化
+    this.resizeObserver = new ResizeObserver(() => {
+      // dog('监听的父级元素发生了尺寸变化');
+      Reflect.apply(callback, callbackThis, []);
+    });
+    this.resizeObserver.observe(this.parentElement);
   }
 }

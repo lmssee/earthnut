@@ -15,8 +15,8 @@ export function useOptionUpdate(
       const options = props.option;
       (Object.keys(ripplesRef.current.defaults) as unknown as (keyof RipplesOptions)[]).forEach(
         e => {
-          if (!isUndefined(options[e])) {
-            ripplesRef.current && ripplesRef.current.set(e as keyof RipplesOptions, options[e]);
+          if (!isUndefined(options[e]) && ripplesRef.current) {
+            ripplesRef.current.set(e as keyof RipplesOptions, options[e]);
           }
         },
       );

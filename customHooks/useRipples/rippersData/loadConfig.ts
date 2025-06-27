@@ -66,7 +66,7 @@ export function loadConfig(this: RipplesData) {
      * 这使得初始化速度稍慢，但仍然可以忽略不计。
      */
     configs.push(
-      /**  @ts-ignore:   */
+      /**  @ts-expect-error:  123 */
       createConfig('half_float', extensions.OES_texture_half_float.HALF_FLOAT_OES, null),
     );
   }

@@ -4,25 +4,30 @@ import { Ripples } from '../ripplesClass';
 import { setupPointerEvents } from './initEvent';
 import { initShaders } from './initShaders';
 import { initTexture } from './initTexture';
-import { loadImage, setTransparentTexture } from './loadImage';
+import { loadImage } from './loadImage';
+import { setTransparentTexture } from '../buildBackground/setTransparentTexture';
 
 /**
  * 初始化 webGL
  */
 export function initGL(this: Ripples) {
-  const { renderData } = this;
+  const { renderData, options } = this;
 
   if (isNull(renderData) || !this.config) return;
 
-  const { resolution, textures, framebuffers } = renderData;
+  const { textures, framebuffers } = renderData;
+  const { resolution } = options;
   const gl = this.gl;
   const _resolution = 1 / resolution;
   renderData.textureDelta = new Float32Array([_resolution, _resolution]); // 纹理增量
   /// 加载扩展
   this.config.extensions.forEach(currentName => gl.getExtension(currentName));
-  this.updateSize = this.updateSize.bind(this); /// 大哥说这样可以让绘制框变成新的
-  window.addEventListener('resize', this.updateSize);
+  // 移除了在 window 监听页面尺寸变化，相反的，将监听注册在了父组件
+  // window.removeEventListener('resize', this.updateSize);
+  // this.updateSize = this.updateSize.bind(this); /// 大哥说这样可以让绘制框变成新的
+  // window.addEventListener('resize', this.updateSize);
 
+  // TODO
   const arrayType = this.config.arrayType;
   const textureData = arrayType ? new arrayType(resolution * resolution * 4) : null;
   const config = this.config;
@@ -82,16 +87,17 @@ export function initGL(this: Ripples) {
   );
   Reflect.apply(initShaders, this, []);
   Reflect.apply(initTexture, this, []);
-  Reflect.apply(setTransparentTexture, this, []);
-  // Load the image either from the options or CSS rules
+  Reflect.apply(setTransparentTexture, this, []); // 设置黑色
+  // 设置背景
   Reflect.apply(loadImage, this, []);
-  // Set correct clear color and blend mode (regular alpha blending)
+  // 设置透明背景色
   gl.clearColor(0, 0, 0, 0);
+  // 设置颜色的混合方式
   gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
   // 插件初始化成功
-  renderData.visible = true;
-  renderData.running = true;
+  options.visible = true;
+  options.running = true;
 
   // this.#initialized = true;
   Reflect.apply(setupPointerEvents, this, []); /// 初始化监听事件
