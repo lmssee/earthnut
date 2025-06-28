@@ -3,7 +3,7 @@ import { Ripples } from '../ripplesClass';
 import { loadImage } from '../init/loadImage';
 
 /**  当页面的尺寸发生变化时  */
-export function updateSize(this: Ripples) {
+export function reloadBackground(this: Ripples) {
   const { renderData } = this;
   if (isNull(renderData)) return;
   const { parentElement } = renderData;

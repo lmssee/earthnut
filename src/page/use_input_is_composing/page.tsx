@@ -1,10 +1,16 @@
 import { useInputIsComposing } from 'customHooks';
 import React, { useEffect, useRef } from 'react';
 
+/**
+ * 使用输入框输入完成状态的测试页面
+ */
 export default function UseInputIsComposing() {
   const inputRef = useRef<HTMLInputElement>(null);
   const isOver = useInputIsComposing(inputRef);
 
+  /**
+   * 更改测试
+   */
   function change(e: React.KeyboardEvent<HTMLInputElement>) {
     console.log(e);
   }

@@ -13,11 +13,14 @@ import {
 } from 'components/layout/layout';
 import { xcn } from 'xcn';
 
+/**
+ * 程序根
+ */
 export function App() {
   return (
     <Layout classes={xcn(styles.page)}>
       <LayoutHeader className={xcn('dark')}>头部区域</LayoutHeader>
-      <LayoutSideBar className={xcn(styles.tab)} width={'150px'}>
+      <LayoutSideBar className={xcn(styles.tab)} width={'150px'} right>
         <MainTab />
       </LayoutSideBar>
       <LayoutContent className={xcn(styles.main)}>

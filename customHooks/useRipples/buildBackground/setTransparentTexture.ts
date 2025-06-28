@@ -8,8 +8,6 @@ import { bindImage } from '../render/bindImage';
  * 设置透明的纹理
  *
  */
-
-
 export function setTransparentTexture(this: Ripples) {
   const { renderData } = this;
   if (isNull(renderData)) return;

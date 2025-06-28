@@ -95,6 +95,13 @@ export class RipplesRenderData {
   /**  是否处于绘制过渡状态  */
   isTransitioning: boolean = false;
 
+  /**
+   * 构建 Ripple 的渲染数据
+   *
+   * @param canvas 使用初始化的 Canvas 元素
+   * @param callback 执行的回调，这里要对页面背景进行更新
+   * @param callbackThis  上一个回调在使用中的 this
+   */
   constructor(canvas: HTMLCanvasElement, callback: () => void, callbackThis: Ripples) {
     this.parentElement = canvas.parentElement ?? document.body;
     {

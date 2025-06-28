@@ -10,6 +10,9 @@
 import React from 'react';
 import { useNavigate, useRouteError } from 'react-router';
 import styles from 'page/index.module.scss';
+/**
+ * 错误页面
+ */
 export function ErrorPage() {
   const navigate = useNavigate();
 

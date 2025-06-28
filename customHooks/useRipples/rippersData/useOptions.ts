@@ -11,6 +11,9 @@ export class UseOptions {
     if (value > 100 || value < 2) return;
     this.#accelerating = value;
   }
+  /**
+   * 倍级触发光标事件
+   */
   get accelerating(): number {
     return this.#accelerating;
   }
@@ -22,6 +25,9 @@ export class UseOptions {
     if (!isBoolean(value)) return;
     this.#interactive = value;
   }
+  /**
+   * 是否与鼠标互动
+   */
   get interactive(): boolean {
     return this.#interactive;
   }
@@ -36,6 +42,9 @@ export class UseOptions {
     if (value < 100 || value > 550) return;
     this.#resolution = value;
   }
+  /**
+   * 纹理的尺寸，该项目中该值为纹理的宽和高
+   */
   get resolution(): number {
     return this.#resolution;
   }
@@ -45,7 +54,7 @@ export class UseOptions {
   /**
    * 扰动系数
    *
-   * 缺省 `0.03`
+   * 缺省 `0.01`
    *
    * 取之范围 `0.01 - 1`
    */
@@ -53,6 +62,9 @@ export class UseOptions {
     if (value < 0.0001 || value > 1) return;
     this.#perturbance = value;
   }
+  /**
+   * 扰动系数
+   */
   get perturbance(): number {
     return this.#perturbance;
   }
@@ -69,6 +81,9 @@ export class UseOptions {
     if (!isFinite(value) || value < 10) return;
     this.#dropRadius = value;
   }
+  /**
+   * 扩散半径
+   */
   get dropRadius(): number {
     return this.#dropRadius;
   }
@@ -83,6 +98,9 @@ export class UseOptions {
     if (!isBoolean(value)) return;
     this.#idleFluctuations = value;
   }
+  /**
+   * 闲置波动
+   */
   get idleFluctuations(): boolean {
     return this.#idleFluctuations;
   }
@@ -94,6 +112,9 @@ export class UseOptions {
     if (value < 10 || value > 12000) return;
     this.#raindropsTimeInterval = value;
   }
+  /**
+   * 雨滴落下的时间间隔
+   */
   get raindropsTimeInterval(): number {
     return this.#raindropsTimeInterval;
   }
@@ -110,12 +131,18 @@ export class UseOptions {
   set playingState(value: boolean) {
     this.running = Boolean(value ?? true);
   }
+  /**
+   * 当前执行的状态
+   */
   get playingState(): boolean {
     return this.running;
   }
   /**  上一次执行渲染状态  */
   lastRunningState: boolean = false;
 
+  /**
+   * 构建使用参数的数据
+   */
   constructor(options: RipplesUseOptions) {
     this.perturbance = options.perturbance;
     this.resolution = options.resolution;

@@ -146,6 +146,7 @@ const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
           className,
         )}
         style={{
+          // eslint-disable-next-line jsdoc/check-tag-names
           /**  @ts-expect-error: 自定义侧边栏的宽度  */
           '--layout-width': getValue(width),
           '--layout-height': getValue(height),
@@ -191,6 +192,9 @@ const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
 /**    */
 Layout.displayName = 'Layout';
 
+/**
+ * 获取数值
+ */
 function getValue(value: number | string) {
   if (isNumber(value) || parseInt(value) === Number(value)) return value + 'px';
   return value || 0;

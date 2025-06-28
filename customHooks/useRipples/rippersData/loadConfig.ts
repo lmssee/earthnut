@@ -9,6 +9,10 @@
 
 import { RipplesData } from './index';
 
+/**
+ * 执行的配置数据
+ *
+ */
 export function loadConfig(this: RipplesData) {
   /**  构建失败  */
   const buildFail = () => ((this.initState = false), null);
@@ -66,6 +70,7 @@ export function loadConfig(this: RipplesData) {
      * 这使得初始化速度稍慢，但仍然可以忽略不计。
      */
     configs.push(
+      // eslint-disable-next-line jsdoc/check-tag-names
       /**  @ts-expect-error:  123 */
       createConfig('half_float', extensions.OES_texture_half_float.HALF_FLOAT_OES, null),
     );

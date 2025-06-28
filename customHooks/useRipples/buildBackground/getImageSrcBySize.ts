@@ -22,5 +22,7 @@ export function getImageSrcBySize(width: number, height: number) {
   // ctxR.globalCompositeOperation = 'copy';
   ctxR.drawImage(canvas, 0, 0, width, height);
   ctxR.globalCompositeOperation = 'source-over';
-  return canvasR.toDataURL('images/png');
+  const url = canvasR.toDataURL('images/png');
+
+  return url;
 }

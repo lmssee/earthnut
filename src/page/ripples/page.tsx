@@ -4,9 +4,15 @@ import styles from './index.module.scss';
 import { xcn } from 'xcn';
 import { RippleEle } from 'components/ripples/types';
 
+/**
+ * 涟漪页
+ */
 export default function RipplesPage() {
   const rippleRef = useRef<RippleEle>(null);
 
+  /**
+   * 切换状态
+   */
   function togglePlayingState(e: React.MouseEvent) {
     rippleRef.current?.toggleState();
     e.preventDefault();

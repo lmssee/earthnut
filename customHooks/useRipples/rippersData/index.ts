@@ -12,6 +12,9 @@ import { loadConfig } from './loadConfig';
 
 // const id = 'earthnut_ripper_element_style';
 
+/**
+ * Ripple 使用的数据，Ripple 继承该类
+ */
 export class RipplesData {
   /**
    * canvas 元素
@@ -36,6 +39,11 @@ export class RipplesData {
    */
   initState = true;
 
+  /**
+   * 构造方法
+   *
+   * @param canvas  传入 canvas 元素来初始化必要的数据
+   */
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
     const gl: WebGLRenderingContext | null = canvas.getContext('webgl');

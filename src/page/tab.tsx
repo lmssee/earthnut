@@ -2,6 +2,9 @@ import React from 'react';
 import styles from './index.module.scss';
 import { NavLink } from 'react-router';
 
+/**
+ * 左侧导航栏
+ */
 export default function MainTab() {
   // const path = useNavigation();
 

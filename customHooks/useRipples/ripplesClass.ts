@@ -17,7 +17,7 @@ import { RipplesRenderData } from './rippersData/renderData';
 import { isFalse, isNull } from 'a-type-of-js';
 import { initGL } from './init';
 import { dog } from './../../dog';
-import { updateSize } from './callback/update-size';
+import { reloadBackground } from './callback/reload-background';
 import { destroy } from './callback/destroy';
 import { restoreCssBackground } from './callback/restoreCssBackground';
 import { drop } from './callback/drop';
@@ -60,7 +60,7 @@ export class Ripples extends RipplesData {
       ...options,
     });
     // 数据初始化
-    this.renderData = new RipplesRenderData(canvas, this.updateSize, this);
+    this.renderData = new RipplesRenderData(canvas, this.reloadBackground, this);
 
     if (
       isFalse(this.initState) ||
@@ -96,14 +96,17 @@ export class Ripples extends RipplesData {
   drop(x: number, y: number, radius: number, strength: number) {
     Reflect.apply(drop, this, [x, y, radius, strength]);
   }
+  /**
+   * 缓进缓出
+   */
   fade() {
     Reflect.apply(fade, this, []);
   }
-  #updateSize = debounce(updateSize, { this: this });
+  #reloadBackground = debounce(reloadBackground, { this: this });
 
   /** 元素的尺寸发生变化  */
-  updateSize() {
-    this.#updateSize();
+  reloadBackground() {
+    this.#reloadBackground();
   }
 
   /**  销毁  */

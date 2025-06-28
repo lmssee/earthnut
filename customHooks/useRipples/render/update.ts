@@ -4,6 +4,9 @@ import { bindTexture } from '../tools';
 import { drawQuad } from './drawQuad';
 import { swapBufferIndices } from './swapBufferIndices';
 
+/**
+ * 更新
+ */
 export function update(this: Ripples) {
   const { gl } = this;
   const { renderData, options } = this;

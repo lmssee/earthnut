@@ -91,6 +91,7 @@
     "a-element-inline-style": "^0.0.1",
     "a-js-tools": "^1.0.5",
     "a-type-of-js": "^1.0.2",
+    "eslint-plugin-jsdoc": "^51.2.3",
     "xcn": "^0.1.1"
   }
 }
