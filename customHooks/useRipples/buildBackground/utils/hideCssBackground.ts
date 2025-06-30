@@ -1,5 +1,5 @@
 import { dog } from 'dog';
-import { Ripples } from '../ripplesClass';
+import { Ripples } from '../../ripplesClass';
 import { isNull } from 'a-type-of-js';
 
 /**

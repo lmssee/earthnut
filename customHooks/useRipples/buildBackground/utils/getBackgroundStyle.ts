@@ -1,4 +1,4 @@
-import { OriginStyle } from './type';
+import { OriginStyle } from '../type';
 
 /**  获取元素的样式  */
 export function getBackgroundStyles(element: HTMLElement): OriginStyle {

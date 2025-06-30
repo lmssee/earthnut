@@ -1,6 +1,6 @@
 import { isNull } from 'a-type-of-js';
 import { Ripples } from '../ripplesClass';
-import { restoreCssBackground } from '../buildBackground/restore-css-background';
+import { restoreCssBackground } from '../buildBackground/utils/restore-css-background';
 
 /**  注销  */
 export function destroy(this: Ripples) {

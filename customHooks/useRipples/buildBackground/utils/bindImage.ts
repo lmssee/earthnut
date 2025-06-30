@@ -1,18 +1,19 @@
 import { isNull, isZero } from 'a-type-of-js';
-import { Ripples } from '../ripplesClass';
+import { Ripples } from '../../ripplesClass';
 
 /**  绑定图片  */
-export function bindImage(this: Ripples, image: HTMLImageElement) {
+export function bindImage(this: Ripples, texImageSource: TexImageSource) {
   const { gl, renderData } = this;
 
   if (isNull(renderData)) return;
 
-  const { backgroundTexture } = renderData;
+  const { backgroundTexture, backgroundInfo } = renderData;
+
+  const { width, height } = backgroundInfo;
 
   /**  只有维度为 2 的幂的纹理才能重复换行  */
   const isPowerOfTwo = (x: number) => isZero(x & (x - 1));
-  const wrapping =
-    isPowerOfTwo(image.width) && isPowerOfTwo(image.height) ? gl.REPEAT : gl.CLAMP_TO_EDGE;
+  const wrapping = isPowerOfTwo(width) && isPowerOfTwo(height) ? gl.REPEAT : gl.CLAMP_TO_EDGE;
   // 将给定的 WebGLTexture 绑定到目标（绑定点）
   gl.bindTexture(gl.TEXTURE_2D, backgroundTexture);
   /**
@@ -41,9 +42,5 @@ export function bindImage(this: Ripples, image: HTMLImageElement) {
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, wrapping);
   // dog('即将创建的图像', image);
   /// 指定二维纹理图像
-  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
-  renderData.backgroundInfo = {
-    width: image.width,
-    height: image.height,
-  };
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, texImageSource);
 }

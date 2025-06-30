@@ -1,14 +1,15 @@
 import { isNull } from 'a-type-of-js';
 import { Ripples } from '../ripplesClass';
-import { bindImage } from '../buildBackground/bindImage';
-import { createImageBySrc } from '../buildBackground/createImageBySrc';
+import { bindImage } from '../buildBackground/utils/bindImage';
 import { runSide } from '../buildBackground/runSide';
 
 /**  两个图像间的淡入淡出  */
 export function fade(this: Ripples) {
   const { renderData } = this;
   if (isNull(renderData)) return;
-  renderData.isTransitioning = false;
+  // 25-06-30 由于WebGLRenderingContext.texImage2D  可直接接受 HTMLCanvasElement 元素
+  // 无需创建 Image 元素且等待资源的 load ，下面的步骤先做移除
+  // renderData.isTransitioning = false;
   // 进度完成则结束当前的进度
   if (renderData.drawProgress > 1000) {
     // 临时关闭当前的状体
@@ -40,13 +41,16 @@ export function fade(this: Ripples) {
 
   ctx.globalAlpha = 1;
 
-  const src = canvas.toDataURL('images/png');
+  Reflect.apply(bindImage, this, [canvas]);
 
-  const image = createImageBySrc(src, width, height);
+  // 由于 WebGLRenderingContext.texImage2D  可直接接受 HTMLCanvasElement 元素，下面的冗余步骤注释
+  // const src = canvas.toDataURL('images/png');
 
-  /// 等图像下载后才可以进行下一步，否则出现页面为空白
-  image.onload = () => {
-    renderData.isTransitioning = true;
-    Reflect.apply(bindImage, this, [image]);
-  };
+  // const image = createImageBySrc(src, width, height);
+
+  // /// 等图像下载后才可以进行下一步，否则出现页面为空白
+  // image.onload = () => {
+  //   renderData.isTransitioning = true;
+  //   Reflect.apply(bindImage, this, [image]);
+  // };
 }

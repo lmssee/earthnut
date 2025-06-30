@@ -9,6 +9,8 @@
 
 import { CSSProperties, ReactElement } from 'react';
 
+export type ImageCrossOrigin = 'anonymous' | 'use-credentials' | 'no-cors';
+
 /**
  *
  *  背景涟漪的 props 类型
@@ -117,7 +119,7 @@ export type RipplesUseOptions = {
    *
    * 缺省为 `''`
    */
-  crossOrigin: string;
+  crossOrigin: ImageCrossOrigin;
   /**
    * 设定的元素背景的 url 地址
    *

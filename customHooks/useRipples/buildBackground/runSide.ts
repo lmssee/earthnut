@@ -1,11 +1,9 @@
 import { isNull } from 'a-type-of-js';
 import { Ripples } from '../ripplesClass';
 import { dog } from 'dog';
-import { bindImage } from './bindImage';
+import { bindImage } from './utils/bindImage';
 import { circleDataList } from './default-background/circleDataList';
-import { createImageBySrc } from './createImageBySrc';
-import { createCanvasElement } from './createCanvasElement';
-import { getImageSrcBySize } from './getImageSrcBySize';
+import { createCanvasElementBySize } from './default-background/createCanvasElementBySize';
 
 /**
  * 设置缓变
@@ -38,13 +36,20 @@ function buildFade(this: Ripples) {
   circleDataList.build(); // 构建新的执行图
   const { width, height } = renderData.backgroundInfo;
 
-  const img = createImageBySrc(getImageSrcBySize(width, height), width, height);
-  img.onload = () => {
-    // 新构建的数据
-    renderData.currentDrawImage = Reflect.apply(createCanvasElement, this, [img]);
-    // 设置进度
-    renderData.drawProgress = 0;
-    // 开始执行变化
-    renderData.isTransitioning = true;
-  };
+  renderData.currentDrawImage = createCanvasElementBySize(width, height);
+  // 设置进度
+  renderData.drawProgress = 0;
+  // 开始执行变化
+  renderData.isTransitioning = true;
+
+  // 25-06-30 直接创建一个 canvas 而不是通过 image 元素中续一下
+  // const img = createImageBySrc(getImageSrcBySize(width, height), width, height);
+  // img.onload = () => {
+  //   // 新构建的数据
+  //   renderData.currentDrawImage = Reflect.apply(createCanvasElement, this, [img]);
+  //   // 设置进度
+  //   renderData.drawProgress = 0;
+  //   // 开始执行变化
+  //   renderData.isTransitioning = true;
+  // };
 }

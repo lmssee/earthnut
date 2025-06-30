@@ -1,6 +1,6 @@
 import { isBoolean } from 'a-type-of-js';
 import { defaultData } from './defaultData';
-import { RipplesUseOptions } from '../types';
+import { ImageCrossOrigin, RipplesUseOptions } from '../types';
 
 /** 用户使用参数  */
 export class UseOptions {
@@ -120,7 +120,7 @@ export class UseOptions {
   }
 
   /**  crossOrigin  （是否跨域） */
-  crossOrigin: string = '';
+  crossOrigin: ImageCrossOrigin = 'no-cors';
   /**  canvas 的显隐  */
   visible: boolean = false;
   /**  当前执行的状态  */

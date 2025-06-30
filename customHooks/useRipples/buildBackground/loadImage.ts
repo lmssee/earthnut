@@ -1,11 +1,12 @@
 import { dog } from 'dog';
 import { isNull } from 'a-type-of-js';
 import { Ripples } from '../ripplesClass';
-import { bindImage } from './bindImage';
+import { bindImage } from './utils/bindImage';
 import { setTransparentTexture } from './default-background';
+import { createImageBySrc } from './utils/createImageBySrc';
 /**
  *
- * 加载
+ * 加载图像
  *
  * - 初始化的时候首先触发加载背景图像
  * - 通过 Ripple 的 set 方法设置属性 imageUrl 值时将触发
@@ -22,7 +23,9 @@ export function loadImage(this: Ripples) {
     Reflect.apply(setTransparentTexture, this, []);
     return;
   }
-  const { parentElement, lastUseStyle } = renderData;
+  const { lastUseStyle, backgroundInfo } = renderData;
+
+  const { width, height } = backgroundInfo;
   const newImageSource: string | null =
     options.imageUrl || extractUrl(lastUseStyle.backgroundImage);
   dog('当前获取的图像资源为', newImageSource);
@@ -31,19 +34,13 @@ export function loadImage(this: Ripples) {
   // if (newImageSource === renderData.imageSource && newImageSource) return;
   renderData.imageSource = newImageSource!;
   // 虚假来源意味着没有背景。
-  if (!renderData.imageSource) {
+  if (!newImageSource) {
     dog.warn('没有原始图像，开始使用空白自绘');
     Reflect.apply(setTransparentTexture, this, []);
     return;
   }
-  const parentStyle = getComputedStyle(parentElement);
   // 从新图像加载纹理。
-  const image = new Image();
-  /**  设置图片尺寸为全尺寸  */
-  image.width = parseInt(parentStyle.width);
-  image.height = parseInt(parentStyle.height);
-  dog('渲染图片', image.width, image.height);
-  dog('背景图设置');
+  const image = createImageBySrc(newImageSource, width, height);
   image.onload = () => {
     clearTimeout(renderData.transparentId); // 清理默认的渲染透明
     dog('背景图下载完毕');
@@ -59,7 +56,6 @@ export function loadImage(this: Ripples) {
   // 当图像源是数据 URI 时禁用 CORS。
   // TODO
   image.crossOrigin = options.crossOrigin;
-  image.src = renderData.imageSource;
   dog.type = true;
 }
 

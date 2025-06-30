@@ -1,5 +1,5 @@
 import { isNull } from 'a-type-of-js';
-import { Ripples } from '../ripplesClass';
+import { Ripples } from '../../ripplesClass';
 
 /**
  * 恢复背景样式
