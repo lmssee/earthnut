@@ -8,6 +8,7 @@
   },
   "include": [
     "env.d.ts",
+    "dog.ts",
     "index.ts",
     "customHooks/**/**/*.ts",
     "customHooks/**/*.ts",

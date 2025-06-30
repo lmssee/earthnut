@@ -1,5 +1,5 @@
 import { isNull } from 'a-type-of-js';
-import { createDefault } from './createDefault';
+import { createDefault } from './default-background/createDefault';
 
 /**  通过尺寸创建一个默认图  */
 export function getImageSrcBySize(width: number, height: number) {
@@ -23,6 +23,5 @@ export function getImageSrcBySize(width: number, height: number) {
   ctxR.drawImage(canvas, 0, 0, width, height);
   ctxR.globalCompositeOperation = 'source-over';
   const url = canvasR.toDataURL('images/png');
-
   return url;
 }

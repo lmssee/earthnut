@@ -119,8 +119,7 @@ export class UseOptions {
     return this.#raindropsTimeInterval;
   }
 
-  /**  crossOrigin  */
-  /**  原始 css  */
+  /**  crossOrigin  （是否跨域） */
   crossOrigin: string = '';
   /**  canvas 的显隐  */
   visible: boolean = false;

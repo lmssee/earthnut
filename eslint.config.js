@@ -67,4 +67,12 @@ export default defineConfig([
     },
   },
   eslintConfigPrettier,
+  {
+    settings: {
+      react: {
+        pragma: 'React',
+        version: 'detect',
+      },
+    },
+  },
 ]);

@@ -103,3 +103,13 @@ export function setCanvasStyle(canvas: HTMLCanvasElement) {
     pointerEvents: 'none',
   });
 }
+
+/**  背景色值为空  */
+export function isNoneBackGroundColor(color: string): boolean {
+  return color === 'rgba(0, 0, 0, 0)' || color === '#ffffffff' || color === 'transport';
+}
+
+/**  背景图为空  */
+export function isNoneBackgroundImage(src: string): boolean {
+  return src === 'none' || src === '';
+}

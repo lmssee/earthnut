@@ -24,6 +24,7 @@
   "include": [
     "index.ts",
     "env.d.ts",
+    "dog.ts",
     "components/**/*.ts",
     "components/**/*.tsx",
     "components/**/*.d.ts",

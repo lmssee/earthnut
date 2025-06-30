@@ -1,6 +1,5 @@
 import { isNull, isZero } from 'a-type-of-js';
 import { Ripples } from '../ripplesClass';
-import { hideCssBackground } from '../init/hideCssBackground';
 
 /**  绑定图片  */
 export function bindImage(this: Ripples, image: HTMLImageElement) {
@@ -47,7 +46,4 @@ export function bindImage(this: Ripples, image: HTMLImageElement) {
     width: image.width,
     height: image.height,
   };
-
-  // 隐藏我们要替换的背景。
-  Reflect.apply(hideCssBackground, this, []);
 }

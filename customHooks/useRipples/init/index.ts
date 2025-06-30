@@ -4,8 +4,8 @@ import { Ripples } from '../ripplesClass';
 import { setupPointerEvents } from './initEvent';
 import { initShaders } from './initShaders';
 import { initTexture } from './initTexture';
-import { loadImage } from './loadImage';
-import { setTransparentTexture } from '../buildBackground/setTransparentTexture';
+import { loadImage } from '../buildBackground/loadImage';
+import { setTransparentTexture } from '../buildBackground/default-background';
 
 /**
  * 初始化 webGL

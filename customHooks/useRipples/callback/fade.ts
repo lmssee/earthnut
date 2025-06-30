@@ -1,6 +1,6 @@
 import { isNull } from 'a-type-of-js';
 import { Ripples } from '../ripplesClass';
-import { bindImage } from '../render/bindImage';
+import { bindImage } from '../buildBackground/bindImage';
 import { createImageBySrc } from '../buildBackground/createImageBySrc';
 import { runSide } from '../buildBackground/runSide';
 
@@ -11,9 +11,13 @@ export function fade(this: Ripples) {
   renderData.isTransitioning = false;
   // 进度完成则结束当前的进度
   if (renderData.drawProgress > 1000) {
+    // 临时关闭当前的状体
     renderData.isTransitioning = false;
     renderData.lastDrawImage = renderData.currentDrawImage;
+    renderData.currentDrawImage = null;
+    // 渲染到背景图
     Reflect.apply(bindImage, this, [renderData.lastDrawImage]);
+    // 启用下一轮的循环
     Reflect.apply(runSide, this, []);
     return;
   }
@@ -33,30 +37,14 @@ export function fade(this: Ripples) {
     ctx.globalAlpha = drawProgress / 1000;
     ctx.drawImage(currentDrawImage, 0, 0, width, height);
   }
-  /**  缩放效果  */
-  // if (drawProgress < 0.5) {
-  //   // ctx.globalAlpha = drawProgress; // 设置渐有
-  //   const halfProgress = drawProgress / 2;
-  //   ctx.drawImage(
-  //     currentDrawImage,
-  //     width * halfProgress,
-  //     height * halfProgress,
-  //     width * drawProgress,
-  //     height * drawProgress,
-  //   );
-  // } else {
-  //   const halfProgress = 0.5 - drawProgress / 2;
-  //   ctx.drawImage(
-  //     currentDrawImage,
-  //     width * halfProgress,
-  //     height * halfProgress,
-  //     width * drawProgress,
-  //     height * drawProgress,
-  //   );
-  // }
-  // ctx.globalCompositeOperation = 'source-over';
+
   ctx.globalAlpha = 1;
-  const image = createImageBySrc(canvas.toDataURL('images/png'), width, height);
+
+  const src = canvas.toDataURL('images/png');
+
+  const image = createImageBySrc(src, width, height);
+
+  /// 等图像下载后才可以进行下一步，否则出现页面为空白
   image.onload = () => {
     renderData.isTransitioning = true;
     Reflect.apply(bindImage, this, [image]);

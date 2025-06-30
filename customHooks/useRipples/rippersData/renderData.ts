@@ -5,6 +5,8 @@ import { dog } from 'dog';
 import { getBackgroundStyles } from '../buildBackground/getBackgroundStyle';
 import { enArr } from 'a-js-tools';
 import { isEmptyArray } from 'a-type-of-js';
+import { hideCssBackground } from '../buildBackground/hideCssBackground';
+import { isNoneBackGroundColor, isNoneBackgroundImage } from '../tools';
 /**
  *
  * 原始数据类
@@ -65,10 +67,6 @@ export class RipplesRenderData {
   bufferWriteIndex: number = 0;
   /**    */
   bufferReadIndex: number = 1;
-  /**  原始行内样式  */
-  originalInlineCss: string = '';
-  /**  原始 background-image 数据    */
-  originalCssBackgroundImage: string = '';
   /**  最原始的样式  */
   originStyle: OriginStyle;
   /**  上一次使用的样式  */
@@ -100,37 +98,55 @@ export class RipplesRenderData {
    *
    * @param canvas 使用初始化的 Canvas 元素
    * @param callback 执行的回调，这里要对页面背景进行更新
-   * @param callbackThis  上一个回调在使用中的 this
+   * @param _Ripples  上一个回调在使用中的 this
    */
-  constructor(canvas: HTMLCanvasElement, callback: () => void, callbackThis: Ripples) {
+  constructor(canvas: HTMLCanvasElement, callback: () => void, _Ripples: Ripples) {
     this.parentElement = canvas.parentElement ?? document.body;
     {
-      // 获取边界尺寸
+      // 获取边界尺寸并保存，防止后续步骤多次重复获取该数据并解析
       const styles = getComputedStyle(this.parentElement);
       this.backgroundInfo = {
         width: parseInt(styles.width),
         height: parseInt(styles.height),
       };
     }
+    //
+    Reflect.apply(hideCssBackground, _Ripples, []);
     this.originStyle = this.lastUseStyle = getBackgroundStyles(this.parentElement);
+    dog(this.originStyle);
     // 注册监听属性变化
     this.mutationObserver = new MutationObserver(mutations => {
       /**  变化值  */
       mutations.forEach(mutation => {
         if (mutation.target !== this.parentElement) return;
-        if (mutation.type === 'attributes') {
+        if (mutation.type === 'attributes' && _Ripples.options.visible) {
           dog('父级元素的属性变更');
           /**  上一次使用的值  */
           const lastStyleValues = Object.values(this.lastUseStyle);
           /**  现在的样式  */
-          const currentStye = getBackgroundStyles(this.parentElement);
+          const currentStyle = getBackgroundStyles(this.parentElement);
           /** 本次的样式值  */
-          const currentStyleValues = Object.values(currentStye);
-          if (!isEmptyArray(enArr.difference(lastStyleValues, currentStyleValues))) {
-            dog('由于样式不同触发了真实的事件回调');
-            this.lastUseStyle = currentStye; // 赋新值
-            Reflect.apply(callback, callbackThis, []); // 触发事件
+          const currentStyleValues = Object.values(currentStyle);
+          dog('当前获取到的实际值，该值可能不作为使用值被储存', currentStyle);
+          // 由于最后使用与原始备份的数据相同
+          if (isEmptyArray(enArr.difference(lastStyleValues, currentStyleValues))) {
+            dog('新值与旧值相同');
+            return;
           }
+          /**  当前没有背景图配置  */
+          const isNoneImage = isNoneBackgroundImage(currentStyle.backgroundImage);
+
+          /**  当前没有背景色配置  */
+          const isNoneColor = isNoneBackGroundColor(currentStyle.backgroundColor);
+          // 新值为空
+          if (isNoneImage && isNoneColor) {
+            dog('新值为空');
+            return;
+          }
+          dog('由于样式不同触发了真实的事件回调');
+          this.lastUseStyle = currentStyle; // 赋新值
+          Reflect.apply(callback, _Ripples, []); // 触发事件
+          Reflect.apply(hideCssBackground, _Ripples, []); // 触发隐藏元素的
         }
       });
     });
@@ -143,7 +159,8 @@ export class RipplesRenderData {
     // 监听尺寸变化
     this.resizeObserver = new ResizeObserver(() => {
       // dog('监听的父级元素发生了尺寸变化');
-      Reflect.apply(callback, callbackThis, []);
+      // 仅允许在 canvas 渲染时触发尺寸的监听计划
+      Reflect.apply(callback, _Ripples, []);
     });
     this.resizeObserver.observe(this.parentElement);
   }

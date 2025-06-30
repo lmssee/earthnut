@@ -1,8 +1,8 @@
 import { dog } from 'dog';
 import { isNull } from 'a-type-of-js';
 import { Ripples } from '../ripplesClass';
-import { bindImage } from '../render/bindImage';
-import { setTransparentTexture } from '../buildBackground/setTransparentTexture';
+import { bindImage } from './bindImage';
+import { setTransparentTexture } from './default-background';
 /**
  *
  * 加载
@@ -10,21 +10,22 @@ import { setTransparentTexture } from '../buildBackground/setTransparentTexture'
  * - 初始化的时候首先触发加载背景图像
  * - 通过 Ripple 的 set 方法设置属性 imageUrl 值时将触发
  * - 尺寸发生变化时亦将触发更改
+ * - 父元素的样式属性发生变更时也会触发
  *
+ * 在加载过程中如果渲染的图片为非法的（加载错误）那么将查找当前的背景色或是背景图作为依据，再就是都没有的情况下将会渲染一个类似于旧地板的色
  */
 export function loadImage(this: Ripples) {
+  dog.type = false;
   const { renderData, options } = this;
   if (isNull(renderData)) {
     dog('执行绘制时没有渲染数据');
     Reflect.apply(setTransparentTexture, this, []);
     return;
   }
-  const { parentElement, originalCssBackgroundImage } = renderData;
+  const { parentElement, lastUseStyle } = renderData;
   const newImageSource: string | null =
-    options.imageUrl ||
-    extractUrl(originalCssBackgroundImage) ||
-    extractUrl(window.getComputedStyle(parentElement).backgroundImage);
-  dog(newImageSource);
+    options.imageUrl || extractUrl(lastUseStyle.backgroundImage);
+  dog('当前获取的图像资源为', newImageSource);
   // 倘若图片资源未更改，则无需从新下载（但需要有值前提下）
   // 图片资源未更改，但是尺寸发生变化时亦会触发该方法
   // if (newImageSource === renderData.imageSource && newImageSource) return;
@@ -59,6 +60,7 @@ export function loadImage(this: Ripples) {
   // TODO
   image.crossOrigin = options.crossOrigin;
   image.src = renderData.imageSource;
+  dog.type = true;
 }
 
 /** 检测数据是否为 url 外联图像地址 */

@@ -1,5 +1,11 @@
 /**  原使用的样式  */
 export type OriginStyle = {
+  /**  原始使用行内背景样式  */
+  inlineBackground: string;
+  /** 原始使用的行内背景色   */
+  inlineBackgroundColor: string;
+  /**  原始使用的背景图的样式  */
+  inlineBackgroundImage: string;
   /**  元素的位置  */
   position: string;
   /**  元素的背景色  */

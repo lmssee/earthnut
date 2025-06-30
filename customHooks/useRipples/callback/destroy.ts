@@ -1,6 +1,6 @@
 import { isNull } from 'a-type-of-js';
 import { Ripples } from '../ripplesClass';
-import { restoreCssBackground } from './restoreCssBackground';
+import { restoreCssBackground } from '../buildBackground/restore-css-background';
 
 /**  注销  */
 export function destroy(this: Ripples) {
@@ -46,7 +46,7 @@ export function destroy(this: Ripples) {
     if (this.gl) this.gl = null as unknown as never;
   }
   /// 移除注册在 window 上的尺寸变化的事件
-  window.removeEventListener('resize', this.updateSize);
+  window.removeEventListener('resize', this.reloadBackground);
   {
     // this.canvas.remove(); /// react 会自己管理移除元素
   }

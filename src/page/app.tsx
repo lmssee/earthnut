@@ -20,7 +20,7 @@ export function App() {
   return (
     <Layout classes={xcn(styles.page)}>
       <LayoutHeader className={xcn('dark')}>头部区域</LayoutHeader>
-      <LayoutSideBar className={xcn(styles.tab)} width={'150px'} right>
+      <LayoutSideBar className={xcn(styles.tab)} width={'150px'} right={false}>
         <MainTab />
       </LayoutSideBar>
       <LayoutContent className={xcn(styles.main)}>

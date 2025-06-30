@@ -3,7 +3,9 @@ import { circleDataList } from './circleDataList';
 
 /**  构建默认的背景图  */
 export function createDefault(width: number, height: number) {
+  dog.type = false;
   const time = Date.now();
+  dog.warn(dog.type);
   dog('开始构建默认的时间', time);
   /**  图像数据  */
   const imageData = new ImageData(width, height);
@@ -25,5 +27,6 @@ export function createDefault(width: number, height: number) {
     data[i + 3] = ele[3];
   }
   dog('构建结束的时间', Date.now() - time);
+  dog.type = true;
   return imageData;
 }

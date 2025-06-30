@@ -30,17 +30,17 @@ export default function RipplesPage() {
         ref={rippleRef}
         style={{
           position: 'static',
+          backgroundColor: '#0ff',
+          // backgroundImage: 'url(/image/defaultBackground.png)',
         }}
-        option={
-          {
-            // imageUrl: '/image/defaultBackground.png',
-            // accelerating: 1,
-            // dropRadius: 10,
-            // // resolution: 366,
-            // perturbance: 0.01,
-            // raindropsTimeInterval: 4800,
-          }
-        }
+        option={{
+          // imageUrl: '/image/defaultBackground.png',
+          // accelerating: 1,
+          // dropRadius: 10,
+          // // resolution: 366,
+          // perturbance: 0.01,
+          raindropsTimeInterval: 4800,
+        }}
       >
         <div className={xcn('en-center')}>
           <h1>侠客行</h1>

@@ -39,7 +39,6 @@ export function createImageData(this: Ripples, bindImage: () => void) {
   image.src = getImageSrcBySize(width, height);
   image.onload = () => {
     renderData.lastDrawImage = Reflect.apply(createCanvasElement, this, [image]);
-
     Reflect.apply(bindImage, this, [image]);
   };
 }

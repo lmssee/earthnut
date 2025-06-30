@@ -1,5 +1,4 @@
 import { getRandomInt } from 'a-js-tools';
-import { dog } from 'dog';
 
 const build = (times: number = 0) => {
   /**  构建数据  */
@@ -35,8 +34,8 @@ const build = (times: number = 0) => {
     for (let y = x; y <= r; y++) {
       /**  子项数据  */
       const column: [number, number, number, number] = l[x][y];
-      const noise = () => getRandomInt(245, 145);
-      column[0] = getRandomInt(225, 125); // R
+      const noise = () => getRandomInt(255, 190);
+      column[0] = noise(); // R
       column[1] = noise(); // G
       column[2] = noise(); // B
       /**  小于半宽则为圆内 */
@@ -54,19 +53,21 @@ const build = (times: number = 0) => {
   for (let x = 0; x < r; x++) for (let y = r; y < d; y++) l[x][y] = l[x][d - y];
   // 绘制右下为全圆
   for (let x = r; x < d; x++) for (let y = r; y < d; y++) l[x][y] = l[x][d - y];
-
-  const k = times % d;
-  dog('当前偏移值', k);
+  const k = times % d; // 偏移值，让图有动感
   data.list = [...l.slice(k), ...l.slice(0, k)];
 
   return data;
 };
 
 /**  圆数据  */
-export const circleDataList = {
-  cum: 1,
+export const circleDataList = new (class {
+  /**  计数器  */
+  #cum: number = 1;
+  /**  构建新的数据依据  */
   build() {
-    this.data = build((this.cum += 3));
-  },
-  data: build(),
-};
+    if (this.#cum > 100) this.#cum = 0;
+    this.data = build((this.#cum += 3));
+  }
+  /**  数据依据  */
+  data = build();
+})();

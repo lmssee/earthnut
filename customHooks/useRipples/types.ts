@@ -25,6 +25,7 @@ import { CSSProperties, ReactElement } from 'react';
  *    - imageUrl    原始背景图片地址
  *    - playingState 当前的播放状态，缺省为 `true` ，设定为 `false` 时并不关闭，而是暂停
  *    - raindropsTimeInterval 雨滴滴落的间隔，缺省为 `3600`，可设置区间为 `10 ~ 12000`
+ *           该值还将影响无背景设置时默认背景的切换频率，几乎每两个雨滴落下就会切换一次背景
  *    - idleFluctuations  闲置波动，在光标交互不触发时，将触发模拟雨滴，缺省为 `true`
  *
  */
@@ -48,6 +49,7 @@ export interface BackgroundRipplesProps {
    * - imageUrl    原始背景图片地址
    * - playingState 当前的播放状态，缺省为 `true` ，设定为 `false` 时并不关闭，而是暂停
    * - raindropsTimeInterval 雨滴滴落的间隔，缺省为 `3650`，可设置区间为 `10 ~ 12000`，值越小，雨越大
+   *   该值还将影响无背景设置时默认背景的切换频率，几乎每两个雨滴落下就会切换一次背景
    * - idleFluctuations  闲置波动，在光标交互不触发时，将触发模拟雨滴，缺省为 `true`
    */
   option?: RipplesOptions;
@@ -135,7 +137,10 @@ export type RipplesUseOptions = {
    *
    * 缺省值为 `3600`
    *
+   *
    * 可设置区间为 `10 ~ 12000`
+   *
+   *   该值还将影响无背景设置时默认背景的切换频率，几乎每两个雨滴落下就会切换一次背景
    */
   raindropsTimeInterval: number;
   /**
@@ -161,6 +166,7 @@ export type RipplesUseOptions = {
  * - imageUrl    原始背景图片地址
  * - playingState 当前的播放状态，缺省为 `true` ，设定为 `false` 时并不关闭，而是暂停
  * - raindropsTimeInterval 雨滴滴落的间隔，缺省为 `3650`，可设置区间为 `10 ~ 12000`，值越小，雨越大
+ *   该值还将影响无背景设置时默认背景的切换频率，几乎每两个雨滴落下就会切换一次背景
  * - idleFluctuations  闲置波动，在光标交互不触发时，将触发模拟雨滴，缺省为 `true`
  */
 export type RipplesOptions = {

@@ -1,8 +1,11 @@
 import { isNull } from 'a-type-of-js';
 import { Ripples } from '../ripplesClass';
-import { loadImage } from '../init/loadImage';
+import { loadImage } from '../buildBackground/loadImage';
 
-/**  当页面的尺寸发生变化时  */
+/**
+ * 重新加载背景图片
+ *
+ */
 export function reloadBackground(this: Ripples) {
   const { renderData } = this;
   if (isNull(renderData)) return;
@@ -12,6 +15,7 @@ export function reloadBackground(this: Ripples) {
   this.canvas.width = width;
   this.canvas.height = height;
   {
+    // 这个步骤进行的是无设置背景图或者是父元素无背景样式时产生的切换效果
     // 绘制重置
     renderData.lastDrawImage = null;
     renderData.currentDrawImage = null;

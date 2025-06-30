@@ -1,22 +1,30 @@
 import { isNull } from 'a-type-of-js';
 import { Ripples } from '../ripplesClass';
 import { dog } from 'dog';
-import { bindImage } from '../render/bindImage';
-import { circleDataList } from './circleDataList';
+import { bindImage } from './bindImage';
+import { circleDataList } from './default-background/circleDataList';
 import { createImageBySrc } from './createImageBySrc';
 import { createCanvasElement } from './createCanvasElement';
 import { getImageSrcBySize } from './getImageSrcBySize';
 
-/**  设置缓变  */
+/**
+ * 设置缓变
+ *
+ * 缓变分两种，一种是没有任何设置的缓变；另一种就是两个不同类型之间的缓变
+ *
+ *
+ */
 export function runSide(this: Ripples) {
   const { renderData, options } = this;
   if (isNull(renderData)) return;
+
   renderData.transparentId = setTimeout(
     () => {
       Reflect.apply(buildFade, this, [bindImage]);
+      dog.type = false;
       dog('开始渐变');
     }, // 触发渐变
-    options.raindropsTimeInterval,
+    options.raindropsTimeInterval * 2,
   );
 }
 
