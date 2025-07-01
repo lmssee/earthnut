@@ -22,7 +22,6 @@ test_param() {
   done
 
   if [ $found = true ]; then 
-      # echo "$1 是正确的参数"
       build "$1";
    else
       echo "参数必须是下列参数之一"

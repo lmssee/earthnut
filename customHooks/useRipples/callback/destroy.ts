@@ -1,16 +1,19 @@
 import { isNull } from 'a-type-of-js';
 import { Ripples } from '../ripplesClass';
 import { restoreCssBackground } from '../buildBackground/utils/restore-css-background';
+import { dog } from 'dog';
 
 /**  注销  */
 export function destroy(this: Ripples) {
-  const { renderData } = this;
+  dog.type = true;
+  const { renderData, fadeData } = this;
+  dog('执行销毁');
 
   if (isNull(renderData)) return;
 
   /// 如果 animationFrameId 存在则清理该渲染
   if (renderData.animationFrameId) window.cancelAnimationFrame(renderData.animationFrameId);
-  if (renderData.transparentId) clearTimeout(renderData.transparentId);
+  if (fadeData.transparentId) clearTimeout(fadeData.transparentId);
   if (renderData?.parentElement && renderData?.events) {
     const { parentElement, events } = renderData;
     /// 移除监听的事件
@@ -46,7 +49,7 @@ export function destroy(this: Ripples) {
     if (this.gl) this.gl = null as unknown as never;
   }
   /// 移除注册在 window 上的尺寸变化的事件
-  window.removeEventListener('resize', this.reloadBackground);
+  // window.removeEventListener('resize', this.reloadBackground);
   {
     // this.canvas.remove(); /// react 会自己管理移除元素
   }

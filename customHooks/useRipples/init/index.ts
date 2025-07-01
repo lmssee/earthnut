@@ -6,12 +6,13 @@ import { initShaders } from './initShaders';
 import { initTexture } from './initTexture';
 import { loadImage } from '../buildBackground/loadImage';
 import { setTransparentTexture } from '../buildBackground/default-background';
+import { bindImage } from '../buildBackground/utils/bindImage';
 
 /**
  * 初始化 webGL
  */
 export function initGL(this: Ripples) {
-  const { renderData, options } = this;
+  const { renderData, options, fadeData } = this;
 
   if (isNull(renderData) || !this.config) return;
 
@@ -99,7 +100,7 @@ export function initGL(this: Ripples) {
   options.visible = true;
   options.running = true;
 
-  // this.#initialized = true;
   Reflect.apply(setupPointerEvents, this, []); /// 初始化监听事件
+  Reflect.apply(bindImage, this, [fadeData.lastDrawImage]); // 绑定初始化的默认纹理
   renderData.animationFrameId = requestAnimationFrame(() => Reflect.apply(render, this, []));
 }

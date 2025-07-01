@@ -23,6 +23,7 @@ import { restoreCssBackground } from './buildBackground/utils/restore-css-backgr
 import { drop } from './callback/drop';
 import { UseOptions } from './rippersData/useOptions';
 import { fade } from './callback/fade';
+import { FadeData } from './rippersData/fadeData';
 
 /**
  *
@@ -35,6 +36,8 @@ export class Ripples extends RipplesData {
   renderData: RipplesRenderData | null = null;
   /**  使用参数  */
   options: UseOptions;
+  /**  背景使用的数据  */
+  fadeData: FadeData;
   defaults = defaultData;
   /**  初始化状态  */
   initialized: boolean = false;
@@ -61,6 +64,8 @@ export class Ripples extends RipplesData {
     });
     // 数据初始化
     this.renderData = new RipplesRenderData(canvas, this.reloadBackground, this);
+    // 渐变的数据
+    this.fadeData = new FadeData(this);
 
     if (
       isFalse(this.initState) ||
@@ -78,9 +83,10 @@ export class Ripples extends RipplesData {
 
   /** 模拟雨滴下落  */
   raindropsFall() {
-    const { renderData, options } = this;
+    const { renderData, options, fadeData } = this;
     if (isNull(renderData)) return;
-    const { lastRaindropsFallTime, backgroundInfo } = renderData;
+    const { backgroundInfo } = fadeData;
+    const { lastRaindropsFallTime } = renderData;
     const { raindropsTimeInterval, dropRadius } = options;
     const now = Date.now();
     /**  模拟雨滴坠落  */

@@ -31,7 +31,8 @@ export default function RipplesPage() {
         style={{
           position: 'static',
           backgroundColor: '#0ff',
-          // backgroundImage: 'url(/image/defaultBackground.png)',
+          backgroundImage: 'url(/image/defaultBackground.png)',
+          backgroundRepeat: 'round',
         }}
         option={{
           // imageUrl: '/image/defaultBackground.png',

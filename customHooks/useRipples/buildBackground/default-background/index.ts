@@ -1,8 +1,6 @@
-import { isNull } from 'a-type-of-js';
 import { Ripples } from '../../ripplesClass';
-import { runSide } from '../runSide';
-import { bindImage } from '../utils/bindImage';
 import { createCanvasElementBySize } from './createCanvasElementBySize';
+import { circleDataList } from './circleDataList';
 /**
  *
  * 设置透明的纹理
@@ -12,12 +10,11 @@ import { createCanvasElementBySize } from './createCanvasElementBySize';
  *
  */
 export function setTransparentTexture(this: Ripples) {
-  const { renderData } = this;
-  if (isNull(renderData)) return;
-  // Reflect.apply(createImageData, this, [bindImage]);
-  const { width, height } = renderData.backgroundInfo;
-  const canvas = (renderData.lastDrawImage = createCanvasElementBySize(width, height));
-  Reflect.apply(bindImage, this, [canvas]);
+  const { fadeData } = this;
 
-  Reflect.apply(runSide, this, []);
+  const { width, height } = fadeData.backgroundInfo;
+  circleDataList.build(); // 构建新的执行图（很重要）
+  //   当前渲染的纹理（下一个）
+  fadeData.toBeList.push(createCanvasElementBySize(width, height));
+  fadeData.run(); // 开启渐变
 }

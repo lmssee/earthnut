@@ -1,7 +1,6 @@
 import { dog } from 'dog';
 import { isNull } from 'a-type-of-js';
 import { Ripples } from '../ripplesClass';
-import { bindImage } from './utils/bindImage';
 import { setTransparentTexture } from './default-background';
 import { createImageBySrc } from './utils/createImageBySrc';
 /**
@@ -17,13 +16,14 @@ import { createImageBySrc } from './utils/createImageBySrc';
  */
 export function loadImage(this: Ripples) {
   dog.type = false;
-  const { renderData, options } = this;
+  const { renderData, options, fadeData } = this;
   if (isNull(renderData)) {
     dog('执行绘制时没有渲染数据');
     Reflect.apply(setTransparentTexture, this, []);
     return;
   }
-  const { lastUseStyle, backgroundInfo } = renderData;
+  const { lastUseStyle } = renderData;
+  const { backgroundInfo } = fadeData;
 
   const { width, height } = backgroundInfo;
   const newImageSource: string | null =
@@ -42,9 +42,19 @@ export function loadImage(this: Ripples) {
   // 从新图像加载纹理。
   const image = createImageBySrc(newImageSource, width, height);
   image.onload = () => {
-    clearTimeout(renderData.transparentId); // 清理默认的渲染透明
-    dog('背景图下载完毕');
-    Reflect.apply(bindImage, this, [image]);
+    clearTimeout(fadeData.transparentId); // 清理默认的渲染透明
+    dog('背景图下载完毕', fadeData.toBeList.length);
+    // 下载有效背景时清理默认的背景纹理和同地址的背景纹理
+    fadeData.toBeList = fadeData.toBeList.filter(
+      e =>
+        e.tagName.toLowerCase() === 'img' &&
+        e.getAttribute('src') !== newImageSource &&
+        e.width === width &&
+        e.height === height,
+    );
+
+    fadeData.toBeList.push(image); // 设置渐变过去
+    fadeData.run(); // 开启渐变
   };
 
   // 下载图像出错

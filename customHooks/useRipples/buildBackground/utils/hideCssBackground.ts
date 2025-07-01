@@ -17,9 +17,10 @@ export function hideCssBackground(this: Ripples) {
   const { parentElement } = renderData;
   if (!parentElement) return;
   dog('重写父级的行内样式');
+  // renderData.dropProgram = [];
   // 检测是否更改了行内样式或是重写了该样式
   [
-    ['background', 'transparent'],
+    // ['background', 'transparent'],
     ['background-image', 'none'],
     ['background-color', 'transparent'],
   ].forEach(e => parentElement.style.setProperty(e[0], e[1], 'important'));

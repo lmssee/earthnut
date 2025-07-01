@@ -79,7 +79,15 @@ const BackgroundRipple = forwardRef<RippleEle, BackgroundRipplesProps>(
     }));
 
     return (
-      <div className={xcn('en-ripple-container')} style={style}>
+      <div
+        className={xcn('en-ripple-container')}
+        style={{
+          backgroundRepeat: 'round',
+          // backgroundSize: 'cover',
+          // backgroundPosition: 'center',
+          ...style,
+        }}
+      >
         <canvas ref={canvas} data-earthnut-ui="canvas" />
         {children}
       </div>

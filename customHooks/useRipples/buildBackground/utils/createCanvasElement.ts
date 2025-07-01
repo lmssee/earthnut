@@ -5,9 +5,9 @@ import { Ripples } from 'components/ripples';
 export function createCanvasElement(this: Ripples, img: CanvasImageSource) {
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
-  const { renderData } = this;
-  if (isNull(renderData) || isNull(ctx)) return canvas;
-  const { width, height } = renderData.backgroundInfo;
+  const { fadeData } = this;
+  if (isNull(ctx)) return canvas;
+  const { width, height } = fadeData.backgroundInfo;
   canvas.width = width;
   canvas.height = height;
   ctx.fillStyle = '#ffffff';

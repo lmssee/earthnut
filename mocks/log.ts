@@ -1,4 +1,6 @@
+/**  模拟类，用于打包用  */
 export class Dog {
+  /**  模拟类的构建  */
   constructor() {
     const _dev = () => {};
 

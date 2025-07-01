@@ -9,7 +9,7 @@ export const defaultData: RipplesUseOptions = {
   dropRadius: 12,
   perturbance: 0.01,
   interactive: true,
-  crossOrigin: '',
+  crossOrigin: 'no-cors',
   playingState: true,
   accelerating: 1,
   raindropsTimeInterval: 3600,

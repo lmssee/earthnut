@@ -1,14 +1,18 @@
 import { isNull, isZero } from 'a-type-of-js';
 import { Ripples } from '../../ripplesClass';
+import { dog } from 'dog';
 
 /**  绑定图片  */
 export function bindImage(this: Ripples, texImageSource: TexImageSource) {
-  const { gl, renderData } = this;
+  const { gl, renderData, fadeData } = this;
 
-  if (isNull(renderData)) return;
+  if (isNull(renderData)) {
+    dog('绑定纹理未找到渲染数据');
+    return;
+  }
 
-  const { backgroundTexture, backgroundInfo } = renderData;
-
+  const { backgroundTexture } = renderData;
+  const { backgroundInfo } = fadeData;
   const { width, height } = backgroundInfo;
 
   /**  只有维度为 2 的幂的纹理才能重复换行  */

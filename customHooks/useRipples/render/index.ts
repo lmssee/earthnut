@@ -9,14 +9,15 @@ import { update } from './update';
  *
  */
 export function render(this: Ripples) {
-  const { renderData, options } = this;
+  const { renderData, options, fadeData } = this;
   if (isNull(renderData)) return;
-  const { isTransitioning, parentElement } = renderData;
+  const { parentElement } = renderData;
+  const { isTransitioning } = fadeData;
   const { running, idleFluctuations, lastRunningState } = options;
   {
     // 获取边界尺寸
     const styles = getComputedStyle(parentElement);
-    renderData.backgroundInfo = {
+    fadeData.backgroundInfo = {
       width: parseInt(styles.width),
       height: parseInt(styles.height),
     };

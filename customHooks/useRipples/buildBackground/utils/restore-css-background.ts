@@ -11,7 +11,7 @@ export function restoreCssBackground(this: Ripples) {
   if (isNull(renderData)) return;
 
   const { parentElement, originStyle } = renderData;
-  parentElement.style.setProperty('background', originStyle.inlineBackground);
+  // parentElement.style.setProperty('background', originStyle.inlineBackground);
   parentElement.style.setProperty('background-image', originStyle.inlineBackgroundImage);
   parentElement.style.setProperty('background-color', originStyle.inlineBackgroundColor);
 }

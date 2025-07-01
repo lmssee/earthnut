@@ -3,7 +3,7 @@ import { Ripples } from '../ripplesClass';
 
 /**  计算纹理边界及背景图  */
 export function computeTextureBoundaries(this: Ripples) {
-  const { renderData } = this;
+  const { renderData, fadeData } = this;
   if (isNull(renderData)) return;
 
   const { parentElement } = renderData;
@@ -38,7 +38,7 @@ export function computeTextureBoundaries(this: Ripples) {
 
   let backgroundWidth: string | number, backgroundHeight: string | number;
 
-  const { width, height } = renderData.backgroundInfo || { width: 100, height: 100 };
+  const { width, height } = fadeData.backgroundInfo || { width: 100, height: 100 };
 
   if (backgroundSize === 'cover') {
     const scale = Math.max(container.width / width, container.height / height);

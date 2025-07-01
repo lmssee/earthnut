@@ -7,6 +7,7 @@ import { enArr } from 'a-js-tools';
 import { isEmptyArray } from 'a-type-of-js';
 import { hideCssBackground } from '../buildBackground/utils/hideCssBackground';
 import { isNoneBackGroundColor, isNoneBackgroundImage } from '../tools';
+
 /**
  *
  * 原始数据类
@@ -34,14 +35,6 @@ export class RipplesRenderData {
   mutationObserver: null | MutationObserver;
   /**  父级尺寸变化监听者  */
   resizeObserver: null | ResizeObserver;
-  /**  背景页面的数据  */
-  backgroundInfo: {
-    width: number;
-    height: number;
-  } = {
-    width: 0,
-    height: 0,
-  };
 
   /**  渲染程序  */
   renderProgram!: Program;
@@ -82,16 +75,6 @@ export class RipplesRenderData {
 
   /**  渲染 id  */
   animationFrameId: number = 0;
-  /**  缺省背景图时的 id  */
-  transparentId: NodeJS.Timeout = setTimeout(Boolean);
-  /**  上一个绘制的图像  */
-  lastDrawImage: HTMLCanvasElement | null = null;
-  /**  当前绘制的图像  */
-  currentDrawImage: HTMLCanvasElement | null = null;
-  /**  绘制进度  */
-  drawProgress: number = 0;
-  /**  是否处于绘制过渡状态  */
-  isTransitioning: boolean = false;
 
   /**
    * 构建 Ripple 的渲染数据
@@ -102,14 +85,7 @@ export class RipplesRenderData {
    */
   constructor(canvas: HTMLCanvasElement, callback: () => void, _Ripples: Ripples) {
     this.parentElement = canvas.parentElement ?? document.body;
-    {
-      // 获取边界尺寸并保存，防止后续步骤多次重复获取该数据并解析
-      const styles = getComputedStyle(this.parentElement);
-      this.backgroundInfo = {
-        width: parseInt(styles.width),
-        height: parseInt(styles.height),
-      };
-    }
+
     //
     Reflect.apply(hideCssBackground, _Ripples, []);
     this.originStyle = this.lastUseStyle = getBackgroundStyles(this.parentElement);

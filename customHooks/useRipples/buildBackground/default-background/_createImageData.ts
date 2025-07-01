@@ -1,23 +1,17 @@
-import { isNull } from 'a-type-of-js';
 import { Ripples } from '../../ripplesClass';
-import { dog } from 'dog';
+
 import { createCanvasElementBySize } from './createCanvasElementBySize';
 
-/// 该文件已废弃
+/// 该文件已废弃 #FFFF00
 /**
  * 创建一个隐含像素数据的区域
  *
  * 用于构建默认的背景图
  */
 export function createImageData(this: Ripples, bindImage: () => void) {
-  const { renderData } = this;
-
-  if (isNull(renderData)) {
-    dog.warn('执行时未获取到尺寸');
-    return;
-  }
-  const { width, height } = renderData.backgroundInfo;
-  renderData.lastDrawImage = createCanvasElementBySize(width, height);
+  const { fadeData } = this;
+  const { width, height } = fadeData.backgroundInfo;
+  fadeData.lastDrawImage = createCanvasElementBySize(width, height);
   Reflect.apply(bindImage, this, []);
 
   // const { backgroundInfo } = renderData;
