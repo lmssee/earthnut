@@ -11,7 +11,13 @@ import { createCanvasElementBySize } from './createCanvasElementBySize';
 export function createImageData(this: Ripples, bindImage: () => void) {
   const { fadeData } = this;
   const { width, height } = fadeData.backgroundInfo;
-  fadeData.lastDrawImage = createCanvasElementBySize(width, height);
+  fadeData.lastDrawImage = {
+    resource: createCanvasElementBySize(width, height),
+    width,
+    height,
+    kind: 'default',
+    tag: '',
+  };
   Reflect.apply(bindImage, this, []);
 
   // const { backgroundInfo } = renderData;

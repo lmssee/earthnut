@@ -1,9 +1,11 @@
 import { isNull, isZero } from 'a-type-of-js';
 import { Ripples } from '../../ripplesClass';
 import { dog } from 'dog';
+import { DrawImage } from 'customHooks/useRipples/rippersData/fadeData';
 
 /**  绑定图片  */
-export function bindImage(this: Ripples, texImageSource: TexImageSource) {
+export function bindImage(this: Ripples, texImageSource: DrawImage) {
+  dog.type = true;
   const { gl, renderData, fadeData } = this;
 
   if (isNull(renderData)) {
@@ -46,5 +48,7 @@ export function bindImage(this: Ripples, texImageSource: TexImageSource) {
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, wrapping);
   // dog('即将创建的图像', image);
   /// 指定二维纹理图像
-  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, texImageSource);
+  dog('本次使用的纹理为', texImageSource);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, texImageSource.resource);
+  dog.type = true;
 }

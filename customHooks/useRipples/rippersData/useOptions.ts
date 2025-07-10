@@ -89,7 +89,7 @@ export class UseOptions {
   }
 
   /**  传入的背景图片  */
-  imageUrl: string | null = defaultData.imageUrl;
+  imgUrl: string | string[] | null = defaultData.imgUrl;
 
   /**  闲置波动 （值） */
   #idleFluctuations: boolean = defaultData.idleFluctuations;
@@ -149,7 +149,7 @@ export class UseOptions {
     this.accelerating = options.accelerating;
     this.interactive = options.interactive;
     this.dropRadius = options.dropRadius;
-    this.imageUrl = options.imageUrl;
+    this.imgUrl = options.imgUrl;
     this.idleFluctuations = options.idleFluctuations;
     this.running = Boolean(options.playingState ?? true);
     this.crossOrigin = options.crossOrigin;

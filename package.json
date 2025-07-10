@@ -2,7 +2,7 @@
   "private": true,
   "type": "module",
   "name": "earthnut",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "earthnut 的 react ui",
   "scripts": {
     "build": "chmod +x ./scripts/build.sh && npm run production && ./scripts/build.sh",
@@ -55,6 +55,7 @@
     "css-loader": "6.11.0",
     "eslint": "^9.30.0",
     "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-jsdoc": "^51.3.3",
     "eslint-plugin-prettier": "^5.5.1",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
@@ -92,7 +93,6 @@
     "a-element-inline-style": "^0.0.1",
     "a-js-tools": "^1.0.5",
     "a-type-of-js": "^1.0.2",
-    "eslint-plugin-jsdoc": "^51.3.1",
     "xcn": "^0.1.1"
   }
 }

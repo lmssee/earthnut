@@ -5,7 +5,6 @@ import { setupPointerEvents } from './initEvent';
 import { initShaders } from './initShaders';
 import { initTexture } from './initTexture';
 import { loadImage } from '../buildBackground/loadImage';
-import { setTransparentTexture } from '../buildBackground/default-background';
 import { bindImage } from '../buildBackground/utils/bindImage';
 
 /**
@@ -88,7 +87,6 @@ export function initGL(this: Ripples) {
   );
   Reflect.apply(initShaders, this, []);
   Reflect.apply(initTexture, this, []);
-  Reflect.apply(setTransparentTexture, this, []); // 设置黑色
   // 设置背景
   Reflect.apply(loadImage, this, []);
   // 设置透明背景色

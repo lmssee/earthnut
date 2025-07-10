@@ -112,6 +112,7 @@ export class Ripples extends RipplesData {
 
   /** 元素的尺寸发生变化  */
   reloadBackground() {
+    dog('触发尺寸变化或属性变化');
     this.#reloadBackground();
   }
 
@@ -152,8 +153,9 @@ export class Ripples extends RipplesData {
   }
   /**  给初始化变量赋值  */
   set(property: keyof RipplesOptions, value: unknown) {
-    if (property === 'imageUrl') {
-      this.options.imageUrl = value as string;
+    dog('设置属性', property);
+    if (property === 'imgUrl') {
+      this.options.imgUrl = value as string;
       Reflect.apply(loadImage, this, []);
     } else this.options[property] = value as never;
   }

@@ -11,7 +11,7 @@ import { isNull } from 'a-type-of-js';
  * - 父级样式属性发生变更的时候
  */
 export function hideCssBackground(this: Ripples) {
-  dog.type = true;
+  dog.type = false;
   const { renderData } = this;
   if (isNull(renderData)) return;
   const { parentElement } = renderData;

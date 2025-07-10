@@ -19,5 +19,7 @@ export function getBackgroundStyles(element: HTMLElement): OriginStyle {
     backgroundOrigin: computedStyle.backgroundOrigin,
     backgroundAttachment: computedStyle.backgroundAttachment,
     position: computedStyle.position,
+    width: parseInt(computedStyle.width),
+    height: parseInt(computedStyle.height),
   };
 }

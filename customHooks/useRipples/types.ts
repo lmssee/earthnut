@@ -24,7 +24,7 @@ export type ImageCrossOrigin = 'anonymous' | 'use-credentials' | 'no-cors';
  *    - interactive 光标交互，缺省为 `true` ，关闭须显示传入 `false` 值
  *    - accelerating  加速光标移动触发，缺省为 `1`
  *    - crossOrigin 原始样式
- *    - imageUrl    原始背景图片地址
+ *    - imgUrl    原始背景图片地址
  *    - playingState 当前的播放状态，缺省为 `true` ，设定为 `false` 时并不关闭，而是暂停
  *    - raindropsTimeInterval 雨滴滴落的间隔，缺省为 `3600`，可设置区间为 `10 ~ 12000`
  *           该值还将影响无背景设置时默认背景的切换频率，几乎每两个雨滴落下就会切换一次背景
@@ -48,7 +48,7 @@ export interface BackgroundRipplesProps {
    * - interactive 光标交互，缺省为 `true` ，关闭须显示传入 `false` 值
    * - accelerating  加速光标移动触发，类似于扰动系数，及作用与鼠标或手指触发，缺省为 `1`
    * - crossOrigin 原始样式
-   * - imageUrl    原始背景图片地址
+   * - imgUrl    原始背景图片地址
    * - playingState 当前的播放状态，缺省为 `true` ，设定为 `false` 时并不关闭，而是暂停
    * - raindropsTimeInterval 雨滴滴落的间隔，缺省为 `3650`，可设置区间为 `10 ~ 12000`，值越小，雨越大
    *   该值还将影响无背景设置时默认背景的切换频率，几乎每两个雨滴落下就会切换一次背景
@@ -125,7 +125,7 @@ export type RipplesUseOptions = {
    *
    * 缺省为 `''`
    */
-  imageUrl: string;
+  imgUrl: string | string[] | null;
   /**
    * 当前涟漪的状态
    *
@@ -165,7 +165,7 @@ export type RipplesUseOptions = {
  * - interactive 光标交互，缺省为 `true` ，关闭须显示传入 `false` 值
  * - accelerating  加速光标移动触发，类似于扰动系数，及作用与鼠标或手指触发，缺省为 `1`
  * - crossOrigin 原始样式
- * - imageUrl    原始背景图片地址
+ * - imgUrl    原始背景图片地址
  * - playingState 当前的播放状态，缺省为 `true` ，设定为 `false` 时并不关闭，而是暂停
  * - raindropsTimeInterval 雨滴滴落的间隔，缺省为 `3650`，可设置区间为 `10 ~ 12000`，值越小，雨越大
  *   该值还将影响无背景设置时默认背景的切换频率，几乎每两个雨滴落下就会切换一次背景
@@ -180,7 +180,7 @@ export type RipplesOptions = {
  */
 export interface RipplesDefaultData {
   /**  默认的图像地址  */
-  imageUrl: '';
+  imgUrl: '';
   /**    */
   resolution: 256;
   dropRadius: 10;

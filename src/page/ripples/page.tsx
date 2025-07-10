@@ -1,14 +1,14 @@
 import { BackgroundRipple } from 'components';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import styles from './index.module.scss';
 import { xcn } from 'xcn';
 import { RippleEle } from 'components/ripples/types';
-
 /**
  * 涟漪页
  */
 export default function RipplesPage() {
   const rippleRef = useRef<RippleEle>(null);
+  const [background, setBackground] = useState<string | string[] | null>(null);
 
   /**
    * 切换状态
@@ -17,6 +17,18 @@ export default function RipplesPage() {
     rippleRef.current?.toggleState();
     e.preventDefault();
     e.stopPropagation();
+  }
+
+  /**  更改当前的样式  */
+  function setBackgroundValue(e: React.MouseEvent<HTMLButtonElement>) {
+    const target = e.target as HTMLButtonElement;
+    const index = Number(target.dataset['index']);
+    setBackground(
+      [['#f00'], ['#a63', '#361', '#009'], '/image/defaultBackground.png', null][index],
+    );
+    e.stopPropagation();
+    e.preventDefault();
+    return false;
   }
 
   return (
@@ -30,17 +42,18 @@ export default function RipplesPage() {
         ref={rippleRef}
         style={{
           position: 'static',
-          backgroundColor: '#0ff',
-          backgroundImage: 'url(/image/defaultBackground.png)',
-          backgroundRepeat: 'round',
+          // backgroundColor: '#333',
+          // backgroundImage: 'linear-gradient(black, transparent)',
+          // backgroundImage: 'url(/image/defaultBackground.png)',
         }}
         option={{
-          // imageUrl: '/image/defaultBackground.png',
+          // imgUrl: '/image/defaultBackground.png',
           // accelerating: 1,
           // dropRadius: 10,
           // // resolution: 366,
           // perturbance: 0.01,
           raindropsTimeInterval: 4800,
+          imgUrl: background,
         }}
       >
         <div className={xcn('en-center')}>
@@ -64,6 +77,23 @@ export default function RipplesPage() {
               {e}
             </div>
           ))}
+          <div>
+            {['纯色', '渐变', '图片', '没有值'].map((e, i) => (
+              <button
+                key={e}
+                data-index={i}
+                style={{
+                  margin: '10px 9px',
+                  borderRadius: '10px',
+                  border: 'none',
+                  boxShadow: '1px 1px 6px #f369',
+                }}
+                onClick={setBackgroundValue}
+              >
+                {e}
+              </button>
+            ))}
+          </div>
         </div>
       </BackgroundRipple>
     </div>

@@ -2,6 +2,19 @@ import { isNull } from 'a-type-of-js';
 import { createCanvasElementBySize } from '../buildBackground/default-background/createCanvasElementBySize';
 import { Ripples } from '../ripplesClass';
 
+export type DrawImage = {
+  /**  资源  */
+  resource: HTMLCanvasElement | HTMLImageElement;
+  /**  类型  */
+  kind: 'image' | 'linear-gradient' | 'background-color' | 'default' | 'mix';
+  /**  标识  */
+  tag: string;
+  /**  当前的宽  */
+  width: number;
+  /**  当前的高  */
+  height: number;
+};
+
 /**  背景渐变的数据  */
 export class FadeData {
   /**  背景页面的数据  */
@@ -18,12 +31,12 @@ export class FadeData {
    *
    * 如果没有 toBeList 为空值，则当前渲染的为此纹理）绘制的图像
    */
-  lastDrawImage: HTMLCanvasElement | HTMLImageElement;
+  lastDrawImage: DrawImage;
   /**  当前绘制的图像
    *
    * 该值仅出现在需要渐变过程中，一旦渐变完成，实际渲染的值就成了最后渲染的值
    */
-  toBeList: (HTMLCanvasElement | HTMLImageElement)[] = [];
+  toBeList: DrawImage[] = [];
   /**  绘制进度  */
   drawProgress: number = 0;
   /**  是否处于绘制过渡状态  */
@@ -35,6 +48,10 @@ export class FadeData {
     if (this.isTransitioning) return;
     this.drawProgress = 0;
     this.isTransitioning = true;
+  }
+  /**  销毁  */
+  destroy() {
+    if (this.transparentId) clearTimeout(this.transparentId);
   }
   /**  创建背景渐变的数据  */
   constructor(_Ripples: Ripples) {
@@ -53,6 +70,12 @@ export class FadeData {
       width,
       height,
     };
-    this.lastDrawImage = createCanvasElementBySize(width, height);
+    this.lastDrawImage = {
+      resource: createCanvasElementBySize(width, height),
+      width,
+      height,
+      kind: 'default',
+      tag: '',
+    };
   }
 }

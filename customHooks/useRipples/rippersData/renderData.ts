@@ -7,6 +7,7 @@ import { enArr } from 'a-js-tools';
 import { isEmptyArray } from 'a-type-of-js';
 import { hideCssBackground } from '../buildBackground/utils/hideCssBackground';
 import { isNoneBackGroundColor, isNoneBackgroundImage } from '../tools';
+import { restoreCssBackground } from '../buildBackground/utils/restore-css-background';
 
 /**
  *
@@ -85,13 +86,14 @@ export class RipplesRenderData {
    */
   constructor(canvas: HTMLCanvasElement, callback: () => void, _Ripples: Ripples) {
     this.parentElement = canvas.parentElement ?? document.body;
-
     //
     Reflect.apply(hideCssBackground, _Ripples, []);
     this.originStyle = this.lastUseStyle = getBackgroundStyles(this.parentElement);
-    dog(this.originStyle);
+    dog.type = false;
+    dog('初始化时估计元素的尺寸', this.originStyle);
     // 注册监听属性变化
     this.mutationObserver = new MutationObserver(mutations => {
+      dog.type = false;
       /**  变化值  */
       mutations.forEach(mutation => {
         if (mutation.target !== this.parentElement) return;
@@ -125,6 +127,7 @@ export class RipplesRenderData {
           Reflect.apply(hideCssBackground, _Ripples, []); // 触发隐藏元素的
         }
       });
+      dog.type = true;
     });
     // 开始监听属性变化
     this.mutationObserver.observe(this.parentElement, {
@@ -133,11 +136,48 @@ export class RipplesRenderData {
       attributeFilter: ['class', 'style'], // 监听的属性
     });
     // 监听尺寸变化
-    this.resizeObserver = new ResizeObserver(() => {
-      // dog('监听的父级元素发生了尺寸变化');
-      // 仅允许在 canvas 渲染时触发尺寸的监听计划
-      Reflect.apply(callback, _Ripples, []);
+    this.resizeObserver = new ResizeObserver(entries => {
+      entries.forEach(e => {
+        // 非目标元素
+        if (e.target !== this.parentElement) return;
+        const currentStyle = getBackgroundStyles(this.parentElement);
+        // 避免页面微变和子元素加载后页面的回流导致的重绘引起的微调
+        if (
+          Math.abs(currentStyle.width - this.originStyle.width) < 3 &&
+          Math.abs(currentStyle.height - this.originStyle.height) < 3
+        )
+          return;
+        dog('变化前的尺寸');
+        dog('监听的父级元素发生了尺寸变化', entries);
+        // 仅允许在 canvas 渲染时触发尺寸的监听计划
+        Reflect.apply(callback, _Ripples, []);
+      });
     });
     this.resizeObserver.observe(this.parentElement);
+  }
+  /**  销毁  */
+  destroy() {
+    if (this.animationFrameId) window.cancelAnimationFrame(this.animationFrameId);
+    /// 恢复父级节点的背景样式
+    Reflect.apply(restoreCssBackground, { renderData: this }, []);
+    // 移除事件监听
+    if (this.parentElement && this.events) {
+      const { parentElement, events } = this;
+      /// 移除监听的事件
+      (Object.keys(events) as []).forEach(
+        e => parentElement.removeEventListener && parentElement.removeEventListener(e, events[e]),
+      );
+      /// 移除属性
+      if (parentElement.removeAttribute) parentElement.removeAttribute('data-ripples');
+      {
+        // 移除父级元素的监听，防止内存泄露
+        this.mutationObserver?.takeRecords();
+        this.mutationObserver?.disconnect();
+        this.mutationObserver = null;
+        // this.resizeObserver?.unobserve(this.parentElement);
+        this.resizeObserver?.disconnect();
+        this.resizeObserver = null;
+      }
+    }
   }
 }

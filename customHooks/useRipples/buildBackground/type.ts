@@ -24,4 +24,8 @@ export type OriginStyle = {
   backgroundOrigin: string;
   /**  元素的背景图相对视口的滚动方式  */
   backgroundAttachment: string;
+  /**  当前的宽  */
+  width: number;
+  /**  当前的高  */
+  height: number;
 };
