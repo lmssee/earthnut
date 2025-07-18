@@ -1,6 +1,12 @@
 import React from 'react';
 import { xcn } from 'xcn';
-import styles from './style/index.module.scss';
+import styled from 'styled-components';
+
+/**  创建带样式的组件  */
+const Content = styled.main`
+  grid-area: content;
+`;
+
 /**
  *
  * layout content
@@ -12,9 +18,9 @@ import styles from './style/index.module.scss';
 const InternalValueC = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => {
     return (
-      <main
+      <Content
         ref={ref}
-        className={xcn(styles['en-layout-main'], className)}
+        className={xcn('en-layout-main', className)}
         {...props}
         data-earthnut-ui="layout-content"
       />

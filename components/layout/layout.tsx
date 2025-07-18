@@ -3,11 +3,27 @@ import { InternalValueH as LayoutHeader } from './header';
 import { InternalValueS as LayoutSideBar } from './sideBar';
 import { InternalValueC as LayoutContent } from './content';
 import { InternalValueF as LayoutFooter } from './footer';
-import styles from './style/index.module.scss';
-
-import { LayoutFooterProps, LayoutHeaderProps, LayoutProps, LayoutSideBarProps } from './types';
+import {
+  EnLayoutContentType,
+  LayoutFooterProps,
+  LayoutHeaderProps,
+  LayoutProps,
+  LayoutSideBarProps,
+  LayoutTheme,
+} from './types';
 import { xcn } from 'xcn';
-import { isNumber, isTrue } from 'a-type-of-js';
+import { isTrue } from 'a-type-of-js';
+import styled from 'styled-components';
+import { EnLayoutContent } from './EnLayoutContent';
+import { getValue } from './get-value';
+import { generateClass } from './generate-class';
+import { dog } from 'dog';
+
+/**  内容区域容器  */
+const LayoutContentWrapper = styled.div`
+  grid-area: content;
+  overflow: auto;
+`;
 
 /**
  *
@@ -52,28 +68,28 @@ import { isNumber, isTrue } from 'a-type-of-js';
  *
  */
 const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
-  ({ className, children, style, width = '100vw', height = '100vh', ...props }, ref) => {
+  ({ className, children, style, width = '100vw', height = '100vh', classes, ...props }, ref) => {
     /**  子组件的个数  */
     // const childCount = React.Children.count(children);
     /**  头部 header 是否粘连影响下的样式  */
     // console.log('子元素个数', childCount);
     /**  头部 header 组件  */
-    let Header,
+    let Header: React.ReactElement<LayoutHeaderProps> | undefined,
       /** 当前的样式   */
       layout: string = 'simple',
-      headerNoSticky: string = '',
+      headerNoSticky: boolean = false,
       /**  是否拥有头部（header）  */
       hasHeader: boolean = false,
       /**  侧边栏组件  */
-      SideBar,
+      SideBar: React.ReactElement | undefined,
       /**  是否拥有侧边（side bar）  */
       hasSideBar: boolean = false,
       /**  内容区，该内容区与 Content、SideBar 组成的 .content 不同  */
-      Content,
+      Content: React.ReactElement | undefined,
       /**  是否拥有内容（Content）  */
       hasContent: boolean = false,
       /**  页脚区（Footer）  */
-      Footer,
+      Footer: React.ReactElement | undefined,
       /**  是否拥有页脚区  */
       hasFooter: boolean = false,
       /**  侧边的宽度，缺省值 `150（px）`  */
@@ -84,18 +100,37 @@ const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
       footerHeight: string | number = '2rem',
       /**  侧边是否占据所有尺寸（发生于 side bar 的 full 为 true 和仅有 side bar 时）   */
       sideFull: boolean = false;
+    /**  头字符串样式类  */
+    const $header: string = generateClass('header'),
+      /**  内容字符串样式类  */
+      $content: string = generateClass('content'),
+      /**  主区字符串样式类  */
+      $main: string = generateClass('main'),
+      /**  侧边字符串样式类  */
+      $sidebar: string = generateClass('sidebar'),
+      /**  页脚字符串样式类  */
+      $footer: string = generateClass('footer');
 
+    /// 校验所有的子元素，并修改特定的 props
     React.Children.forEach(children, child => {
+      /// 检测 child 是否是有效的 React 元素（避免非元素节点）
       if (!React.isValidElement(child)) return;
+      // 如果没有头且当前的元素是头
       if (!hasHeader && child.type === LayoutHeader) {
+        /**  组件  */
+        const element = child as React.ReactElement<LayoutHeaderProps>;
         /** 头部组件的参数们   */
-        const headerProps = child.props as LayoutHeaderProps;
+        const headerProps = element.props;
         headerHeight = headerProps.height || headerHeight;
-        headerNoSticky = headerProps.noSticky ? styles['en-layout-header-no-sticky'] : '';
-        Header = child;
+        headerNoSticky = headerProps.noSticky ?? false;
+        Header = React.cloneElement(element, { className: xcn($header, element.props.className) });
         hasHeader = true;
-      } else if (!hasSideBar && child.type === LayoutSideBar) {
-        const sideBarProps = child.props as LayoutSideBarProps;
+      }
+      // 侧边栏
+      else if (!hasSideBar && child.type === LayoutSideBar) {
+        /**  组件  */
+        const element = child as React.ReactElement<LayoutSideBarProps>;
+        const sideBarProps = element.props;
         sideWidth = sideBarProps.width || sideWidth;
         layout =
           sideBarProps.right && sideBarProps.full
@@ -106,44 +141,81 @@ const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
                 ? 'side-full'
                 : 'simple';
         sideFull = isTrue(sideBarProps.full);
-        SideBar = child;
+        SideBar = React.cloneElement(element, {
+          className: xcn($sidebar, element.props.className),
+        });
         hasSideBar = true;
-      } else if (!hasContent && child.type === LayoutContent) {
-        Content = child;
+      }
+      /// 内容区
+      else if (!hasContent && child.type === LayoutContent) {
+        /**  组件  */
+        const element = child as React.ReactElement<LayoutHeaderProps>;
+        Content = React.cloneElement(element, {
+          className: xcn($main, element.props.className),
+        });
         hasContent = true;
-      } else if (!hasContent && child.type === Layout) {
+      }
+      /// 内容区，渲染的一个被嵌套的 Layout
+      else if (!hasContent && child.type === Layout) {
+        /**  组件  */
+        const element = child as React.ReactElement<LayoutSideBarProps>;
         Content = (
-          <main data-earthnut-ui="layout-content" className={xcn(styles['en-layout-main'])}>
-            {child}
-          </main>
+          <LayoutContentWrapper
+            data-earthnut-ui="layout-content"
+            className={xcn($main, 'en-layout-main')}
+          >
+            {element}
+          </LayoutContentWrapper>
         );
         hasContent = true;
       } else if (!hasFooter && child.type === LayoutFooter) {
-        footerHeight = (child.props as LayoutFooterProps).height || footerHeight;
-        Footer = child;
+        /**  组件  */
+        const element = child as React.ReactElement<LayoutFooterProps>;
+        footerHeight = element.props.height || footerHeight;
+        Footer = React.cloneElement(element, { className: xcn($footer, element.props.className) });
         hasFooter = true;
       }
     });
     /**  组件在子组件不同下的样式值  */
-    const layoutClassName: string =
-      (hasHeader && hasSideBar && hasContent && hasFooter && styles[`en-layout-${layout}-all`]) ||
-      // (hasContent && hasHeader && hasFooter && styles['no-side-bar']) ||
-      (hasHeader && hasContent && hasSideBar && styles[`en-layout-${layout}-no-footer`]) ||
-      (hasSideBar && hasContent && hasFooter && styles[`en-layout-${layout}-no-header`]) ||
-      (hasContent && hasFooter && styles['en-layout-only-footer']) ||
-      (hasContent && hasHeader && styles['en-layout-only-header']) ||
-      (hasContent && hasSideBar && (sideFull = true) && styles[`en-layout-${layout}-only-side`]) ||
-      '';
+    const layoutType: EnLayoutContentType =
+      (hasHeader && hasSideBar && hasContent && hasFooter && `${layout}-all`) ||
+      (hasHeader && hasContent && hasSideBar && `${layout}-no-footer`) ||
+      (hasSideBar && hasContent && hasFooter && `${layout}-no-header`) ||
+      (hasContent && hasFooter && 'only-footer') ||
+      (hasContent && hasHeader && 'only-header') ||
+      (hasContent && hasSideBar && (sideFull = true) && `${layout}-only-side`) ||
+      'simple';
 
+    /**  构建主题对象  */
+    const theme: LayoutTheme = {
+      layoutHeight: width,
+      layoutWith: height,
+      sideBarWidth: sideWidth,
+      headerHeight,
+      footerHeight,
+      ...(props.theme || {}), // 保留外部传入的主题
+    };
+
+    /**  确定布局结构  */
+    const shouldUseSpecialLayout = /side.*full/.test(layout);
+    dog('获取的值', $content, $footer);
+    dog('获取的值', $header, $sidebar);
+    dog('是否粘连头部', headerNoSticky);
     return (
-      <div
+      <EnLayoutContent
         ref={ref}
+        $headerNoSticky={headerNoSticky}
+        $layoutType={layoutType}
+        $header={$header}
+        $sidebar={$sidebar}
+        $main={$main}
+        $content={$content}
+        $footer={$footer}
         className={xcn(
-          styles['en-layout'],
-          sideFull && styles['en-layout-side-full'],
-          layoutClassName,
-          headerNoSticky,
+          sideFull && 'en-layout-side-full',
+          `en-layout-${layoutType}`,
           className,
+          classes,
         )}
         style={{
           // eslint-disable-next-line jsdoc/check-tag-names
@@ -155,17 +227,15 @@ const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
           '--layout-footer-height': getValue(footerHeight),
           ...style,
         }}
+        theme={theme}
         {...props}
         data-earthnut-ui="layout"
       >
-        {!/side.*full/.test(layout) ? (
+        {!shouldUseSpecialLayout ? (
           <>
             {Header}
             {hasFooter ? (
-              <div
-                className={xcn(styles['en-layout-content'])}
-                data-earthnut-ui="layout-with-foot-content"
-              >
+              <div className={xcn($content)} data-earthnut-ui="layout-with-foot-content">
                 {SideBar}
                 {Content}
               </div>
@@ -178,6 +248,7 @@ const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
             {Footer}
           </>
         ) : (
+          // 特殊布局
           <>
             {SideBar}
             {Header}
@@ -185,19 +256,12 @@ const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
             {Footer}
           </>
         )}
-      </div>
+      </EnLayoutContent>
     );
   },
 );
-/**    */
-Layout.displayName = 'Layout';
 
-/**
- * 获取数值
- */
-function getValue(value: number | string) {
-  if (isNumber(value) || parseInt(value) === Number(value)) return value + 'px';
-  return value || 0;
-}
+// / 渲染名 Component definition is missing display name
+Layout.displayName = 'Layout';
 
 export { Layout, LayoutHeader, LayoutSideBar, LayoutContent, LayoutFooter };

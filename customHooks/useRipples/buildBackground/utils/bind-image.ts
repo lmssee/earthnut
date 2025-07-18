@@ -4,8 +4,8 @@ import { dog } from 'dog';
 import { DrawImage } from 'customHooks/useRipples/rippersData/fadeData';
 
 /**  绑定图片  */
-export function bindImage(this: Ripples, texImageSource: DrawImage) {
-  dog.type = true;
+export function bindImage(this: Ripples, textImageSource: DrawImage) {
+  dog.type = false;
   const { gl, renderData, fadeData } = this;
 
   if (isNull(renderData)) {
@@ -13,7 +13,7 @@ export function bindImage(this: Ripples, texImageSource: DrawImage) {
     return;
   }
 
-  const { backgroundTexture } = renderData;
+  const { backgroundTexture, parentElement } = renderData;
   const { backgroundInfo } = fadeData;
   const { width, height } = backgroundInfo;
 
@@ -48,7 +48,9 @@ export function bindImage(this: Ripples, texImageSource: DrawImage) {
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, wrapping);
   // dog('即将创建的图像', image);
   /// 指定二维纹理图像
-  dog('本次使用的纹理为', texImageSource);
-  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, texImageSource.resource);
+  dog('本次使用的纹理为', textImageSource.tag);
+
+  parentElement.dataset['a'] = textImageSource.tag;
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, textImageSource.resource);
   dog.type = true;
 }

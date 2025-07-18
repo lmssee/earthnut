@@ -2,10 +2,10 @@ import { OriginStyle } from '../buildBackground/type';
 import { Ripples } from '../ripplesClass';
 import { Program, Textures } from '../types';
 import { dog } from 'dog';
-import { getBackgroundStyles } from '../buildBackground/utils/getBackgroundStyle';
+import { getBackgroundStyles } from '../buildBackground/utils/get-background-style';
 import { enArr } from 'a-js-tools';
 import { isEmptyArray } from 'a-type-of-js';
-import { hideCssBackground } from '../buildBackground/utils/hideCssBackground';
+import { hideCssBackground } from '../buildBackground/utils/hide-css-background';
 import { isNoneBackGroundColor, isNoneBackgroundImage } from '../tools';
 import { restoreCssBackground } from '../buildBackground/utils/restore-css-background';
 

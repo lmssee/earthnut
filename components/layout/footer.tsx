@@ -1,7 +1,15 @@
 import React from 'react';
 import { LayoutFooterProps } from './types';
 import { xcn } from 'xcn';
-import styles from './style/index.module.scss';
+import styled from 'styled-components';
+
+/**  带样式的组件  */
+const Content = styled.div`
+  grid-area: footer;
+  height: var(--layout-footer-height);
+  box-shadow: 0 -1px 13px 0px #0000001a;
+  overflow: hidden;
+`;
 
 /**
  *
@@ -21,10 +29,10 @@ const InternalValueF = React.forwardRef<
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
 >(({ className, height, ...props }, ref) => {
   return (
-    <div
+    <Content
       ref={ref}
       {...props}
-      className={xcn(styles['en-layout-footer'], className)}
+      className={xcn('en-layout-footer', className)}
       data-earthnut-ui="layout-footer"
     />
   );

@@ -8,7 +8,7 @@ export function createDefault(width: number, height: number) {
   dog.warn(dog.type);
   dog('开始构建默认的时间', time);
   /**  图像数据  */
-  const imageData = new ImageData(width, height);
+  const imageData = new ImageData(width || 1, height || 1);
   /**  数据流  */
   const data = imageData.data;
   // dog(circleDataList);

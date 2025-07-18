@@ -61,12 +61,15 @@ export default function () {
       {
         test: /\.(tsx?)|(jsx?)$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
+            },
           },
-        },
+          pathJoin('loaders/add-use-client-loader.js'),
+        ],
       },
       // 配置 scss
       {

@@ -1,41 +1,5 @@
 import defaultModule, { pathJoin } from './webpack.config.cjs.js';
-import webpack from 'webpack';
 
-class AddUserClientPlugin {
-  apply(compiler) {
-    // 在 compilation 阶段添加插件
-    compiler.hooks.thisCompilation.tap('AddUserClientPlugin', compilation => {
-      // 在 processAssets 阶段添加插件
-      compilation.hooks.processAssets.tap(
-        {
-          name: 'AddUserClientPlugin',
-          // 指定插件的执行阶段
-          stage: webpack.Compilation.PROCESS_ASSETS_STAGE_ADDITIONS,
-        },
-        assets => {
-          // 遍历所有资源
-          for (const filename in assets) {
-            console.log('====================================');
-            console.log(filename);
-            console.log('====================================');
-            // 如果文件名以 .mjs 结尾
-            if (filename.endsWith('.mjs')) {
-              // 获取原始资源
-              const source = assets[filename].source();
-              // 在原始资源的开头添加 'use client;'
-              const newSource = '"use client";\n'.concat(source);
-              console.log('====================================');
-              console.log(123456);
-              console.log('====================================');
-              // 替换原始资源
-              compilation.updateAsset(filename, new webpack.sources.RawSource(newSource));
-            }
-          }
-        },
-      );
-    });
-  }
-}
 /**
  * 打包为 mjs 模式
  */
@@ -79,6 +43,5 @@ export default function () {
     experiments: {
       outputModule: true,
     },
-    plugins: [new AddUserClientPlugin(), ...defaultConfig.plugins],
   };
 }

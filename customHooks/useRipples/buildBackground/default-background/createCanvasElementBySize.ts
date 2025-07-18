@@ -10,9 +10,8 @@ export function createCanvasElementBySize(width: number, height: number) {
   const ctx = canvas.getContext('2d');
   const ctxR = canvasR.getContext('2d');
   if (isNull(ctx) || isNull(ctxR)) return canvas;
-  canvas.width = canvasR.width = width;
-  canvas.height = canvasR.height = height;
-
+  canvas.width = canvasR.width = width || 1;
+  canvas.height = canvasR.height = height || 1;
   ctx.clearRect(0, 0, width, height); // 清理画布
   ctxR.clearRect(0, 0, width, height);
   ctx.globalAlpha = 1;
@@ -20,7 +19,7 @@ export function createCanvasElementBySize(width: number, height: number) {
   ctxR.fillStyle = '#ffffff';
   ctxR.fillRect(0, 0, width, height);
   // ctxR.globalCompositeOperation = 'copy';
-  ctxR.drawImage(canvas, 0, 0, width, height);
+  ctxR.drawImage(canvas, 0, 0, width || 1, height || 1);
   ctxR.globalCompositeOperation = 'source-over';
   return canvasR;
 }

@@ -4,8 +4,8 @@ import { Ripples } from '../ripplesClass';
 import { setupPointerEvents } from './initEvent';
 import { initShaders } from './initShaders';
 import { initTexture } from './initTexture';
-import { loadImage } from '../buildBackground/loadImage';
-import { bindImage } from '../buildBackground/utils/bindImage';
+import { loadImage } from '../buildBackground/load-image';
+import { bindImage } from '../buildBackground/utils/bind-image';
 
 /**
  * 初始化 webGL

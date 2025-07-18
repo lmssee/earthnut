@@ -2,7 +2,7 @@
   "private": true,
   "type": "module",
   "name": "earthnut",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "earthnut 的 react ui",
   "scripts": {
     "build": "chmod +x ./scripts/build.sh && npm run production && ./scripts/build.sh",
@@ -38,9 +38,11 @@
     "@eslint/json": "^0.12.0",
     "@qqi/babel-plugin-remove-dog-calls": "^0.0.4",
     "@qqi/copy-text": "^1.0.4",
+    "@qqi/log": "^0.0.2",
     "@types/node": "^24.0.8",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
+    "@types/styled-components": "^5.1.34",
     "@types/webxr": "^0.5.22",
     "@typescript-eslint/eslint-plugin": "^8.35.1",
     "@typescript-eslint/parser": "^8.35.1",
@@ -76,6 +78,7 @@
     "sass": "^1.89.2",
     "sass-loader": "^16.0.5",
     "style-loader": "^4.0.0",
+    "terser-webpack-plugin": "^5.3.14",
     "ts-loader": "^9.5.2",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.35.1",
@@ -89,10 +92,10 @@
     "css-loader": "6.11.0"
   },
   "dependencies": {
-    "@qqi/log": "^0.0.2",
     "a-element-inline-style": "^0.0.1",
     "a-js-tools": "^1.0.5",
     "a-type-of-js": "^1.0.2",
+    "styled-components": "^6.1.19",
     "xcn": "^0.1.1"
   }
 }

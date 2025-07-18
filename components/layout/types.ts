@@ -24,8 +24,11 @@ export interface LayoutProps extends React.HTMLAttributes<HTMLDivElement> {
    * 为具体值。当为 100% 时 side bar 渲染不正确
    */
   height?: string | number;
+  /**  其他的组件样式  */
+  theme?: LayoutTheme;
 }
 
+/**  侧边 sideBar 的参数  */
 export interface LayoutSideBarProps extends React.HTMLAttributes<HTMLDivElement> {
   classes?: string | string[];
   /**
@@ -48,6 +51,7 @@ export interface LayoutSideBarProps extends React.HTMLAttributes<HTMLDivElement>
   full?: boolean;
 }
 
+/**  Header 的 props   */
 export interface LayoutHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   classes?: string | string[];
   /**
@@ -64,6 +68,7 @@ export interface LayoutHeaderProps extends React.HTMLAttributes<HTMLDivElement> 
   noSticky?: boolean;
 }
 
+/**  脚组件的参数类型  */
 export interface LayoutFooterProps extends React.HTMLAttributes<HTMLDivElement> {
   classes?: string | string[];
   /**
@@ -72,4 +77,52 @@ export interface LayoutFooterProps extends React.HTMLAttributes<HTMLDivElement> 
    * 缺省值为 2rem
    */
   height?: number | string;
+}
+
+/**  定义布局主题类型  */
+export interface LayoutTheme {
+  /**  组件的宽  */
+  layoutWith: string | number;
+  /**  组件的高  */
+  layoutHeight: string | number;
+  /**  侧边的宽  */
+  sideBarWidth: string | number;
+  /**  头部的高  */
+  headerHeight: string | number;
+  /**  底部的高  */
+  footerHeight: string | number;
+}
+
+/**  可使用的样式类型  */
+export type EnLayoutContentType =
+  | 'simple'
+  | 'only-footer'
+  | 'only-header'
+  | 'side-full'
+  | 'side-right-full-all'
+  | 'side-right-full-no-footer'
+  | 'side-right-full-no-header'
+  | 'side-right-full-only-side'
+  | 'side-right-all'
+  | 'side-right-no-footer'
+  | 'side-right-no-header'
+  | 'side-right-only-side'
+  | 'side-full-all'
+  | 'side-full-no-footer'
+  | 'side-full-no-header'
+  | 'side-full-only-side'
+  | 'simple-all'
+  | 'simple-no-footer'
+  | 'simple-no-header'
+  | 'simple-only-side';
+
+/**  组件的样式  */
+export interface EnLayoutContentProps {
+  $header: string;
+  $content: string;
+  $sidebar: string;
+  $footer: string;
+  $main: string;
+  $headerNoSticky: boolean;
+  $layoutType: EnLayoutContentType;
 }

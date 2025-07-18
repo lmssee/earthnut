@@ -1,5 +1,6 @@
 import { readFileToJsonSync } from 'a-node-tools';
 
+/**  babel 配置文件  */
 export default function (api) {
   api.cache(true);
   /**  读取本地的数据配置  */

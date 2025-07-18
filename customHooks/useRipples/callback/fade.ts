@@ -1,7 +1,7 @@
 import { isEmptyArray, isNull } from 'a-type-of-js';
 import { Ripples } from '../ripplesClass';
-import { bindImage } from '../buildBackground/utils/bindImage';
-import { runSide } from '../buildBackground/runSide';
+import { bindImage } from '../buildBackground/utils/bind-image';
+import { runSide } from '../buildBackground/run-side';
 import { dog } from 'dog';
 import { isNoneBackGroundColor, isNoneBackgroundImage } from '../tools';
 import { setTransparentTexture } from '../buildBackground/default-background';

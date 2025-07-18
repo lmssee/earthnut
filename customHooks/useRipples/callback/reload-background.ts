@@ -1,6 +1,6 @@
 import { isNull } from 'a-type-of-js';
 import { Ripples } from '../ripplesClass';
-import { loadImage } from '../buildBackground/loadImage';
+import { loadImage } from '../buildBackground/load-image';
 import { dog } from 'dog';
 
 /**

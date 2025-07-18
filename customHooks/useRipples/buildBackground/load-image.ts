@@ -1,7 +1,7 @@
 import { dog } from 'dog';
 import { isNull, isString } from 'a-type-of-js';
 import { Ripples } from '../ripplesClass';
-import { createImageBySrc } from './utils/createImageBySrc';
+import { createImageBySrc } from './utils/create-image-by-src';
 import { createLinearGradient } from './create-linear-gradient';
 /**
  *

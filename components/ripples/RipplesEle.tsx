@@ -13,9 +13,17 @@ import { useRipples } from 'customHooks/useRipples';
 import { useOptionUpdate } from './useOptionUpdate';
 import { RippleEle } from './types';
 import { isUndefined } from 'a-type-of-js';
-import { xcn } from 'xcn';
-import './style/index.scss';
+import styled from 'styled-components';
 
+/**  内容组件  */
+const Content = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+  top: 0px;
+  left: 0px;
+  z-index: 1;
+`;
 /**
  *
  * ### 一个 ripple 背景组件
@@ -46,7 +54,6 @@ import './style/index.scss';
  * ```
  *
  */
-
 const BackgroundRipple = forwardRef<RippleEle, BackgroundRipplesProps>(
   ({ children, style, ...props }, ref) => {
     /**  canvas 元素  */
@@ -79,8 +86,7 @@ const BackgroundRipple = forwardRef<RippleEle, BackgroundRipplesProps>(
     }));
 
     return (
-      <div
-        className={xcn('en-ripple-container')}
+      <Content
         style={{
           backgroundRepeat: 'round',
           // backgroundSize: 'cover',
@@ -90,7 +96,7 @@ const BackgroundRipple = forwardRef<RippleEle, BackgroundRipplesProps>(
       >
         <canvas ref={canvas} data-earthnut-ui="canvas" />
         {children}
-      </div>
+      </Content>
     );
   },
 );

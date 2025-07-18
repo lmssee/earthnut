@@ -1,6 +1,7 @@
+import TerserPlugin from 'terser-webpack-plugin';
 import defaultModule, { pathJoin } from './webpack.config.js';
 import CopyPlugin from 'copy-webpack-plugin';
-
+import AddUserClientPlugin from './scripts/add-use-client-webpack-plugin.js';
 export { pathJoin };
 
 /**
@@ -45,6 +46,20 @@ export default function () {
       // 代码压缩
       // 生产模式默认为 true
       minimize: true,
+      minimizer: [
+        new TerserPlugin({
+          terserOptions: {
+            compress: {
+              directives: false, // 禁止删除顶级指令
+            },
+            format: {
+              comments: false,
+            },
+            mangle: true,
+          },
+          extractComments: false,
+        }),
+      ],
       usedExports: true, // 启用 tree shaking
       sideEffects: true, /// 告诉 webpack 这个库没有副作用，以便有效的 tree shaking
     },
@@ -72,6 +87,7 @@ export default function () {
         },
       ],
     }),
+    new AddUserClientPlugin(),
   );
 
   /**  在正式环境添加自定义的 dog 进行不执行打印  */
