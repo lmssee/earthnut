@@ -1,7 +1,7 @@
 import { isNull, isZero } from 'a-type-of-js';
 import { Ripples } from '../../ripplesClass';
 import { dog } from 'dog';
-import { DrawImage } from 'customHooks/useRipples/rippersData/fadeData';
+import { DrawImage } from '../../rippersData/fadeData';
 
 /**  绑定图片  */
 export function bindImage(this: Ripples, textImageSource: DrawImage) {

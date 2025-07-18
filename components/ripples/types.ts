@@ -1,4 +1,4 @@
-import { RipplesOptions } from 'customHooks';
+import { RipplesOptions } from '../../customHooks';
 
 export type RippleEle = {
   /**  切换当前的状态  */

@@ -1,5 +1,5 @@
 import { isUndefined } from 'a-type-of-js';
-import { BackgroundRipplesProps, Ripples, RipplesOptions } from 'customHooks';
+import { BackgroundRipplesProps, Ripples, RipplesOptions } from '../../customHooks';
 import { useEffect } from 'react';
 
 /**
