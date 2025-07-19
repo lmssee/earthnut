@@ -23,12 +23,7 @@ export function App() {
       <LayoutSideBar className={xcn(styles.tab)} width={'150px'} right={true}>
         <MainTab />
       </LayoutSideBar>
-      <LayoutContent
-        className={xcn(styles.main)}
-        style={{
-          height: '100vh',
-        }}
-      >
+      <LayoutContent className={xcn(styles.main)}>
         <Outlet></Outlet>
       </LayoutContent>
       <LayoutFooter>

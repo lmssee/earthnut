@@ -37,11 +37,17 @@ export default function RipplesPage() {
       id="ripple"
       onContextMenu={togglePlayingState}
       data-alias="ripple 外壳"
+      style={{
+        padding: '5rem 0rem',
+        margin: '2rem',
+        boxSizing: 'border-box',
+      }}
     >
       <BackgroundRipple
         ref={rippleRef}
         style={{
-          position: 'static',
+          backgroundColor: 'transparent',
+          boxSizing: 'border-box',
           // backgroundColor: '#333',
           // backgroundImage: 'linear-gradient(black, transparent)',
           // backgroundImage: 'url(/image/defaultBackground.png)',

@@ -2,6 +2,7 @@ import { isNull } from 'a-type-of-js';
 import { Ripples } from '../ripplesClass';
 import { bindTexture } from '../tools';
 import { drawQuad } from './drawQuad';
+import { dog } from 'dog';
 
 /**
  *
@@ -9,6 +10,7 @@ import { drawQuad } from './drawQuad';
  *
  */
 export function draw(this: Ripples) {
+  dog.type = false;
   const gl = this.gl;
   /**  渲染数据  */
   const { renderData, options } = this;
@@ -43,4 +45,5 @@ export function draw(this: Ripples) {
   gl.uniform1i(renderData.renderProgram.locations.samplerRipples, 1);
   Reflect.apply(drawQuad, this, []);
   gl.disable(gl.BLEND);
+  dog.type = true;
 }

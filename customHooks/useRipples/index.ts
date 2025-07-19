@@ -58,9 +58,8 @@ export function useRipples(
   useEffect(() => {
     /**  非空检验（这里一般都是有值的，除非故障）  */
     if (isNull(canvas.current)) return;
-
     ripples.current = new Ripples(canvas.current, props && props.option);
-    return () => ripples.current?.destroy() ?? undefined;
+    return () => ripples.current?.destroy();
   }, []);
 
   return ripples;

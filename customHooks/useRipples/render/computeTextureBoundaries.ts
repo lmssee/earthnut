@@ -1,8 +1,10 @@
 import { isNull } from 'a-type-of-js';
 import { Ripples } from '../ripplesClass';
+import { dog } from 'dog';
 
 /**  计算纹理边界及背景图  */
 export function computeTextureBoundaries(this: Ripples) {
+  dog.type = false;
   const { renderData, fadeData } = this;
   if (isNull(renderData)) return;
 
@@ -17,7 +19,6 @@ export function computeTextureBoundaries(this: Ripples) {
   } = style;
   /** 父元素样式 background-position 的值  */
   const backgroundPosition = translateBackgroundPosition(parentBackgroundPosition);
-
   // 这里的 'container' 是背景适应的元素（Chrome 窗口或某些元素，具体取决于附件）
   const container = { left: 0, top: 0, width: 0, height: 0 };
 
@@ -35,11 +36,13 @@ export function computeTextureBoundaries(this: Ripples) {
   }
 
   // TODO: background-clip
-
-  let backgroundWidth: string | number, backgroundHeight: string | number;
+  /**  背景图的宽度  */
+  let backgroundWidth: string | number;
+  /**  背景图的高度  */
+  let backgroundHeight: string | number;
 
   const { width, height } = fadeData.backgroundInfo || { width: 100, height: 100 };
-
+  /**  背景图的尺寸  */
   if (backgroundSize === 'cover') {
     const scale = Math.max(container.width / width, container.height / height);
     backgroundWidth = width * scale;
@@ -80,7 +83,9 @@ export function computeTextureBoundaries(this: Ripples) {
   }
 
   // 计算 backgroundX 及 backgroundY 在的值
+  /**  计算背景的渲染横轴位置  */
   let backgroundX = (backgroundPosition && backgroundPosition[0]) || '0%';
+  /**  计算背景的渲染纵轴位置  */
   let backgroundY = (backgroundPosition && backgroundPosition[1]) || '0%';
 
   if (isPercentage(backgroundX)) {
@@ -101,17 +106,23 @@ export function computeTextureBoundaries(this: Ripples) {
     backgroundY = (container.top + parseFloat(backgroundY)).toString();
   }
 
-  /**    */
+  dog('计算得到的背景的尺寸的值', backgroundWidth, backgroundHeight, backgroundX, backgroundY);
+
+  /**  计算在 WebGL 着色器中使用的纹理坐标 （UV 坐标）的起点（左上角位置）   */
   renderData.renderProgram.uniforms.topLeft = new Float32Array([
-    (parentElement.offsetLeft - Number(backgroundX)) / backgroundWidth,
-    (parentElement.offsetTop - Number(backgroundY)) / backgroundHeight,
+    -Number(backgroundX) / backgroundWidth,
+    -Number(backgroundY) / backgroundHeight,
   ]);
+  // renderData.renderProgram.uniforms.topLeft = new Float32Array([
+  //   (parentElement.offsetLeft - Number(backgroundX)) / backgroundWidth,
+  //   (parentElement.offsetTop - Number(backgroundY)) / backgroundHeight,
+  // ]);
+  dog('父级元素的偏移', parentElement.offsetLeft, parentElement.offsetTop);
   /**    */
   renderData.renderProgram.uniforms.bottomRight = new Float32Array([
     renderData.renderProgram.uniforms.topLeft[0] + parentElement.clientWidth / backgroundWidth,
     renderData.renderProgram.uniforms.topLeft[1] + parentElement.clientHeight / backgroundHeight,
   ]);
-
   /**  canvas 中较大的边  */
   const maxSide: number = Math.max(this.canvas.width, this.canvas.height);
 
@@ -119,6 +130,7 @@ export function computeTextureBoundaries(this: Ripples) {
     this.canvas.width / maxSide,
     this.canvas.height / maxSide,
   ]);
+  dog.type = true;
 }
 /**
  *

@@ -7,7 +7,7 @@ import { DrawImage } from '../rippersData/fadeData';
 
 /**  构建背景色  */
 export function createBackgroundColor(this: Ripples) {
-  dog.type = true;
+  dog.type = false;
 
   const { renderData, fadeData, options } = this;
 

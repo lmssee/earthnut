@@ -1,8 +1,10 @@
 import { isNull } from 'a-type-of-js';
 import { createDefault } from './createDefault';
+import { dog } from 'dog';
 
 /**  通过尺寸创建一个默认图  */
 export function createCanvasElementBySize(width: number, height: number) {
+  dog('本次构建的宽度为', width, '高度为', height);
   /**  构建空的 canvas  */
   const canvas = document.createElement('canvas');
   const canvasR = document.createElement('canvas');

@@ -62,6 +62,7 @@ export class Ripples extends RipplesData {
       ...this.defaults,
       ...options,
     });
+
     // 数据初始化
     this.renderData = new RipplesRenderData(canvas, this.reloadBackground, this);
     // 渐变的数据

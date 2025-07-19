@@ -4,6 +4,7 @@ import { circleDataList } from './circleDataList';
 /**  构建默认的背景图  */
 export function createDefault(width: number, height: number) {
   dog.type = false;
+  dog(`构建默认的纹理尺寸：宽 ${width} 高 ${height}`);
   const time = Date.now();
   dog.warn(dog.type);
   dog('开始构建默认的时间', time);

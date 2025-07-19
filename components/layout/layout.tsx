@@ -17,7 +17,6 @@ import styled from 'styled-components';
 import { EnLayoutContent } from './EnLayoutContent';
 import { getValue } from './get-value';
 import { generateClass } from './generate-class';
-import { dog } from 'dog';
 
 /**  内容区域容器  */
 const LayoutContentWrapper = styled.div`
@@ -198,9 +197,6 @@ const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
 
     /**  确定布局结构  */
     const shouldUseSpecialLayout = /side.*full/.test(layout);
-    dog('获取的值', $content, $footer);
-    dog('获取的值', $header, $sidebar);
-    dog('是否粘连头部', headerNoSticky);
     return (
       <EnLayoutContent
         ref={ref}

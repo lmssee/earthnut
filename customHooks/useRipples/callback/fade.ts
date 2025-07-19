@@ -1,4 +1,4 @@
-import { isEmptyArray, isNull } from 'a-type-of-js';
+import { isBusinessEmptyString, isEmptyArray, isNull, isZero } from 'a-type-of-js';
 import { Ripples } from '../ripplesClass';
 import { bindImage } from '../buildBackground/utils/bind-image';
 import { runSide } from '../buildBackground/run-side';
@@ -9,7 +9,7 @@ import { DrawImage } from '../rippersData/fadeData';
 
 /**  两个图像间的淡入淡出  */
 export function fade(this: Ripples) {
-  dog.type = true;
+  dog.type = false;
   const { renderData, fadeData, options } = this;
   const { toBeList } = fadeData;
 
@@ -42,9 +42,12 @@ export function fade(this: Ripples) {
     // 尚有未执行完毕的
     if (isEmptyArray(toBeList)) {
       const { lastUseStyle } = renderData;
+
       // 没有设置背景色或是背景图
       if (
-        isNull(options.imgUrl) &&
+        (isNull(options.imgUrl) ||
+          isBusinessEmptyString(options.imgUrl) ||
+          isZero(options.imgUrl.length)) &&
         isNoneBackGroundColor(lastUseStyle.backgroundColor) &&
         isNoneBackgroundImage(lastUseStyle.backgroundImage)
       ) {
