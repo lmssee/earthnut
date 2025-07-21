@@ -1,6 +1,6 @@
 import { isBoolean } from 'a-type-of-js';
 import { defaultData } from './defaultData';
-import { ImageCrossOrigin, RipplesUseOptions } from '../types';
+import { ImageCrossOrigin, RippleImgUrl, RipplesUseOptions } from '../types';
 
 /** 用户使用参数  */
 export class UseOptions {
@@ -89,7 +89,7 @@ export class UseOptions {
   }
 
   /**  传入的背景图片  */
-  imgUrl: string | string[] | null = defaultData.imgUrl;
+  imgUrl: RippleImgUrl = defaultData.imgUrl;
 
   /**  闲置波动 （值） */
   #idleFluctuations: boolean = defaultData.idleFluctuations;

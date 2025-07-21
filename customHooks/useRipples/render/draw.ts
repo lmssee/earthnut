@@ -22,7 +22,7 @@ export function draw(this: Ripples) {
   gl.bindFramebuffer(gl.FRAMEBUFFER, null);
   gl.viewport(0, 0, this.canvas.width, this.canvas.height);
   gl.enable(gl.BLEND);
-  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT); // 全量清理
   gl.useProgram(renderData.renderProgram.id);
 
   Reflect.apply(bindTexture, this, [backgroundTexture, 0]);

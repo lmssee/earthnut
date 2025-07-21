@@ -69,6 +69,12 @@ export interface Program {
     [x: string]: WebGLUniformLocation;
   };
 }
+/**
+ * 设定的元素背景的 url 地址
+ *
+ * 缺省为 `null`
+ */
+export type RippleImgUrl = string | string[] | null;
 
 export type RipplesUseOptions = {
   /**
@@ -123,9 +129,9 @@ export type RipplesUseOptions = {
   /**
    * 设定的元素背景的 url 地址
    *
-   * 缺省为 `''`
+   * 缺省为 `null`
    */
-  imgUrl: string | string[] | null;
+  imgUrl: RippleImgUrl;
   /**
    * 当前涟漪的状态
    *
@@ -180,7 +186,7 @@ export type RipplesOptions = {
  */
 export interface RipplesDefaultData {
   /**  默认的图像地址  */
-  imgUrl: '';
+  imgUrl: null;
   /**    */
   resolution: 256;
   dropRadius: 10;

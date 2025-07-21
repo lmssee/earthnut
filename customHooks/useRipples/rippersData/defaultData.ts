@@ -4,7 +4,7 @@ import { RipplesUseOptions } from '../types';
  * 默认值
  */
 export const defaultData: RipplesUseOptions = {
-  imgUrl: '',
+  imgUrl: null,
   resolution: 360,
   dropRadius: 12,
   perturbance: 0.01,

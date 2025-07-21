@@ -7,7 +7,7 @@
  *  @Description 使用 ripple 的主要核心逻辑
  ****************************************************************************/
 import { useEffect, useRef } from 'react';
-import { BackgroundRipplesProps, RipplesOptions } from './types';
+import { BackgroundRipplesProps, RippleImgUrl, RipplesOptions } from './types';
 import { Ripples } from './ripplesClass';
 import { isNull } from 'a-type-of-js';
 
@@ -65,4 +65,4 @@ export function useRipples(
   return ripples;
 }
 
-export type { Ripples, BackgroundRipplesProps, RipplesOptions };
+export type { Ripples, BackgroundRipplesProps, RipplesOptions, RippleImgUrl };

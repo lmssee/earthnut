@@ -156,7 +156,7 @@ export class Ripples extends RipplesData {
   set(property: keyof RipplesOptions, value: unknown) {
     dog('设置属性', property);
     if (property === 'imgUrl') {
-      this.options.imgUrl = value as string;
+      this.options.imgUrl = value as never;
       Reflect.apply(loadImage, this, []);
     } else this.options[property] = value as never;
   }

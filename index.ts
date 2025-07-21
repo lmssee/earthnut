@@ -7,7 +7,12 @@ export {
   useInputIsComposing,
 } from './customHooks/index';
 
-export type { Ripples, BackgroundRipplesProps, RipplesOptions } from './customHooks/index';
+export type {
+  Ripples,
+  BackgroundRipplesProps,
+  RipplesOptions,
+  RippleImgUrl,
+} from './customHooks/index';
 
 export {
   Layout,

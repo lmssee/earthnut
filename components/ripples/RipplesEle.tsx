@@ -17,12 +17,16 @@ import styled from 'styled-components';
 
 /**  内容组件  */
 const Content = styled.div`
-  width: 100%;
-  height: 100%;
   position: relative;
   top: 0px;
   left: 0px;
   z-index: 1;
+  width: 100%;
+  height: 100%;
+  min-width: 1px;
+  min-height: 1px;
+  contain: layout paint style;
+  will-change: transform, opacity;
 `;
 /**
  *
@@ -64,7 +68,7 @@ const BackgroundRipple = forwardRef<RippleEle, BackgroundRipplesProps>(
     ///  使用 配置更新
     useOptionUpdate(ripplesRef, props);
 
-    // 抛出事件
+    // 抛出事件 (自定义抛出事件)
     useImperativeHandle(ref, () => ({
       toggleState: () => {
         ripplesRef.current?.changePlayingState();
@@ -89,6 +93,7 @@ const BackgroundRipple = forwardRef<RippleEle, BackgroundRipplesProps>(
       <Content
         style={{
           backgroundRepeat: 'round',
+
           // backgroundSize: 'cover',
           // backgroundPosition: 'center',
           ...style,

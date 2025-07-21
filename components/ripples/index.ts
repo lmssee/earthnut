@@ -6,6 +6,7 @@ export type {
   Ripples,
   BackgroundRipplesProps,
   RipplesOptions,
+  RippleImgUrl,
 } from '../../customHooks/useRipples/index';
 
 export type { RippleEle };
