@@ -38,7 +38,7 @@ export interface BackgroundRipplesProps {
   style?: CSSProperties;
 
   /**  子元素  */
-  children?: ReactElement;
+  children?: ReactElement | ReactElement[];
   /**
    * ## 可设定涟漪的参数
    *
