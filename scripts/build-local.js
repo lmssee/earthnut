@@ -1,12 +1,12 @@
-import { _p, isWindows, pathJoin, runOtherCode } from 'a-node-tools';
+import { _p, isWindows, pathJoin, readFileToJsonSync, runOtherCode } from 'a-node-tools';
 import { copyTextToClipboard } from '@qqi/copy-text';
 import { brightBlackPen, cyanPen, randomPen } from 'color-pen';
 
-await runOtherCode('pnpm dlx jja clear');
+await runOtherCode('pnpm exec jja clear');
 
 try {
   const deleteOldFile = await runOtherCode({
-    code: 'pnpm dlx jja rm dist *.tgz && pnpm run build',
+    code: 'pnpm exec jja rm dist *.tgz && pnpm run build',
     printLog: true,
   });
   if (!deleteOldFile.success) throw new Error();
@@ -16,12 +16,14 @@ try {
 }
 
 _p(cyanPen('执行打包完毕'));
-const pack = await runOtherCode({ code: 'cd dist && pnpm pack', printLog: true });
+await runOtherCode({ code: 'cd dist && pnpm pack', printLog: true });
+const info = readFileToJsonSync('./dist/package.json');
+const pack = info.name + '-' + info.version + '.tgz';
 const pwd = await runOtherCode({ code: isWindows ? 'echo %cd%' : 'pwd', printLog: false });
 
 const noLineBreak = str => str.replace(/\r?\n/g, '');
-if (pack.success && pwd.success) {
-  const result = pathJoin(noLineBreak(pwd.data), 'dist', noLineBreak(pack.data));
+if (pwd.success) {
+  const result = pathJoin(noLineBreak(pwd.data), 'dist', noLineBreak(pack));
   _p(randomPen('pnpm add '), false);
   _p(randomPen(result));
   copyTextToClipboard(`pnpm add ${result}`);

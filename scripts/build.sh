@@ -8,7 +8,7 @@ found=0
 
 # 执行打包
 build() {
-  pnpm dlx webpack --config webpack.config.$1.js  
+  pnpm exec webpack --config webpack.config.$1.js  
 }
 
 # 校验参数
@@ -35,7 +35,7 @@ test_param() {
 
 buildResult() {
   # 清空dist
-  pnpm dlx jja rm dist 
+  pnpm exec jja rm dist 
   
   # 校验参数
   # for param in "$@"; do 
@@ -53,14 +53,14 @@ buildResult() {
 
   printf "\e[32m➠  构建类型\e[m\n" 
   # 编译 ts
-  pnpm dlx tsc -p tsconfig.build.json 
+  pnpm exec tsc -p tsconfig.build.json 
 
   printf "\n\e[32m➠  类型构建完毕\e[m\n" 
   sleep  1
 
   printf "\e[35m➠  构建 css \e[m\n" 
   # 编译 sass
-  pnpm dlx  sass --no-source-map \
+  pnpm exec  sass --no-source-map \
           src/css/common.scss \
           dist/styles/common.css
   printf "\e[35m➠  css 构建完毕\e[m\n" 

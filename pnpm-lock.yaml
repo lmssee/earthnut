@@ -15,8 +15,8 @@ importers:
         specifier: ^1.0.9
         version: 1.0.9
       a-type-of-js:
-        specifier: ^1.0.5
-        version: 1.0.5
+        specifier: ^1.0.6
+        version: 1.0.6
       styled-components:
         specifier: ^6.1.19
         version: 6.1.19(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -46,7 +46,7 @@ importers:
         specifier: ^9.31.0
         version: 9.31.0
       '@eslint/json':
-        specifier: ^0.13.0
+        specifier: ^0.13.1
         version: 0.13.1
       '@qqi/babel-plugin-remove-dog-calls':
         specifier: ^0.1.0
@@ -58,7 +58,7 @@ importers:
         specifier: ^0.1.0
         version: 0.1.0
       '@types/node':
-        specifier: ^24.0.15
+        specifier: ^24.1.0
         version: 24.1.0
       '@types/react':
         specifier: ^19.1.8
@@ -73,10 +73,10 @@ importers:
         specifier: ^0.5.22
         version: 0.5.22
       '@typescript-eslint/eslint-plugin':
-        specifier: ^8.37.0
+        specifier: ^8.38.0
         version: 8.38.0(@typescript-eslint/parser@8.38.0(eslint@9.31.0(jiti@1.21.7))(typescript@5.8.3))(eslint@9.31.0(jiti@1.21.7))(typescript@5.8.3)
       '@typescript-eslint/parser':
-        specifier: ^8.37.0
+        specifier: ^8.38.0
         version: 8.38.0(eslint@9.31.0(jiti@1.21.7))(typescript@5.8.3)
       a-command:
         specifier: ^2.3.13
@@ -127,8 +127,8 @@ importers:
         specifier: ^16.3.0
         version: 16.3.0
       gvv:
-        specifier: ^0.1.3
-        version: 0.1.4
+        specifier: ^0.1.5
+        version: 0.1.5
       html-webpack-plugin:
         specifier: ^5.6.3
         version: 5.6.3(webpack@5.100.2)
@@ -136,8 +136,8 @@ importers:
         specifier: ^9.1.7
         version: 9.1.7
       jja:
-        specifier: ^2.3.12
-        version: 2.3.12
+        specifier: ^2.3.14
+        version: 2.3.14
       lint-staged:
         specifier: ^16.1.2
         version: 16.1.2
@@ -163,8 +163,8 @@ importers:
         specifier: ^19.1.0
         version: 19.1.0(react@19.1.0)
       react-router:
-        specifier: ^7.7.0
-        version: 7.7.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        specifier: ^7.7.1
+        version: 7.7.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       sass:
         specifier: ^1.89.2
         version: 1.89.2
@@ -181,10 +181,10 @@ importers:
         specifier: ^9.5.2
         version: 9.5.2(typescript@5.8.3)(webpack@5.100.2)
       typescript:
-        specifier: ^5.7.2
+        specifier: ^5.8.3
         version: 5.8.3
       typescript-eslint:
-        specifier: ^8.37.0
+        specifier: ^8.38.0
         version: 8.38.0(eslint@9.31.0(jiti@1.21.7))(typescript@5.8.3)
       vjj:
         specifier: ^1.0.9
@@ -307,8 +307,8 @@ packages:
     resolution: {integrity: sha512-NFJK2sHUvrjo8wAU/nQTWU890/zB2jj0qBcCbZbbf+005cAsv6tMjXz31fBign6M5ov1o0Bllu+9nbqkfsjjJQ==}
     engines: {node: '>=6.9.0'}
 
-  '@babel/helpers@7.27.6':
-    resolution: {integrity: sha512-muE8Tt8M22638HU31A3CgfSUciwz1fhATfoVai05aPXGor//CdWDCbnlY1yvBPo07njuVOCNGCSp/GTt12lIug==}
+  '@babel/helpers@7.28.2':
+    resolution: {integrity: sha512-/V9771t+EgXz62aCcyofnQhGM8DQACbRhvzKFsXKC9QM+5MadF8ZmIm0crDMaz3+o0h0zXfJnd4EhbYbxsrcFw==}
     engines: {node: '>=6.9.0'}
 
   '@babel/parser@7.28.0':
@@ -756,8 +756,8 @@ packages:
     resolution: {integrity: sha512-mGe7UK5wWyh0bKRfupsUchrQGqvDbZDbKJw+kcRGSmdHVYrv+ltd0pnpDTVpiTqnaBru9iEvA8pz8W46v0Amwg==}
     engines: {node: '>=6.9.0'}
 
-  '@babel/types@7.28.1':
-    resolution: {integrity: sha512-x0LvFTekgSX+83TI28Y9wYPUfzrnl2aT5+5QLnO6v7mSJYtEEevuDRN0F0uSHRk1G1IWZC43o00Y0xDDrpBGPQ==}
+  '@babel/types@7.28.2':
+    resolution: {integrity: sha512-ruv7Ae4J5dUYULmeXw1gmb7rYRz57OWCPM57pHojnLq/3Z1CK2lNSLTCVjxVk1F/TZHwOZZrOWi0ur95BbLxNQ==}
     engines: {node: '>=6.9.0'}
 
   '@color-pen/static@1.0.0':
@@ -1257,8 +1257,8 @@ packages:
     resolution: {integrity: sha512-o79FqAOpuQmRVt21MMqwIvlee0+OoP+jWbDDJaFcxVPCLnUZy4uQ+XOam3rHwibcDaxNpTV+6jvI793mfOM9eQ==}
     engines: {node: '>=18.0.0'}
 
-  a-type-of-js@1.0.5:
-    resolution: {integrity: sha512-juid2xBG8CGAfUOR+Mm8YtueQJUfFRCba/2mu2YFXICq3oqa8pNey+vwmWF2jXIrCbIKCNQzolsxIPPrdPMK+Q==}
+  a-type-of-js@1.0.6:
+    resolution: {integrity: sha512-I73Sobd0JglnByBCGngYgAmc4HTs8IKbCc/ofyy1RW8udReormGpYuwy+zHJJhi6+Fq3OPRDyosWcoqAMzM30Q==}
 
   accepts@1.3.8:
     resolution: {integrity: sha512-PYAthTa2m2VKxuvSD3DPC/Gy+U+sOA1LAuT8mkmRuvw+NACSaeXEQ+NHcVF7rONl6qcaxV3Uuemwawk+7+SJLw==}
@@ -2130,8 +2130,8 @@ packages:
   graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
 
-  gvv@0.1.4:
-    resolution: {integrity: sha512-oXfVm6i0SzziSogXNTWk7xqrWceEg/erZvf+qy+oEsle2+GLGsjBsaxMknTzbhB37Y2k9cWgYzL40NjCNxF0sw==}
+  gvv@0.1.5:
+    resolution: {integrity: sha512-NIcMMDzITbIVd6WfsQZnOUVvaLKTpgV7OeV0xkWFzF6zLzwT5GO1sZJ3kmw8PUQwq/pNZCggnnYYIyuNSEC/nA==}
     hasBin: true
 
   gzip-size@6.0.0:
@@ -2459,8 +2459,8 @@ packages:
     resolution: {integrity: sha512-/imKNG4EbWNrVjoNC/1H5/9GFy+tqjGBHCaSsN+P2RnPqjsLmv6UD3Ej+Kj8nBWaRAwyk7kK5ZUc+OEatnTR3A==}
     hasBin: true
 
-  jja@2.3.12:
-    resolution: {integrity: sha512-M5A2+sZGgOD3T/ncl/sqPHwV6fefKbBftFD67xXk5IewYeKzFSJXVcZtBd8BK/ot0JFkgXzW82hyn8qcbPLbtg==}
+  jja@2.3.14:
+    resolution: {integrity: sha512-pbDsy/TadgUlj+Gks+6xqY5fA8wlbHd2MO5xeMnzxRC0P15JXYzOfO8vEwx5/T6De0baAWUHKCmwDfdB2L0l3Q==}
     hasBin: true
 
   js-tokens@4.0.0:
@@ -2965,8 +2965,8 @@ packages:
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
-  react-router@7.7.0:
-    resolution: {integrity: sha512-3FUYSwlvB/5wRJVTL/aavqHmfUKe0+Xm9MllkYgGo9eDwNdkvwlJGjpPxono1kCycLt6AnDTgjmXvK3/B4QGuw==}
+  react-router@7.7.1:
+    resolution: {integrity: sha512-jVKHXoWRIsD/qS6lvGveckwb862EekvapdHJN/cGmzw40KnJH5gg53ujOJ4qX6EKIK9LSBfFed/xiQ5yeXNrUA==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       react: '>=18'
@@ -3256,9 +3256,9 @@ packages:
     resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
     engines: {node: '>=0.10.0'}
 
-  source-map@0.7.4:
-    resolution: {integrity: sha512-l3BikUxvPOcn5E74dZiq5BGsTb5yEwhaTSzccU6t4sDOH8NWJCstKO5QT2CvtFoK6F0saL7p9xHAqHOlCPJygA==}
-    engines: {node: '>= 8'}
+  source-map@0.7.6:
+    resolution: {integrity: sha512-i5uvt8C3ikiWeNZSVZNWcfZPItFQOsYTUAOkcUPGd8DqDy1uOUikjt5dG+uRlwyvR108Fb9DOd4GvXfT0N2/uQ==}
+    engines: {node: '>= 12'}
 
   spdx-exceptions@2.5.0:
     resolution: {integrity: sha512-PiU42r+xO4UbUS1buo3LPJkjlO7430Xn5SVAhdpzzsPHsjbYVflnnFdATgabnLude+Cqu25p6N+g2lw/PFsa4w==}
@@ -3706,11 +3706,11 @@ snapshots:
       '@babel/generator': 7.28.0
       '@babel/helper-compilation-targets': 7.27.2
       '@babel/helper-module-transforms': 7.27.3(@babel/core@7.28.0)
-      '@babel/helpers': 7.27.6
+      '@babel/helpers': 7.28.2
       '@babel/parser': 7.28.0
       '@babel/template': 7.27.2
       '@babel/traverse': 7.28.0
-      '@babel/types': 7.28.1
+      '@babel/types': 7.28.2
       convert-source-map: 2.0.0
       debug: 4.4.1
       gensync: 1.0.0-beta.2
@@ -3722,14 +3722,14 @@ snapshots:
   '@babel/generator@7.28.0':
     dependencies:
       '@babel/parser': 7.28.0
-      '@babel/types': 7.28.1
+      '@babel/types': 7.28.2
       '@jridgewell/gen-mapping': 0.3.12
       '@jridgewell/trace-mapping': 0.3.29
       jsesc: 3.1.0
 
   '@babel/helper-annotate-as-pure@7.27.3':
     dependencies:
-      '@babel/types': 7.28.1
+      '@babel/types': 7.28.2
 
   '@babel/helper-compilation-targets@7.27.2':
     dependencies:
@@ -3775,14 +3775,14 @@ snapshots:
   '@babel/helper-member-expression-to-functions@7.27.1':
     dependencies:
       '@babel/traverse': 7.28.0
-      '@babel/types': 7.28.1
+      '@babel/types': 7.28.2
     transitivePeerDependencies:
       - supports-color
 
   '@babel/helper-module-imports@7.27.1':
     dependencies:
       '@babel/traverse': 7.28.0
-      '@babel/types': 7.28.1
+      '@babel/types': 7.28.2
     transitivePeerDependencies:
       - supports-color
 
@@ -3797,7 +3797,7 @@ snapshots:
 
   '@babel/helper-optimise-call-expression@7.27.1':
     dependencies:
-      '@babel/types': 7.28.1
+      '@babel/types': 7.28.2
 
   '@babel/helper-plugin-utils@7.27.1': {}
 
@@ -3822,7 +3822,7 @@ snapshots:
   '@babel/helper-skip-transparent-expression-wrappers@7.27.1':
     dependencies:
       '@babel/traverse': 7.28.0
-      '@babel/types': 7.28.1
+      '@babel/types': 7.28.2
     transitivePeerDependencies:
       - supports-color
 
@@ -3836,18 +3836,18 @@ snapshots:
     dependencies:
       '@babel/template': 7.27.2
       '@babel/traverse': 7.28.0
-      '@babel/types': 7.28.1
+      '@babel/types': 7.28.2
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/helpers@7.27.6':
+  '@babel/helpers@7.28.2':
     dependencies:
       '@babel/template': 7.27.2
-      '@babel/types': 7.28.1
+      '@babel/types': 7.28.2
 
   '@babel/parser@7.28.0':
     dependencies:
-      '@babel/types': 7.28.1
+      '@babel/types': 7.28.2
 
   '@babel/plugin-bugfix-firefox-class-in-computed-class-key@7.27.1(@babel/core@7.28.0)':
     dependencies:
@@ -4207,7 +4207,7 @@ snapshots:
       '@babel/helper-module-imports': 7.27.1
       '@babel/helper-plugin-utils': 7.27.1
       '@babel/plugin-syntax-jsx': 7.27.1(@babel/core@7.28.0)
-      '@babel/types': 7.28.1
+      '@babel/types': 7.28.2
     transitivePeerDependencies:
       - supports-color
 
@@ -4375,7 +4375,7 @@ snapshots:
     dependencies:
       '@babel/core': 7.28.0
       '@babel/helper-plugin-utils': 7.27.1
-      '@babel/types': 7.28.1
+      '@babel/types': 7.28.2
       esutils: 2.0.3
 
   '@babel/preset-react@7.27.1(@babel/core@7.28.0)':
@@ -4405,7 +4405,7 @@ snapshots:
     dependencies:
       '@babel/code-frame': 7.27.1
       '@babel/parser': 7.28.0
-      '@babel/types': 7.28.1
+      '@babel/types': 7.28.2
 
   '@babel/traverse@7.28.0':
     dependencies:
@@ -4414,12 +4414,12 @@ snapshots:
       '@babel/helper-globals': 7.28.0
       '@babel/parser': 7.28.0
       '@babel/template': 7.27.2
-      '@babel/types': 7.28.1
+      '@babel/types': 7.28.2
       debug: 4.4.1
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/types@7.28.1':
+  '@babel/types@7.28.2':
     dependencies:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.27.1
@@ -4652,7 +4652,7 @@ snapshots:
     dependencies:
       '@color-pen/static': 1.0.0
       a-js-tools: 1.0.9
-      a-type-of-js: 1.0.5
+      a-type-of-js: 1.0.6
       color-pen: 2.0.12
 
   '@types/body-parser@1.19.6':
@@ -4967,26 +4967,26 @@ snapshots:
       '@qqi/log': 0.1.0
       a-js-tools: 1.0.9
       a-node-tools: 4.2.16
-      a-type-of-js: 1.0.5
+      a-type-of-js: 1.0.6
       color-pen: 2.0.12
 
   a-element-inline-style@0.0.1:
     dependencies:
-      a-type-of-js: 1.0.5
+      a-type-of-js: 1.0.6
 
   a-js-tools@1.0.9:
     dependencies:
-      a-type-of-js: 1.0.5
+      a-type-of-js: 1.0.6
 
   a-node-tools@4.2.16:
     dependencies:
       '@color-pen/static': 1.0.0
       '@qqi/log': 0.1.0
       a-js-tools: 1.0.9
-      a-type-of-js: 1.0.5
+      a-type-of-js: 1.0.6
       color-pen: 2.0.12
 
-  a-type-of-js@1.0.5: {}
+  a-type-of-js@1.0.6: {}
 
   accepts@1.3.8:
     dependencies:
@@ -5314,13 +5314,13 @@ snapshots:
     dependencies:
       '@color-pen/static': 1.0.0
       a-js-tools: 1.0.9
-      a-type-of-js: 1.0.5
+      a-type-of-js: 1.0.6
 
   colored-table@0.0.2:
     dependencies:
       '@color-pen/static': 1.0.0
       a-js-tools: 1.0.9
-      a-type-of-js: 1.0.5
+      a-type-of-js: 1.0.6
       color-pen: 2.0.12
 
   colorette@2.0.20: {}
@@ -6007,13 +6007,13 @@ snapshots:
 
   graphemer@1.4.0: {}
 
-  gvv@0.1.4:
+  gvv@0.1.5:
     dependencies:
       '@qqi/log': 0.1.0
       a-command: 2.3.13
       a-js-tools: 1.0.9
       a-node-tools: 4.2.16
-      a-type-of-js: 1.0.5
+      a-type-of-js: 1.0.6
       color-pen: 2.0.12
 
   gzip-size@6.0.0:
@@ -6333,7 +6333,7 @@ snapshots:
 
   jiti@1.21.7: {}
 
-  jja@2.3.12:
+  jja@2.3.14:
     dependencies:
       '@color-pen/static': 1.0.0
       '@qqi/copy-text': 1.0.5
@@ -6341,7 +6341,7 @@ snapshots:
       a-command: 2.3.13
       a-js-tools: 1.0.9
       a-node-tools: 4.2.16
-      a-type-of-js: 1.0.5
+      a-type-of-js: 1.0.6
       color-pen: 2.0.12
       colored-table: 0.0.2
 
@@ -6706,7 +6706,7 @@ snapshots:
       a-command: 2.3.13
       a-js-tools: 1.0.9
       a-node-tools: 4.2.16
-      a-type-of-js: 1.0.5
+      a-type-of-js: 1.0.6
       color-pen: 2.0.12
 
   pkg-dir@4.2.0:
@@ -6820,7 +6820,7 @@ snapshots:
 
   react-is@16.13.1: {}
 
-  react-router@7.7.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+  react-router@7.7.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
       cookie: 1.0.2
       react: 19.1.0
@@ -7160,7 +7160,7 @@ snapshots:
 
   source-map@0.6.1: {}
 
-  source-map@0.7.4: {}
+  source-map@0.7.6: {}
 
   spdx-exceptions@2.5.0: {}
 
@@ -7356,7 +7356,7 @@ snapshots:
       enhanced-resolve: 5.18.2
       micromatch: 4.0.8
       semver: 7.7.2
-      source-map: 0.7.4
+      source-map: 0.7.6
       typescript: 5.8.3
       webpack: 5.100.2(webpack-cli@6.0.1)
 
@@ -7467,7 +7467,7 @@ snapshots:
       a-command: 2.3.13
       a-js-tools: 1.0.9
       a-node-tools: 4.2.16
-      a-type-of-js: 1.0.5
+      a-type-of-js: 1.0.6
       color-pen: 2.0.12
 
   watchpack@2.4.4:
@@ -7682,7 +7682,7 @@ snapshots:
 
   xcn@0.1.1:
     dependencies:
-      a-type-of-js: 1.0.5
+      a-type-of-js: 1.0.6
 
   yallist@3.1.1: {}
 
