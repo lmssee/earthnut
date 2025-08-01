@@ -1,4 +1,4 @@
-import { isArray, isNull } from 'a-type-of-js';
+import { isArray, isEmptyArray, isNull } from 'a-type-of-js';
 import { Ripples } from '../ripplesClass';
 import { dog } from 'dog';
 import { createBackgroundColor } from './create-background-color';
@@ -56,12 +56,13 @@ export function createLinearGradient(this: Ripples) {
   colorList.forEach((e, i) => gradient.addColorStop(i / (colorList.length - 1), e));
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, width, height);
-  if (fadeData.isTransitioning)
+  if (fadeData.isTransitioning && !isEmptyArray(fadeData.toBeList)) {
     /// 当前处于渐变过程，仅保留第一个
     fadeData.toBeList = [fadeData.toBeList[0]];
-  else
+  } else {
     /// 当前不在渐变状态，直接清空渲染层
     fadeData.toBeList = [];
+  }
 
   fadeData.toBeList.push({
     resource: canvas,

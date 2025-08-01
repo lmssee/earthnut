@@ -1,5 +1,5 @@
 import { dog } from 'dog';
-import { isNull, isString } from 'a-type-of-js';
+import { isEmptyArray, isNull, isString } from 'a-type-of-js';
 import { Ripples } from '../ripplesClass';
 import { createImageBySrc } from './utils/create-image-by-src';
 import { createLinearGradient } from './create-linear-gradient';
@@ -48,7 +48,7 @@ export function loadImage(this: Ripples) {
     dog('背景图下载完毕', fadeData.toBeList.length);
     dog('当前是否在渐变', fadeData.isTransitioning);
     //  当前是否在渲染
-    if (fadeData.isTransitioning) {
+    if (fadeData.isTransitioning && !isEmptyArray(fadeData.toBeList)) {
       // 下载有效背景时清理默认的背景纹理和同地址的背景纹理
       fadeData.toBeList = [
         fadeData.toBeList[0],
@@ -62,10 +62,17 @@ export function loadImage(this: Ripples) {
                 e.tag !== newImageSource),
           ),
       ];
-    } else
+    } else {
       /// 当前并不在渐变直接清空带渲染层
       fadeData.toBeList = [];
-    fadeData.toBeList.push({ resource: image, width, height, kind: 'image', tag: newImageSource }); // 设置渐变过去
+    }
+    fadeData.toBeList.push({
+      resource: image,
+      width,
+      height,
+      kind: 'image',
+      tag: newImageSource,
+    }); // 设置渐变过去
     dog('添加后的列表长度', fadeData.toBeList);
     fadeData.run(); // 开启渐变
   };

@@ -10,6 +10,8 @@ import { getRandomString } from 'a-js-tools';
  *
  * 透明的纹理*默认会自动切换*
  *
+ * @param [executeImmediately=true]  立即执行
+ *
  */
 export function setTransparentTexture(this: Ripples, executeImmediately: boolean = true) {
   dog.type = true;

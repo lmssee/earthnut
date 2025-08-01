@@ -1,5 +1,37 @@
 # 版本日志
 
+## v0.1.3 (2025-8-2)
+
+### 🐛 修复已知 bug
+
+- 在实际的应用中，在切换背景的时候，会偶发出现 `Cannot read properties of undefined (reading 'resource')` 的问题，在错误编号为 `bug: 2508021258` 的渲染层。
+
+在一次复现调试中，返回的 `toBeList` 值为 :
+
+```ts
+[
+  undefined,
+  {
+    source: img,
+    with: 953,
+    height: 2116,
+    kind: 'image',
+    tag: '/img/background-image-for-presentation.jpg',
+  },
+  {
+    source: canvas,
+    with: 953,
+    height: 2116,
+    kind: 'default',
+    tag: 'A3MJcb8J',
+  },
+];
+```
+
+确认该错误是由于在判定 `fadeData.isTransitioning` 为 `true` 造成的第一个待执行项不存在却被设置为新的数组的第一项（原则上当 `fadeData.isTransitioning` 值为 `true` 时应当是 `fadeData.todoList` 有元素的）
+
+经检测该错误是由于在上一次循环渐变的过程中，由于 `bug: 2508021258（2）` 处判定的值不满足直接返回后未设置退出状态而导致的错误。
+
 ## v0.1.3-beta.0 (2025-7-25)
 
 - 查看问题
@@ -129,3 +161,7 @@
 - `ripple` 中 `touchmove`、`touchstart` 事件监听添加 `{ passive: true}`
 - 添加 `useTimeId`、`useAnimationFrameId`、`useRipples` 自定义 hooks
 - 添加 `earthnut/css`、`earthnut/scss` 样式表
+
+```
+
+```

@@ -1,4 +1,4 @@
-import { isArray, isNull } from 'a-type-of-js';
+import { isArray, isEmptyArray, isNull } from 'a-type-of-js';
 import { Ripples } from '../ripplesClass';
 import { setTransparentTexture } from './default-background';
 import { isNoneBackGroundColor } from '../tools';
@@ -46,12 +46,14 @@ export function createBackgroundColor(this: Ripples) {
   ctx.fillStyle = drawColor;
   ctx.fillRect(0, 0, width, height);
   ctx.fill();
-  if (fadeData.isTransitioning)
+  if (fadeData.isTransitioning && !isEmptyArray(fadeData.toBeList)) {
     /// 当前处于渐变过程，仅保留第一个
     fadeData.toBeList = [fadeData.toBeList[0]];
-  else
+  } else {
     /// 当前不在渐变状态，直接清空渲染层
     fadeData.toBeList = [];
+  }
+
   const nestDrawImage: DrawImage = {
     resource: canvas,
     kind: 'background-color',

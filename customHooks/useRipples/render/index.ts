@@ -33,6 +33,13 @@ export function render(this: Ripples) {
     }
     // 是否设置了闲时动画
     if (idleFluctuations) this.raindropsFall();
+    /**
+     *  TODO  这里调用触发了错误
+     *
+     *  可能是值  isTransitioning 出现了故障
+     *
+     *  Cannot read properties of undefined (reading 'resource')
+     */
     // 当前绘制图像间转换
     if (isTransitioning) this.fade();
     /**  数据更新  */

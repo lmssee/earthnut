@@ -94,7 +94,8 @@ export class Ripples extends RipplesData {
     if (now - lastRaindropsFallTime < raindropsTimeInterval) return;
     renderData.lastRaindropsFallTime = now; // 设置新的时间
 
-    const getValue = (str: number) => getRandomInt(str);
+    const getValue = (size: number) => getRandomInt(size);
+
     const { width, height } = backgroundInfo;
     this.drop(getValue(width), getValue(height), dropRadius, 0.03);
   }
