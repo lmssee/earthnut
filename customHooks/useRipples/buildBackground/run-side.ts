@@ -1,3 +1,4 @@
+import { forbiddenRunSide } from '../callback/can-side';
 import { Ripples } from '../ripplesClass';
 import { dog } from 'dog';
 /**
@@ -19,8 +20,9 @@ export function runSide(this: Ripples) {
       dog('当前执行的项', fadeData.lastDrawImage);
       dog('尚有未执行的项', fadeData.toBeList.length);
 
-      if (fadeData.lastDrawImage.kind === 'image') {
-        dog('当前展示为图片，退出循环', fadeData.lastDrawImage);
+      // 执行为图片且执行环境相同
+      if (Reflect.apply(forbiddenRunSide, this, [])) {
+        dog('当前禁止执行循环，退出循环', fadeData.lastDrawImage);
         return;
       }
 

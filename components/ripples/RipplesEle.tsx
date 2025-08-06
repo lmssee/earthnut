@@ -79,6 +79,7 @@ const BackgroundRipple = forwardRef<RippleEle, BackgroundRipplesProps>(
       pause() {
         ripplesRef.current?.pause();
       },
+
       set(options?: RipplesOptions): void {
         if (isUndefined(options)) return;
         const keys = Object.keys(options) as (keyof RipplesOptions)[];

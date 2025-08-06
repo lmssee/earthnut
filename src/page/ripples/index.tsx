@@ -31,6 +31,8 @@ export default function RipplesPage() {
     return false;
   }
 
+  const [darkMode, setDarkMode] = useState(false);
+
   return (
     <div
       className={styles.page}
@@ -60,6 +62,7 @@ export default function RipplesPage() {
           // perturbance: 0.01,
           raindropsTimeInterval: 4800,
           imgUrl: background,
+          // darkMode,
         }}
       >
         <div className={xcn('en-center')}>
@@ -85,20 +88,11 @@ export default function RipplesPage() {
           ))}
           <div>
             {['纯色', '渐变', '图片', '没有值'].map((e, i) => (
-              <button
-                key={e}
-                data-index={i}
-                style={{
-                  margin: '10px 9px',
-                  borderRadius: '10px',
-                  border: 'none',
-                  boxShadow: '1px 1px 6px #f369',
-                }}
-                onClick={setBackgroundValue}
-              >
+              <button key={e} data-index={i} style={{}} onClick={setBackgroundValue}>
                 {e}
               </button>
             ))}
+            <button onClick={() => setDarkMode(!darkMode)}>{darkMode ? '暗黑' : '亮仔'}</button>
           </div>
         </div>
       </BackgroundRipple>

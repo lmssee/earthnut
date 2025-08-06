@@ -4,6 +4,7 @@ import { setTransparentTexture } from './default-background';
 import { isNoneBackGroundColor } from '../tools';
 import { dog } from 'dog';
 import { DrawImage } from '../rippersData/fadeData';
+import { getNewColor } from '../callback/get-new-image';
 
 /**  构建背景色  */
 export function createBackgroundColor(this: Ripples) {
@@ -39,9 +40,7 @@ export function createBackgroundColor(this: Ripples) {
   canvas.height = height;
   // 清理画布
   ctx.clearRect(0, 0, width, height);
-  const drawColor =
-    (isArray(options.imgUrl) && options.imgUrl.length === 1 && options.imgUrl[0]) ||
-    originStyle.backgroundColor;
+  const drawColor = getNewColor(options, originStyle);
   ctx.beginPath();
   ctx.fillStyle = drawColor;
   ctx.fillRect(0, 0, width, height);

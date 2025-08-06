@@ -1,8 +1,9 @@
 import { dog } from 'dog';
-import { isEmptyArray, isNull, isString } from 'a-type-of-js';
+import { isEmptyArray, isNull } from 'a-type-of-js';
 import { Ripples } from '../ripplesClass';
 import { createImageBySrc } from './utils/create-image-by-src';
 import { createLinearGradient } from './create-linear-gradient';
+import { getNewImage } from '../callback/get-new-image';
 /**
  *
  * 加载图像
@@ -27,8 +28,7 @@ export function loadImage(this: Ripples) {
   const { backgroundInfo } = fadeData;
 
   const { width, height } = backgroundInfo;
-  const newImageSource: string | null =
-    (isString(options.imgUrl) && options.imgUrl) || extractUrl(lastUseStyle.backgroundImage);
+  const newImageSource: string | null = getNewImage(options, lastUseStyle);
   dog('当前获取的图像资源为', newImageSource);
   // 倘若图片资源未更改，则无需从新下载（但需要有值前提下）
   // 图片资源未更改，但是尺寸发生变化时亦会触发该方法
@@ -87,10 +87,4 @@ export function loadImage(this: Ripples) {
   // TODO
   image.crossOrigin = options.crossOrigin;
   dog.type = true;
-}
-
-/** 检测数据是否为 url 外联图像地址 */
-function extractUrl(value: string) {
-  const urlMatch = /url\(["']?([^"']*)["']?\)/.exec(value);
-  return isNull(urlMatch) ? null : urlMatch[1];
 }

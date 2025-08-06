@@ -3,6 +3,7 @@ import { createCanvasElementBySize } from '../buildBackground/default-background
 import { Ripples } from '../ripplesClass';
 import { dog } from 'dog';
 import { setTransparentTexture } from '../buildBackground/default-background';
+import { forbiddenRunSide } from '../callback/can-side';
 
 export type DrawImage = {
   /**  资源  */
@@ -105,9 +106,8 @@ export class FadeData {
         set(value: boolean) {
           _.isDark = value;
           // 在后续变化的进程都是默认
-          if (_.toBeList.every(e => e.kind === 'default') && _.lastDrawImage.kind === 'default') {
+          if (!Reflect.apply(forbiddenRunSide, _Ripples, []))
             Reflect.apply(setTransparentTexture, _Ripples, [true]);
-          }
         },
       });
     }

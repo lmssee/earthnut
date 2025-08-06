@@ -24,6 +24,8 @@ import { drop } from './callback/drop';
 import { UseOptions } from './rippersData/useOptions';
 import { fade } from './callback/fade';
 import { FadeData } from './rippersData/fadeData';
+import { setTransparentTexture } from './buildBackground/default-background';
+import { forbiddenRunSide } from './callback/can-side';
 
 /**
  *
@@ -161,6 +163,11 @@ export class Ripples extends RipplesData {
     if (property === 'imgUrl') {
       this.options.imgUrl = value as never;
       Reflect.apply(loadImage, this, []);
+    } else if (property === 'darkMode') {
+      this.options.darkMode = value as boolean;
+      dog(Reflect.apply(forbiddenRunSide, this, []));
+      if (!Reflect.apply(forbiddenRunSide, this, []))
+        Reflect.apply(setTransparentTexture, this, [true]);
     } else this.options[property] = value as never;
   }
 }
