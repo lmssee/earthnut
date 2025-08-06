@@ -1,6 +1,8 @@
 import { isNull } from 'a-type-of-js';
 import { createCanvasElementBySize } from '../buildBackground/default-background/createCanvasElementBySize';
 import { Ripples } from '../ripplesClass';
+import { dog } from 'dog';
+import { setTransparentTexture } from '../buildBackground/default-background';
 
 export type DrawImage = {
   /**  资源  */
@@ -41,6 +43,15 @@ export class FadeData {
   drawProgress: number = 0;
   /**  是否处于绘制过渡状态  */
   isTransitioning: boolean = false;
+  /**  当前的状态 （暗黑模式） */
+  #mediaQuery: MediaQueryList;
+  /**  暗黑模式监听的事件  */
+  #mediaQueryChange(ev: MediaQueryListEvent) {
+    dog('当前获取', ev, this);
+    this.isDark = ev.matches;
+  }
+
+  isDark: boolean = false;
 
   /**  执行渐变  */
   run() {
@@ -52,6 +63,7 @@ export class FadeData {
   /**  销毁  */
   destroy() {
     if (this.transparentId) clearTimeout(this.transparentId);
+    this.#mediaQuery.removeEventListener('change', this.#mediaQueryChange);
   }
   /**  创建背景渐变的数据  */
   constructor(_Ripples: Ripples) {
@@ -66,10 +78,12 @@ export class FadeData {
       width = parseInt(styles.width);
       height = parseInt(styles.height);
     }
+    // 背景的尺寸
     this.backgroundInfo = {
       width,
       height,
     };
+    // 最后使用的渲染项
     this.lastDrawImage = {
       resource: createCanvasElementBySize(width, height),
       width,
@@ -77,5 +91,25 @@ export class FadeData {
       kind: 'default',
       tag: '',
     };
+    {
+      /// 暗黑模式查询
+      this.#mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      this.isDark = this.#mediaQuery.matches;
+      this.#mediaQuery.addEventListener('change', this.#mediaQueryChange);
+      // eslint-disable-next-line @typescript-eslint/no-this-alias
+      const _ = this;
+      Object.defineProperty(this.#mediaQuery, 'isDark', {
+        get() {
+          return _.isDark;
+        },
+        set(value: boolean) {
+          _.isDark = value;
+          // 在后续变化的进程都是默认
+          if (_.toBeList.every(e => e.kind === 'default') && _.lastDrawImage.kind === 'default') {
+            Reflect.apply(setTransparentTexture, _Ripples, [true]);
+          }
+        },
+      });
+    }
   }
 }

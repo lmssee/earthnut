@@ -1,9 +1,9 @@
-import { RipplesUseOptions } from '../types';
+import { RipplesDefaultData } from '../types';
 
 /**
  * 默认值
  */
-export const defaultData: RipplesUseOptions = {
+export const defaultData: RipplesDefaultData = {
   imgUrl: null,
   resolution: 360,
   dropRadius: 12,
@@ -14,6 +14,7 @@ export const defaultData: RipplesUseOptions = {
   accelerating: 1,
   raindropsTimeInterval: 3600,
   idleFluctuations: true,
+  darkMode: undefined,
 } as const;
 
 /**  冷冻执行  */

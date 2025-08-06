@@ -33,3 +33,5 @@ export type {
   LayoutHeaderProps,
   LayoutFooterProps,
 } from './components/layout';
+
+export { EnMarquee, Marquee } from './components/marquee/';

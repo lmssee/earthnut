@@ -1,6 +1,7 @@
-import { isBoolean } from 'a-type-of-js';
+import { isBoolean, isUndefined } from 'a-type-of-js';
 import { defaultData } from './defaultData';
 import { ImageCrossOrigin, RippleImgUrl, RipplesUseOptions } from '../types';
+import { dog } from 'dog';
 
 /** 用户使用参数  */
 export class UseOptions {
@@ -136,6 +137,19 @@ export class UseOptions {
   get playingState(): boolean {
     return this.running;
   }
+  /**  当前时候为暗黑模式  */
+  #darkMode: boolean | undefined = undefined;
+
+  /**  当前时候为暗黑模式  */
+  get darkMode() {
+    return this.#darkMode;
+  }
+  /**  当前时候为暗黑模式  */
+  set darkMode(value: boolean | undefined) {
+    dog('设置参数的暗黑模式', value);
+    this.#darkMode = isUndefined(value) ? undefined : Boolean(value);
+  }
+
   /**  上一次执行渲染状态  */
   lastRunningState: boolean = false;
 
@@ -153,5 +167,6 @@ export class UseOptions {
     this.idleFluctuations = options.idleFluctuations;
     this.running = Boolean(options.playingState ?? true);
     this.crossOrigin = options.crossOrigin;
+    this.darkMode = options.darkMode;
   }
 }

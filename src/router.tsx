@@ -10,9 +10,10 @@
 import React from 'react';
 import { ErrorPage } from 'page/error';
 import { App } from 'page/app';
-import RipplesPage from 'page/ripples/page';
+import RipplesPage from 'page/ripples';
 import UseInputIsComposing from 'page/use_input_is_composing/page';
 import { createHashRouter } from 'react-router';
+import { MarqueePage } from 'page/marquee';
 
 /** 路由 */
 const router = createHashRouter(
@@ -29,6 +30,10 @@ const router = createHashRouter(
             {
               path: '/useInputIsComposing',
               element: <UseInputIsComposing />,
+            },
+            {
+              path: '/marquee',
+              element: <MarqueePage />,
             },
           ],
         },

@@ -15,7 +15,7 @@ import { getRandomString } from 'a-js-tools';
  */
 export function setTransparentTexture(this: Ripples, executeImmediately: boolean = true) {
   dog.type = true;
-  const { fadeData } = this;
+  const { fadeData, options } = this;
 
   const { backgroundInfo, toBeList } = fadeData;
   const { width, height } = backgroundInfo;
@@ -24,7 +24,7 @@ export function setTransparentTexture(this: Ripples, executeImmediately: boolean
     includeNumbers: true,
     includeUppercaseLetters: true,
   });
-  circleDataList.build(); // 构建新的执行图（很重要）
+  circleDataList.build(options.darkMode ?? fadeData.isDark); // 构建新的执行图（很重要）
   dog('添加默认纹理', tag);
   // if (fadeData.isTransitioning)
   //   /// 当前处于渐变过程，仅保留第一个

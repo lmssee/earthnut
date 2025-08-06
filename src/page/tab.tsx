@@ -17,8 +17,12 @@ export default function MainTab() {
       url: '',
     },
     {
-      text: 'useInputIsComposing',
+      text: '检测输入框输入状态',
       url: '/useInputIsComposing',
+    },
+    {
+      text: '跑马灯',
+      url: '/marquee',
     },
   ];
 

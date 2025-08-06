@@ -27,13 +27,24 @@
       padding: 0px;
       a {
         display: inline-block;
-        color: #fa6;
+        color: #aaa;
         padding: 5px 0px;
         width: 100%;
-        &.active {
+        transition: all 0.6s;
+
+        &.active,
+        &:hover {
           color: #0a6;
-          text-shadow: 1px 1px 1px #fffa;
-          cursor: not-allowed;
+          text-shadow: -1px 1px 0.5px #fff;
+          font-weight: bolder;
+        }
+        &:hover {
+          color: #f63;
+          cursor: pointer;
+          &.active {
+            color: #0a6;
+            cursor: not-allowed;
+          }
         }
       }
     }

@@ -29,6 +29,7 @@ export type ImageCrossOrigin = 'anonymous' | 'use-credentials' | 'no-cors';
  *    - raindropsTimeInterval 雨滴滴落的间隔，缺省为 `3600`，可设置区间为 `10 ~ 12000`
  *           该值还将影响无背景设置时默认背景的切换频率，几乎每两个雨滴落下就会切换一次背景
  *    - idleFluctuations  闲置波动，在光标交互不触发时，将触发模拟雨滴，缺省为 `true`
+ *    - darkMode 暗黑模式，仅用于在默认的背景图时更改默认背景图的背景色，如果使用了 `imgUrl` 配置，请执行处理色差异常
  *
  */
 export interface BackgroundRipplesProps {
@@ -53,6 +54,7 @@ export interface BackgroundRipplesProps {
    * - raindropsTimeInterval 雨滴滴落的间隔，缺省为 `3650`，可设置区间为 `10 ~ 12000`，值越小，雨越大
    *   该值还将影响无背景设置时默认背景的切换频率，几乎每两个雨滴落下就会切换一次背景
    * - idleFluctuations  闲置波动，在光标交互不触发时，将触发模拟雨滴，缺省为 `true`
+   * - darkMode 暗黑模式，仅用于在默认的背景图时更改默认背景图的背景色，如果使用了 `imgUrl` 配置，请执行处理色差异常
    */
   option?: RipplesOptions;
 }
@@ -159,6 +161,13 @@ export type RipplesUseOptions = {
    * 缺省为 `true`
    */
   idleFluctuations: boolean;
+  /**
+   *  是否为暗黑模式
+   *
+   *  在使用默认的主题设置时，当页面使用暗黑模式时出现了文本看不清的现象
+   *
+   */
+  darkMode: boolean | undefined;
 };
 
 /**
@@ -176,6 +185,7 @@ export type RipplesUseOptions = {
  * - raindropsTimeInterval 雨滴滴落的间隔，缺省为 `3650`，可设置区间为 `10 ~ 12000`，值越小，雨越大
  *   该值还将影响无背景设置时默认背景的切换频率，几乎每两个雨滴落下就会切换一次背景
  * - idleFluctuations  闲置波动，在光标交互不触发时，将触发模拟雨滴，缺省为 `true`
+ * - darkMode 暗黑模式，仅用于在默认的背景图时更改默认背景图的背景色，如果使用了 `imgUrl` 配置，请执行处理色差异常
  */
 export type RipplesOptions = {
   [x in keyof RipplesUseOptions]?: RipplesUseOptions[x];
@@ -188,15 +198,16 @@ export interface RipplesDefaultData {
   /**  默认的图像地址  */
   imgUrl: null;
   /**    */
-  resolution: 256;
-  dropRadius: 10;
-  perturbance: 0.03;
+  resolution: 360;
+  dropRadius: 12;
+  perturbance: 0.01;
   interactive: true;
-  crossOrigin: '';
+  crossOrigin: 'no-cors';
   playingState: true;
   accelerating: 1;
   raindropsTimeInterval: 3600;
   idleFluctuations: true;
+  darkMode: undefined;
 }
 
 /**

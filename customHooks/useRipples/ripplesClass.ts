@@ -80,6 +80,8 @@ export class Ripples extends RipplesData {
       /// 初始化 gl 及渲染粒子（动画）
       Reflect.apply(initGL, this, []);
     }
+    /// 注册一个当前主题模式的监听系统
+    window.matchMedia('(prefers-color-scheme: dark)');
   }
 
   /** 模拟雨滴下落  */

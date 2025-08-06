@@ -65,10 +65,15 @@ export function fade(this: Ripples) {
    *
    */
   if (isNull(ctx) || isNull(lastDrawImage.resource) || isEmptyArray(toBeList)) {
-    fadeData.isTransitioning = false;
-    dog.error('渲染出现意外，该有的值不存在导致 bug');
-    Reflect.apply(runSide, this, []);
-    return;
+    dog.error(
+      '是我啦',
+      isNull(ctx),
+      '-',
+      isNull(lastDrawImage.resource),
+      '-',
+      isEmptyArray(toBeList),
+    );
+    return Reflect.apply(exitFade, this, '环境值错误');
   }
   const { width, height } = backgroundInfo;
   canvas.width = width;

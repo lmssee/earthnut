@@ -1,6 +1,7 @@
 import { getRandomInt } from 'a-js-tools';
+import { dog } from 'dog';
 
-const build = (times: number = 0) => {
+const build = (times: number = 0, darkMode: boolean = false) => {
   /**  构建数据  */
   const data: {
     /**  数据  */
@@ -29,20 +30,28 @@ const build = (times: number = 0) => {
     l[x] = [];
     for (let y = 0; y < d; y++) l[x][y] = [0, 0, 0, 0];
   }
+  dog(darkMode);
   // 绘制 1 / 8
   for (let x = 0; x <= r; x++) {
     for (let y = x; y <= r; y++) {
       /**  子项数据  */
       const column: [number, number, number, number] = l[x][y];
-      const noise = () => getRandomInt(255, 190);
+      /**  当前是否为圈内  */
+      const isInCircle = Math.ceil(Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2))) <= r;
+      /**  色值范围开始  */
+      const colorStart = darkMode ? 10 : 255;
+      /**  色值范围结束  */
+      const colorEnd = darkMode ? 25 : 190;
+      /**   透明度范围的开始  */
+      const opacityStart = isInCircle ? (darkMode ? 160 : 120) : darkMode ? 160 : 180;
+      /**  透明度范围开始  */
+      const opacityEnd = isInCircle ? (darkMode ? 230 : 160) : darkMode ? 250 : 240;
+      const noise = () => getRandomInt(colorStart, colorEnd);
       column[0] = noise(); // R
       column[1] = noise(); // G
       column[2] = noise(); // B
       /**  小于半宽则为圆内 */
-      column[3] =
-        Math.ceil(Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2))) <= r
-          ? getRandomInt(120, 180)
-          : getRandomInt(160, 240); // A
+      column[3] = getRandomInt(opacityStart, opacityEnd);
     }
   }
   // 绘制 1 / 8
@@ -64,9 +73,9 @@ export const circleDataList = new (class {
   /**  计数器  */
   #cum: number = 1;
   /**  构建新的数据依据  */
-  build() {
+  build(darkMode: boolean) {
     if (this.#cum > 100) this.#cum = 0;
-    this.data = build((this.#cum += 3));
+    this.data = build((this.#cum += 4), darkMode);
   }
   /**  数据依据  */
   data = build();
