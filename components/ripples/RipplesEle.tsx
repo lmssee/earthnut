@@ -59,14 +59,14 @@ const Content = styled.div`
  *
  */
 const BackgroundRipple = forwardRef<RippleEle, BackgroundRipplesProps>(
-  ({ children, style, ...props }, ref) => {
+  ({ children, style, option, ...props }, ref) => {
     /**  canvas 元素  */
     const canvas = useRef<HTMLCanvasElement>(null);
     /**  使用 ripples  */
-    const ripplesRef = useRipples(canvas, props);
+    const ripplesRef = useRipples(canvas, option);
 
     ///  使用 配置更新
-    useOptionUpdate(ripplesRef, props);
+    useOptionUpdate(ripplesRef, option);
 
     // 抛出事件 (自定义抛出事件)
     useImperativeHandle(ref, () => ({
@@ -99,6 +99,7 @@ const BackgroundRipple = forwardRef<RippleEle, BackgroundRipplesProps>(
           // backgroundPosition: 'center',
           ...style,
         }}
+        {...props}
       >
         <canvas ref={canvas} data-earthnut-ui="canvas" />
         {children}

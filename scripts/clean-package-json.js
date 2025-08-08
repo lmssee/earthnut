@@ -71,7 +71,7 @@ packageJson = {
     './css': './styles/common.css',
   },
   keywords: ['earthnut'],
-  homepage: 'https://earthnut.dev/',
+  homepage: 'https://earthnut.dev/quickUse',
   bugs: {
     url: 'https://github.com/earthnutDev/earthnut/issues',
     email: 'earthnut.dev@outlook.com',

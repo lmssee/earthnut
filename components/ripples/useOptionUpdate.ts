@@ -1,5 +1,5 @@
 import { isArray } from 'a-type-of-js';
-import { BackgroundRipplesProps, Ripples, RipplesOptions } from '../../customHooks';
+import { Ripples, RipplesOptions } from '../../customHooks';
 import { useEffect, useRef } from 'react';
 import { dog } from 'dog';
 
@@ -8,11 +8,9 @@ import { dog } from 'dog';
  */
 export function useOptionUpdate(
   ripplesRef: React.RefObject<Ripples | null>,
-  props: BackgroundRipplesProps,
+  option: RipplesOptions | undefined,
 ) {
-  const oldOption = useRef({ ...props.option });
-
-  const { option } = props;
+  const oldOption = useRef({ ...option });
   /**  监听数据变化并给值  */
   useEffect(() => {
     dog.type = true;

@@ -1,5 +1,10 @@
 # 版本日志
 
+## v0.1.6 (2025-8-8)
+
+- 整理了文档
+- `BackgroundRipple` 的使用参数添加了 `className`
+
 ## v0.1.5 (2025-8-7)
 
 - `BackgroundRipple` 的 `darkMode` 模式进行了强化，但依旧不能进行设置暗黑的色值偏差

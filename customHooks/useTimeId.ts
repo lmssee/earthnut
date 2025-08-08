@@ -15,7 +15,7 @@ import { useEffect, useRef } from 'react';
  * 该数值在组件卸载时会自动调用 `clearTimeout` 清理
  *
  * @version 0.0.3
- * @see   https://earthnut.dev/use-time-id
+ * @see   https://earthnut.dev/custom-hooks/use-time-id
  * @example
  *
  * 使用：
@@ -55,13 +55,6 @@ import { useEffect, useRef } from 'react';
  */
 export function useTimeId() {
   const timeId = useRef<NodeJS.Timeout>(undefined);
-
-  useEffect(() => {
-    return () => {
-      if (timeId.current) {
-        clearTimeout(timeId.current);
-      }
-    };
-  }, []);
+  useEffect(() => () => timeId.current && clearTimeout(timeId.current), []);
   return timeId;
 }

@@ -17,7 +17,7 @@ import { isNull } from 'a-type-of-js';
  *
  *
  * @param canvas `usrRef` 包裹的 `HTMLCanvasElement`，用于绘制图像
- * @param props  初始化的
+ * @param option  初始化的
  * @version 0.0.3
  * @see  https://earthnut.dev/use-ripples
  * @see  JQuery https://github.com/sirxemic/jquery.ripples
@@ -49,7 +49,7 @@ import { isNull } from 'a-type-of-js';
  */
 export function useRipples(
   canvas: React.RefObject<HTMLCanvasElement | null>,
-  props?: BackgroundRipplesProps,
+  option?: RipplesOptions,
 ): React.RefObject<Ripples | null> {
   /**  react dom  */
   const ripples = useRef<Ripples>(null);
@@ -58,7 +58,7 @@ export function useRipples(
   useEffect(() => {
     /**  非空检验（这里一般都是有值的，除非故障）  */
     if (isNull(canvas.current)) return;
-    ripples.current = new Ripples(canvas.current, props && props.option);
+    ripples.current = new Ripples(canvas.current, option);
     return () => ripples.current?.destroy();
   }, []);
 

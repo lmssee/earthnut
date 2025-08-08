@@ -25,4 +25,4 @@ npm install  --save earthnut
 
 ## 文档
 
-参阅 [earthnut](https://earthnut.dev/)
+参阅 [earthnut](https://earthnut.dev/quickUse/)
