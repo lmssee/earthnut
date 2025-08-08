@@ -68,3 +68,5 @@ buildResult() {
  
  # 构建
  buildResult 
+
+ node ./scripts/build-license.js

@@ -6,6 +6,8 @@ export { useAnimationFrameId } from './useAnimationFrame';
 
 export { useRipples } from './useRipples/index';
 
+export { useLazyRipples } from './useRipples/use-lazy-ripple';
+
 export type {
   Ripples,
   BackgroundRipplesProps,

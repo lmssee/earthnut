@@ -2,7 +2,7 @@
   "private": true,
   "type": "module",
   "name": "earthnut",
-  "version": "0.1.6",
+  "version": "0.1.7-alpha.0",
   "description": "earthnut 的 react ui",
   "scripts": {
     "build": "chmod +x ./scripts/build.sh && pnpm run production && ./scripts/build.sh",

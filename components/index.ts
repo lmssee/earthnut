@@ -1,6 +1,19 @@
-export { BackgroundRipple } from './ripples';
+import { RippleEle } from './ripples';
 
-export { Layout, LayoutContent, LayoutHeader, LayoutFooter, LayoutSideBar } from './layout';
+export { BackgroundRipple, LazyBackgroundRipple } from './ripples';
+
+export {
+  Layout,
+  LayoutContent,
+  LayoutHeader,
+  LayoutFooter,
+  LayoutSideBar,
+  EnLayout,
+  EnLayoutContent,
+  EnLayoutFooter,
+  EnLayoutHeader,
+  EnLayoutSideBar,
+} from './layout';
 
 export type {
   LayoutProps,
@@ -8,3 +21,12 @@ export type {
   LayoutHeaderProps,
   LayoutFooterProps,
 } from './layout';
+
+export type {
+  Ripples,
+  BackgroundRipplesProps,
+  RipplesOptions,
+  RippleImgUrl,
+} from '../customHooks/useRipples/index';
+
+export type { RippleEle };

@@ -15,20 +15,21 @@ packageJson = {
   },
   ...packageJson,
   files: [
+    '705',
     'BackgroundRipple',
     'components',
     'customHooks',
     'Layout',
+    'LazyBackgroundRipple',
     'styles',
     'useAnimationFrame',
     'useInputIsComposing',
+    'useLazyRipples',
     'useRipples',
     'useTimeId',
-    'index.cjs',
-    'index.cjs.map',
     'dog.d.ts',
+    'index.cjs',
     'index.d.ts',
-    'index.js.LICENSE.txt',
     'index.mjs',
   ],
   exports: {
@@ -41,6 +42,11 @@ packageJson = {
       types: './components/ripples/index.d.ts',
       require: './BackgroundRipple/index.cjs',
       import: './BackgroundRipple/index.mjs',
+    },
+    './LazyBackgroundRipple': {
+      types: './components/ripples/index.d.ts',
+      require: './LazyBackgroundRipple/index.cjs',
+      import: './LazyBackgroundRipple/index.mjs',
     },
     './useTimeId': {
       types: './customHooks/useTimeId.d.ts',
@@ -56,6 +62,11 @@ packageJson = {
       types: './customHooks/useRipples/index.d.ts',
       require: './useRipples/index.cjs',
       import: './useRipples/index.mjs',
+    },
+    './useLazyRipples': {
+      types: './customHooks/useRipples/index.d.ts',
+      require: './useLazyRipples/index.cjs',
+      import: './useLazyRipples/index.mjs',
     },
     './useInputIsComposing': {
       types: './customHooks/useInputIsComposing.d.ts',
