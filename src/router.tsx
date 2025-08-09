@@ -11,9 +11,11 @@ import React from 'react';
 import { ErrorPage } from 'page/error';
 import { App } from 'page/app';
 import RipplesPage from 'page/ripples';
-import UseInputIsComposing from 'page/use_input_is_composing/page';
+import UseInputIsComposing from 'page/use-input-is-composing/page';
 import { createHashRouter } from 'react-router';
 import { MarqueePage } from 'page/marquee';
+import { LazyRipplePage } from 'page/lazy-ripples';
+import { ImagePage } from 'page/image';
 
 /** 路由 */
 const router = createHashRouter(
@@ -27,6 +29,7 @@ const router = createHashRouter(
           errorElement: <ErrorPage></ErrorPage>,
           children: [
             { index: true, element: <RipplesPage /> },
+            { path: '/lazy-ripplePage', element: <LazyRipplePage /> },
             {
               path: '/useInputIsComposing',
               element: <UseInputIsComposing />,
@@ -34,6 +37,10 @@ const router = createHashRouter(
             {
               path: '/marquee',
               element: <MarqueePage />,
+            },
+            {
+              path: '/image',
+              element: <ImagePage />,
             },
           ],
         },

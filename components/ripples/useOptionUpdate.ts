@@ -1,5 +1,5 @@
 import { isArray } from 'a-type-of-js';
-import { Ripples, RipplesOptions } from '../../customHooks';
+import { Ripples, RipplesOptions } from '../../customHooks/useRipples/index';
 import { useEffect, useRef } from 'react';
 import { dog } from 'dog';
 

@@ -94,12 +94,13 @@ export default function () {
       },
       {
         test: /\.(png|jpg|jpeg|gif|webp)$/,
-        type: 'asset/resource',
-        generator: {
-          filename: '[name].[hash:8][ext]',
-          outputPath: 'asset/images',
-          publicPath: '../asset/images/',
-        },
+        type: 'asset/inline',
+        // type: 'asset/resource',
+        // generator: {
+        //   filename: '[name].[hash:8][ext]',
+        //   outputPath: 'asset/images',
+        //   publicPath: '../asset/images/',
+        // },
       },
     ],
   };

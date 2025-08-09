@@ -7,13 +7,13 @@
  * @Description 涟漪
  ****************************************************************************/
 import { forwardRef, useImperativeHandle, useRef } from 'react';
-import React from 'react';
 import { BackgroundRipplesProps, RipplesOptions } from '../../customHooks/useRipples/types';
 import { useRipples } from '../../customHooks/useRipples';
 import { useOptionUpdate } from './useOptionUpdate';
 import { RippleEle } from './types';
 import { isUndefined } from 'a-type-of-js';
 import { Content } from './Content';
+import * as React from 'react';
 
 /**
  *

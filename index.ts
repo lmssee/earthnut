@@ -1,6 +1,8 @@
+export { useLazyRipples } from './customHooks/useRipples/use-lazy-ripple';
+
+export { BackgroundRipple, LazyBackgroundRipple } from './components/ripples/';
+
 export {
-  BackgroundRipple,
-  LazyBackgroundRipple,
   Layout,
   LayoutContent,
   LayoutFooter,
@@ -11,22 +13,22 @@ export {
   EnLayoutFooter,
   EnLayoutHeader,
   EnLayoutSideBar,
-} from './components/index';
+} from './components/layout';
 
-export {
-  useTimeId,
-  useAnimationFrameId,
-  useRipples,
-  useLazyRipples,
-  useInputIsComposing,
-} from './customHooks/index';
+export { useTimeId } from './customHooks/useTimeId';
+
+export { useAnimationFrameId } from './customHooks/useAnimationFrame';
+
+export { useInputIsComposing } from './customHooks/useInputIsComposing';
+
+export { useRipples } from './customHooks/useRipples';
 
 export type {
   Ripples,
   BackgroundRipplesProps,
   RipplesOptions,
   RippleImgUrl,
-} from './customHooks/index';
+} from './customHooks/useRipples';
 
 export type {
   LayoutProps,
@@ -36,3 +38,7 @@ export type {
 } from './components/layout';
 
 // export { EnMarquee, Marquee } from './components/marquee/';
+
+export { Image, Image as EnImage } from './components/image';
+
+export type { EnImageProps } from './components/image';

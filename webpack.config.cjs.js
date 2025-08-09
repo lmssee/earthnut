@@ -12,21 +12,12 @@ export default function () {
     ...defaultModule(),
     entry: {
       index: {
-        import: ['./index.ts'],
-        filename: `index.cjs`,
+        import: './index.ts',
+        filename: 'index.cjs',
       },
-      BackgroundRipple: './components/ripples/index.ts',
-      LazyBackgroundRipple: './components/ripples/LazyRippleEle.tsx',
-      Layout: './components/layout/index.ts',
-      useRipples: './customHooks/useRipples/index.ts',
-      useLazyRipples: './customHooks/useRipples/use-lazy-ripple.ts',
-      useTimeId: './customHooks/useTimeId.ts',
-      useAnimationFrame: './customHooks/useAnimationFrame.ts',
-      useInputIsComposing: './customHooks/useInputIsComposing.ts',
     },
     output: {
       path: pathJoin('dist'),
-      library: 'earthnut',
       filename: `[name]/index.cjs`,
       libraryTarget: 'commonjs2',
     },
@@ -45,6 +36,7 @@ export default function () {
     devtool: false,
     // 打包配置
     optimization: {
+      usedExports: true, // 启用 tree shaking
       // 代码压缩
       // 生产模式默认为 true
       minimize: true,
@@ -52,7 +44,7 @@ export default function () {
         new TerserPlugin({
           terserOptions: {
             compress: {
-              directives: false, // 禁止删除顶级指令
+              directives: true, // 禁止删除顶级指令
             },
             format: {
               comments: false,
@@ -62,8 +54,12 @@ export default function () {
           extractComments: false,
         }),
       ],
-      usedExports: true, // 启用 tree shaking
       sideEffects: true, /// 告诉 webpack 这个库没有副作用，以便有效的 tree shaking
+      // 代码分割
+      // splitChunks: {
+      //   chunks: 'all',
+      //   cacheGroup: {},
+      // },
     },
   };
 

@@ -9,7 +9,15 @@ export default function (api) {
   const isProduction = env === 'production';
 
   return {
-    presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
+    presets: [
+      '@babel/preset-env',
+      '@babel/preset-react',
+      '@babel/preset-typescript',
+      // {
+      //   // modules: false,
+      //   targets: '> 0.25%, not dead',
+      // },
+    ],
     plugins: [
       '@babel/plugin-proposal-class-properties',
       isProduction && '@qqi/babel-plugin-remove-dog-calls',

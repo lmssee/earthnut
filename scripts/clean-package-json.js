@@ -14,69 +14,12 @@ packageJson = {
     url: 'https://earthnut.dev',
   },
   ...packageJson,
-  files: [
-    '705',
-    'BackgroundRipple',
-    'components',
-    'customHooks',
-    'Layout',
-    'LazyBackgroundRipple',
-    'styles',
-    'useAnimationFrame',
-    'useInputIsComposing',
-    'useLazyRipples',
-    'useRipples',
-    'useTimeId',
-    'dog.d.ts',
-    'index.cjs',
-    'index.d.ts',
-    'index.mjs',
-  ],
+  files: ['components', 'customHooks', 'index.cjs', 'index.mjs', 'index.d.ts', 'styles'],
   exports: {
     '.': {
       types: './index.d.ts',
       require: './index.cjs',
       import: './index.mjs',
-    },
-    './BackgroundRipple': {
-      types: './components/ripples/index.d.ts',
-      require: './BackgroundRipple/index.cjs',
-      import: './BackgroundRipple/index.mjs',
-    },
-    './LazyBackgroundRipple': {
-      types: './components/ripples/index.d.ts',
-      require: './LazyBackgroundRipple/index.cjs',
-      import: './LazyBackgroundRipple/index.mjs',
-    },
-    './useTimeId': {
-      types: './customHooks/useTimeId.d.ts',
-      require: './useTimeId/index.cjs',
-      import: './useTimeId/index.mjs',
-    },
-    './useAnimationFrame': {
-      types: './customHooks/useAnimationFrame.d.ts',
-      require: './useAnimationFrame/index.cjs',
-      import: './useAnimationFrame/index.mjs',
-    },
-    './useRipples': {
-      types: './customHooks/useRipples/index.d.ts',
-      require: './useRipples/index.cjs',
-      import: './useRipples/index.mjs',
-    },
-    './useLazyRipples': {
-      types: './customHooks/useRipples/index.d.ts',
-      require: './useLazyRipples/index.cjs',
-      import: './useLazyRipples/index.mjs',
-    },
-    './useInputIsComposing': {
-      types: './customHooks/useInputIsComposing.d.ts',
-      require: './useInputIsComposing/index.cjs',
-      import: './useInputIsComposing/index.mjs',
-    },
-    './layout': {
-      types: './components/layout/index.d.ts',
-      require: './Layout/index.cjs',
-      import: './Layout/index.mjs',
     },
     './scss': './styles/common.scss',
     './css': './styles/common.css',
@@ -102,7 +45,7 @@ packageJson = {
   },
 };
 {
-  const distPath = getDirectoryBy('dist', 'directory');
+  const distPath = getDirectoryBy('src', 'directory');
 
   const distPackagePath = pathJoin(distPath, './dist/package.json');
 

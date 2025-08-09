@@ -1,5 +1,6 @@
-import { useInputIsComposing } from 'customHooks';
-import React, { useEffect, useRef } from 'react';
+import { useInputIsComposing } from 'customHooks/useInputIsComposing';
+import * as React from 'react';
+import { useEffect, useRef } from 'react';
 
 /**
  * 使用输入框输入完成状态的测试页面

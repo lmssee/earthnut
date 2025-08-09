@@ -10,9 +10,8 @@ export default function () {
     ...defaultConfig,
     // 入口
     entry: {
-      ...defaultConfig.entry,
       index: {
-        import: ['./index.ts'],
+        import: './index.ts',
         filename: `index.mjs`,
       },
     },
@@ -21,6 +20,7 @@ export default function () {
       path: pathJoin('dist'),
       filename: `[name]/index.mjs`,
       // 库 模式
+      module: true,
       library: {
         type: 'module',
       },
@@ -31,17 +31,24 @@ export default function () {
       // libraryTarget: 'module',
     },
     // 打包配自
-    // optimization: {
-    //   ...defaultConfig.optimization,
-    //   minimize: true, // 生产模式默认为 true
-    //   usedExports: true, // 启用 tree shaking
-    //   sideEffects: true, /// 告诉 webpack 这个库没有副作用，以便有效的 tree shaking
-    // },
     //
     // externalsType: 'module',
     // 实验配置
     experiments: {
       outputModule: true,
     },
+    // optimization: {
+    //   ...defaultConfig.optimization,
+    //   splitChunks: {
+    //     chunks: 'all',
+    //     cacheGroups: {
+    //       shared: {
+    //         name: 'shared', // 公共包名
+    //         minChunks: 2, // 两次引用才提取
+    //         enforce: true, // 强制提取
+    //       },
+    //     },
+    //   },
+    // },
   };
 }

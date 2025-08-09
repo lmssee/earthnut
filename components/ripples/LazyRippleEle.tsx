@@ -7,15 +7,14 @@
  * @Description 涟漪
  ****************************************************************************/
 
-import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
-import React from 'react';
+import { forwardRef, useImperativeHandle, useRef } from 'react';
 import { BackgroundRipplesProps, RipplesOptions } from '../../customHooks/useRipples/types';
 import { useOptionUpdate } from './useOptionUpdate';
 import { RippleEle } from './types';
 import { isUndefined } from 'a-type-of-js';
 import { Content } from './Content';
-import { useLazyRipples } from 'customHooks/useRipples/use-lazy-ripple';
-import { Ripples } from 'customHooks';
+import { useLazyRipples } from '../../customHooks/useRipples/use-lazy-ripple';
+import * as React from 'react';
 
 /**
  *
@@ -52,24 +51,22 @@ const LazyBackgroundRipple = forwardRef<RippleEle, BackgroundRipplesProps>(
     /**  canvas 元素  */
     const canvas = useRef<HTMLCanvasElement>(null);
     /**  使用 ripples  */
-    const { hook: useRipples } = useLazyRipples();
+    const { ripples } = useLazyRipples(canvas, option);
     /**  初始状态  */
-    // const [ripplesRef , setRipplesRef] = useState();
-    const ripplesRef = useRef<Ripples | null>(null);
 
     ///  使用 配置更新
-    useOptionUpdate(ripplesRef, option);
+    useOptionUpdate(ripples, option);
 
     // 抛出事件 (自定义抛出事件)
     useImperativeHandle(ref, () => ({
       toggleState: () => {
-        ripplesRef?.current?.changePlayingState();
+        ripples.current?.changePlayingState();
       },
       get state() {
-        return ripplesRef?.current?.options.playingState ?? false;
+        return ripples.current?.options.playingState ?? false;
       },
       pause() {
-        ripplesRef?.current?.pause();
+        ripples.current?.pause();
       },
 
       set(options?: RipplesOptions): void {
@@ -77,16 +74,10 @@ const LazyBackgroundRipple = forwardRef<RippleEle, BackgroundRipplesProps>(
         const keys = Object.keys(options) as (keyof RipplesOptions)[];
         for (let i = 0, j = keys.length; i < j; i++) {
           const key = keys[i];
-          ripplesRef?.current?.set(key, options[key] as unknown);
+          ripples.current?.set(key, options[key] as unknown);
         }
       },
     }));
-
-    useEffect(() => {
-      if (useRipples) {
-        ripplesRef.current = useRipples(canvas, option).current;
-      }
-    }, [useRipples]);
 
     return (
       <Content

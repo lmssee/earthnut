@@ -1,5 +1,5 @@
 import { isNull } from 'a-type-of-js';
-import { Ripples } from 'components/ripples';
+import { Ripples } from '../../../../components/ripples';
 
 /**  根据给出的 html 数据构建一个 canvas   */
 export function createCanvasElement(this: Ripples, img: CanvasImageSource) {

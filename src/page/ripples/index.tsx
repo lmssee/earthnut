@@ -1,4 +1,4 @@
-import { BackgroundRipple } from 'components';
+import { BackgroundRipple } from 'components/ripples';
 import React, { useRef, useState } from 'react';
 import styles from './index.module.scss';
 import { xcn } from 'xcn';

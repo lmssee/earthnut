@@ -17,8 +17,16 @@ export default function MainTab() {
       url: '',
     },
     {
+      text: '延迟 ripple',
+      url: '/lazy-ripplePage',
+    },
+    {
       text: '检测输入框输入状态',
       url: '/useInputIsComposing',
+    },
+    {
+      text: '图片',
+      url: '/image',
     },
     {
       text: '跑马灯',
