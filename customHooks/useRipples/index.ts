@@ -19,16 +19,14 @@ import { isNull } from 'a-type-of-js';
  * @param canvas `usrRef` 包裹的 `HTMLCanvasElement`，用于绘制图像
  * @param option  初始化的
  * @version 0.0.3
- * @see  https://earthnut.dev/use-ripples
+ * @see  https://earthnut.dev/custom-hooks/use-ripples
  * @see  JQuery https://github.com/sirxemic/jquery.ripples
  * @example
  *
  * 下面是在 <BackgroundRipple> 中使用
  *
  * ```ts
- * import { useRipples } from 'earthnut/useRipples';
- * // 也可以使用包全量导入
- * // import { useRipples } from 'earthnut';
+ * import { useRipples } from 'earthnut';
  *
  *  export function BackgroundRipple(props: BackgroundRipplesProps) {
  *

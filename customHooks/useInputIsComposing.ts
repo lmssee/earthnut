@@ -18,30 +18,30 @@ import { useEffect, useRef } from 'react';
  * @param inputRef [React.RefObject<HTMLInputElement | HTMLTextAreaElement>] 输入框的 ref
  * @returns  React.RefObject<boolean>
  * @version 0.0.4
- * @see   https://earthnut.dev/use-input-is-composing
+ * @see   https://earthnut.dev/custom-hooks/use-input-is-composing
  * @example
  *
  * 使用：
  *
  * ```ts
- *  import { useInputIsComposing } from 'earthnut/useInputIsComposing';
- *  // 也可以全量导入
- *  // import { useInputIsComposing } from 'earthnut';
+ *  import { useInputIsComposing } from 'earthnut';
+ *
  *  ...
  *  const inputRef = useRef<HTMLInputElement>(null);
  *
  *  const inputIsComposing = useInputIsComposing(inputRef);
  *  ...
- *  function enterDown()(e: React.KeyboardEvent<HTMLInputElement>) {
+ *  function enterDown(e: React.KeyboardEvent<HTMLInputElement>) {
  *     if (e.key === 'Enter') {
  *        if (isComposing.current) {
  *            console.log("此时此景，按回车键说明为了从候选词中挑选");
- *        } else
+ *        } else {
  *           console.log("输入完毕，敲回车是为了看一些开发者是否绑定了其他事件");
+ *        }
  *     }
  *  }
  *  ...
- *  <input type="text" onKeyDown={enterDown} />
+ *  <input type="text" onKeyDown={enterDown} ref={inputRef} />
  *  ...
  * ```
  */

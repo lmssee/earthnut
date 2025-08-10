@@ -8,6 +8,10 @@
 npm install  --save earthnut
 ```
 
+## 文档
+
+参阅 [earthnut](https://earthnut.dev/quickUse/)
+
 ## 涟漪背景
 
 由于当前组件的开发进度较缓慢，目前：
@@ -23,6 +27,39 @@ npm install  --save earthnut
 
 切换背景最好不好通过设置
 
-## 文档
+## 自定义钩子
 
-参阅 [earthnut](https://earthnut.dev/quickUse/)
+几个简单的自定义钩子，写着玩
+
+### useTimeId
+
+就是 `useRef` 和 `useEffect` 的简单使用。
+
+```ts
+import { useTimeId } from 'earthnut';
+
+export function Home () {
+
+  const timeId = useTimeId();
+
+  return <>
+      <button
+      onclick = { () => {
+          timeId.current = setTimeout(() =>
+            console.log('没有感情的按钮 A 打印了一条没有感情的消息'), 2500);
+          }
+      }>
+          没有感情的按钮 A
+      </button>
+      <button onclick={()=> clearTimeout(timeId.current)}>没有感情的按钮 B</button>
+  </>
+}
+```
+
+### useAnimationFrame
+
+使用下一帧动画。
+
+```ts
+import { useAnimationFrame } from 'earthnut';
+```

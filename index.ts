@@ -17,7 +17,12 @@ export {
 
 export { useTimeId } from './customHooks/useTimeId';
 
-export { useAnimationFrameId } from './customHooks/useAnimationFrame';
+export { useAnimationFrame } from './customHooks/useAnimationFrame';
+
+export type {
+  UseAnimationFrameResult,
+  AnimationFrameOption,
+} from './customHooks/useAnimationFrame';
 
 export { useInputIsComposing } from './customHooks/useInputIsComposing';
 

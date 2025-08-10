@@ -33,7 +33,7 @@ import * as React from 'react';
  * 使用：
  *
  * ```ts
- *  import { BackgroundRipple } from 'earthnut/BackgroundRipple';
+ *  import { BackgroundRipple } from 'earthnut';
  *  // 也可以全量导入
  *  // import { BackgroundRipple } from 'earthnut';
  *  ...

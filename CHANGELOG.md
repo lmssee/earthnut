@@ -1,5 +1,7 @@
 # 版本日志
 
+## v0.2.0-rc.0 (2025-8-10)
+
 ## v0.1.7 (2025-8-9)
 
 - 添加了 `LazyBackgroundRipple` 来代替 `BackgroundRipple` 在部分网络不佳的网站部署使用

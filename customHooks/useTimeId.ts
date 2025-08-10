@@ -21,8 +21,6 @@ import { useEffect, useRef } from 'react';
  * 使用：
  *
  * ```ts
- *  import { useTimeId } from 'earthnut/useTimeId';
- *  // 也可以全量导入
  *  // import { useTimeId } from 'earthnut';
  *  ...
  *  const timeoutId = useTimeId();

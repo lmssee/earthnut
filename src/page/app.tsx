@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Outlet } from 'react-router';
 import MainTab from 'page/tab';
 import 'css/common.scss';
@@ -12,13 +12,29 @@ import {
   LayoutSideBar,
 } from 'components/layout/layout';
 import { xcn } from 'xcn';
+import { useAnimationFrame } from 'customHooks/useAnimationFrame';
 
 /**
  * 程序根
  */
 export function App() {
+  const cancelAnimation = useAnimationFrame((a, b) => console.log(a, b, a - b), {
+    // immediately: true,
+    // once: true,
+  });
+
+  useEffect(() => {
+    // 不执行测试
+    cancelAnimation.cancel();
+  }, []);
+
   return (
-    <Layout classes={xcn(styles.page)}>
+    <Layout
+      classes={xcn(styles.page)}
+      onClick={() =>
+        cancelAnimation.canceled ? cancelAnimation.render() : cancelAnimation.cancel()
+      }
+    >
       <LayoutHeader className={xcn('dark', 'red')}>头部区域</LayoutHeader>
       <LayoutSideBar className={xcn(styles.tab)} width={'150px'} right={true}>
         <MainTab />
